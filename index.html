@@ -1,562 +1,1717 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 <title>User Management</title>
+
 <style>
-    * { box-sizing: border-box; }
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        background: #f5f5f5;
-    }
-    .container { max-width: 1100px; margin: auto; }
-    h1, h2 { margin-top: 0; }
-    .card {
-        background: white;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,.08);
-    }
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+h1,
+h2 {
+    margin-top: 0;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+
+/* =========================
+   FORM
+   ========================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input,
+textarea,
+button {
+    font: inherit;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.buttons {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    border: 0;
+    padding: 9px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.submit-btn {
+    background: #222;
+    color: white;
+}
+
+.clear-btn {
+    background: #ddd;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: .45;
+}
+
+
+/* =========================
+   DASHBOARD TABLE
+   ========================= */
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 850px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 9px;
+    text-align: left;
+}
+
+th {
+    background: #eee;
+}
+
+.action-column {
+    white-space: nowrap;
+    text-decoration: none !important;
+}
+
+.inactive-row td {
+    text-decoration: line-through;
+}
+
+.inactive-row .action-column {
+    text-decoration: none !important;
+}
+
+.status-active {
+    font-weight: bold;
+}
+
+.status-inactive {
+    font-weight: bold;
+}
+
+
+/* =========================
+   MESSAGE
+   ========================= */
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 6px;
+    display: none;
+}
+
+.error {
+    background: #ffe1e1;
+}
+
+.success {
+    background: #e1ffe7;
+}
+
+
+/* =========================
+   PAGINATION
+   ========================= */
+
+.pagination {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* ==================================================
+   HISTORY POPUP
+   ================================================== */
+
+.history-popup {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    z-index: 1000;
+}
+
+
+/* White popup box */
+
+.history-popup-box {
+
+    position: relative;
+
+    background: white;
+
+    width: 100%;
+
+    max-width: 1200px;
+
+    max-height: 90vh;
+
+    padding: 25px;
+
+    border-radius: 10px;
+
+    overflow: auto;
+}
+
+
+/* X button */
+
+.close-history {
+
+    position: absolute;
+
+    top: 10px;
+    right: 10px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    padding: 5px 10px;
+}
+
+
+/* History table */
+
+.history-table {
+
+    width: 100%;
+
+    min-width: 1200px;
+
+    border-collapse: collapse;
+
+    margin-top: 20px;
+}
+
+.history-table th,
+.history-table td {
+
+    border: 1px solid #ddd;
+
+    padding: 8px;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+.history-table th {
+    background: #eee;
+}
+
+
+/* Log type */
+
+.log-create {
+    font-weight: bold;
+}
+
+.log-update {
+    font-weight: bold;
+}
+
+.log-delete {
+    font-weight: bold;
+}
+
+
+/* Responsive */
+
+@media (max-width: 700px) {
+
     .form-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
+        grid-template-columns: 1fr;
     }
-    .full { grid-column: 1 / -1; }
-    label { display: block; margin-bottom: 5px; font-weight: bold; }
-    input, textarea, button {
-        font: inherit;
+
+    .full {
+        grid-column: auto;
     }
-    input, textarea {
-        width: 100%;
+
+    body {
         padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
     }
-    textarea { min-height: 80px; resize: vertical; }
-    .buttons { margin-top: 15px; display: flex; gap: 10px; }
-    button {
-        border: 0;
-        padding: 9px 14px;
-        border-radius: 6px;
-        cursor: pointer;
+
+    .history-popup-box {
+        padding: 15px;
     }
-    .submit-btn { background: #222; color: white; }
-    .clear-btn { background: #ddd; }
-    button:disabled {
-        cursor: not-allowed;
-        opacity: .45;
-    }
-    .table-wrap { overflow-x: auto; }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        min-width: 850px;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 9px;
-        text-align: left;
-    }
-    th { background: #eee; }
-    .action-column {
-        white-space: nowrap;
-        text-decoration: none !important;
-    }
-    .inactive-row td {
-        text-decoration: line-through;
-    }
-    .inactive-row .action-column {
-        text-decoration: none !important;
-    }
-    .status-active { font-weight: bold; }
-    .status-inactive { font-weight: bold; }
-    .message {
-        margin: 10px 0;
-        padding: 10px;
-        border-radius: 6px;
-        display: none;
-    }
-    .error { background: #ffe1e1; }
-    .success { background: #e1ffe7; }
-    .pagination {
-        margin-top: 15px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .history-box {
-        margin-top: 10px;
-        display: none;
-    }
-    .history-table {
-        min-width: 500px;
-    }
-    @media (max-width: 700px) {
-        .form-grid { grid-template-columns: 1fr; }
-        .full { grid-column: auto; }
-        body { padding: 10px; }
-    }
+
+}
+
 </style>
+
 </head>
 
+
 <body>
+
+
 <div class="container">
 
-    <div class="card">
-        <h1 id="formTitle">Add User</h1>
 
-        <div id="message" class="message"></div>
+    <!-- =========================
+         USER FORM
+         ========================= -->
+
+    <div class="card">
+
+        <h1 id="formTitle">
+            Add User
+        </h1>
+
+
+        <div id="message"
+             class="message">
+        </div>
+
 
         <form id="userForm">
+
             <div class="form-grid">
-                <div>
-                    <label for="name">Name</label>
-                    <input id="name" type="text" required>
-                </div>
+
 
                 <div>
-                    <label for="dob">DOB</label>
-                    <input id="dob" type="date" required>
+
+                    <label for="name">
+                        Name
+                    </label>
+
+                    <input
+                        id="name"
+                        type="text"
+                        required
+                    >
+
                 </div>
 
-                <div>
-                    <label for="fathername">Father Name</label>
-                    <input id="fathername" type="text" required>
-                </div>
 
                 <div>
-                    <label for="qualification">Qualification</label>
-                    <input id="qualification" type="text" required>
+
+                    <label for="dob">
+                        DOB
+                    </label>
+
+                    <input
+                        id="dob"
+                        type="date"
+                        required
+                    >
+
                 </div>
 
-                <div>
-                    <label for="city">City</label>
-                    <input id="city" type="text" required>
-                </div>
 
                 <div>
-                    <label for="mobileno">Mobile No</label>
-                    <input id="mobileno" type="text" required>
+
+                    <label for="fathername">
+                        Father Name
+                    </label>
+
+                    <input
+                        id="fathername"
+                        type="text"
+                        required
+                    >
+
                 </div>
+
+
+                <div>
+
+                    <label for="qualification">
+                        Qualification
+                    </label>
+
+                    <input
+                        id="qualification"
+                        type="text"
+                        required
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="city">
+                        City
+                    </label>
+
+                    <input
+                        id="city"
+                        type="text"
+                        required
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="mobileno">
+                        Mobile No
+                    </label>
+
+                    <input
+                        id="mobileno"
+                        type="text"
+                        required
+                    >
+
+                </div>
+
 
                 <div class="full">
-                    <label for="address">Address</label>
-                    <textarea id="address" required></textarea>
+
+                    <label for="address">
+                        Address
+                    </label>
+
+                    <textarea
+                        id="address"
+                        required
+                    ></textarea>
+
                 </div>
+
+
             </div>
+
 
             <div class="buttons">
-                <button class="submit-btn" type="submit" id="submitBtn">Submit</button>
-                <button class="clear-btn" type="button" onclick="clearForm()">Clear</button>
+
+                <button
+                    class="submit-btn"
+                    type="submit"
+                    id="submitBtn"
+                >
+                    Submit
+                </button>
+
+
+                <button
+                    class="clear-btn"
+                    type="button"
+                    onclick="clearForm()"
+                >
+                    Clear
+                </button>
+
             </div>
+
+
         </form>
+
     </div>
+
+
+
+    <!-- =========================
+         DASHBOARD
+         ========================= -->
 
     <div class="card">
-        <h2>Dashboard</h2>
+
+        <h2>
+            Dashboard
+        </h2>
+
 
         <div class="table-wrap">
+
             <table>
+
                 <thead>
+
                     <tr>
+
                         <th>ID</th>
+
                         <th>Name</th>
+
                         <th>DOB</th>
+
                         <th>Father Name</th>
+
                         <th>Qualification</th>
+
                         <th>City</th>
+
                         <th>Mobile</th>
+
                         <th>Address</th>
+
                         <th>Status</th>
+
                         <th>Actions</th>
+
                     </tr>
+
                 </thead>
-                <tbody id="usersBody"></tbody>
+
+
+                <tbody id="usersBody">
+
+                </tbody>
+
             </table>
+
         </div>
 
+
+
+        <!-- =========================
+             PAGINATION
+             ========================= -->
+
         <div class="pagination">
-            <button type="button" onclick="previousPage()" id="prevBtn">Previous</button>
-            <span id="pageInfo">Page 1</span>
-            <button type="button" onclick="nextPage()" id="nextBtn">Next</button>
+
+            <button
+                type="button"
+                onclick="previousPage()"
+                id="prevBtn"
+            >
+                Previous
+            </button>
+
+
+            <span id="pageInfo">
+                Page 1
+            </span>
+
+
+            <button
+                type="button"
+                onclick="nextPage()"
+                id="nextBtn"
+            >
+                Next
+            </button>
+
         </div>
+
+
     </div>
+
 
 </div>
 
+
+
+<!-- ==================================================
+     HISTORY POPUP
+     ================================================== -->
+
+<div
+    id="historyPopup"
+    class="history-popup"
+>
+
+
+    <div class="history-popup-box">
+
+
+        <!-- X -->
+
+        <button
+            id="closeHistory"
+            class="close-history"
+            type="button"
+        >
+            X
+        </button>
+
+
+        <h2 align="center">
+            User History 
+        </h2>
+
+        <p id="pd" align="center">user_ID = ???</p>
+        <div class="table-wrap">
+
+            
+            <table class="history-table">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>S.No</th>
+
+                        <th>Log Type</th>
+
+                        <th>Time</th>
+
+                        <th>Name</th>
+
+                        <th>DOB</th>
+
+                        <th>Father Name</th>
+
+                        <th>Qualification</th>
+
+                        <th>City</th>
+
+                        <th>Mobile</th>
+
+                        <th>Address</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="historyBody">
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
 <script>
-const API_URL = "http://localhost/apiss/project 1/user.php";
+
+
+/* ==================================================
+   API
+   ================================================== */
+
+const API_URL =
+    "http://localhost/apiss/project1/user.php";
+
 
 let currentPage = 1;
+
 const limit = 5;
+
 let totalPages = 1;
+
 let editingId = null;
 
+
+
+/* ==================================================
+   MESSAGE
+   ================================================== */
+
 function showMessage(text, type) {
-    const box = document.getElementById("message");
+
+    const box =
+        document.getElementById("message");
+
     box.textContent = text;
-    box.className = "message " + type;
-    box.style.display = "block";
+
+    box.className =
+        "message " + type;
+
+    box.style.display =
+        "block";
 }
+
 
 function clearMessage() {
-    const box = document.getElementById("message");
-    box.style.display = "none";
-    box.textContent = "";
+
+    const box =
+        document.getElementById("message");
+
+    box.style.display =
+        "none";
+
+    box.textContent =
+        "";
 }
+
+
+
+/* ==================================================
+   FORM DATA
+   ================================================== */
 
 function getFormData() {
+
     return {
-        name: document.getElementById("name").value.trim(),
-        dob: document.getElementById("dob").value,
-        fathername: document.getElementById("fathername").value.trim(),
-        qualification: document.getElementById("qualification").value.trim(),
-        city: document.getElementById("city").value.trim(),
-        mobileno: document.getElementById("mobileno").value.trim(),
-        address: document.getElementById("address").value.trim()
+
+        name:
+            document.getElementById("name").value.trim(),
+
+        dob:
+            document.getElementById("dob").value,
+
+        fathername:
+            document.getElementById("fathername").value.trim(),
+
+        qualification:
+            document.getElementById("qualification").value.trim(),
+
+        city:
+            document.getElementById("city").value.trim(),
+
+        mobileno:
+            document.getElementById("mobileno").value.trim(),
+
+        address:
+            document.getElementById("address").value.trim()
+
     };
+
 }
 
-function compare(oldData, newData) {
-    const changedData = {};
 
-    for (const field in newData) {
-        if (String(newData[field]) !== String(oldData[field])) {
-            changedData[field] = newData[field];
-        }
-    }
 
-    return changedData;
-}
+/* ==================================================
+   ESCAPE HTML
+   ================================================== */
 
 function escapeHtml(value) {
+
     return String(value ?? "")
+
         .replace(/&/g, "&amp;")
+
         .replace(/</g, "&lt;")
+
         .replace(/>/g, "&gt;")
+
         .replace(/"/g, "&quot;")
+
         .replace(/'/g, "&#039;");
 }
 
+
+
+/* ==================================================
+   READ JSON
+   ================================================== */
+
 async function readJson(response) {
-    const text = await response.text();
+
+    const text =
+        await response.text();
+
 
     let data;
+
+
     try {
-        data = text ? JSON.parse(text) : {};
-    } catch (error) {
-        throw new Error("Server returned invalid JSON. HTTP " + response.status);
+
+        data =
+            text
+                ? JSON.parse(text)
+                : {};
+
     }
 
-    if (!response.ok) {
-        throw new Error(data.error || ("Request failed. HTTP " + response.status));
+    catch (error) {
+
+        throw new Error(
+            "Server returned invalid JSON. HTTP "
+            + response.status
+        );
+
     }
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            data.error ||
+            ("Request failed. HTTP "
+            + response.status)
+        );
+
+    }
+
 
     return data;
 }
 
+
+
+/* ==================================================
+   GET USERS
+   ================================================== */
+
 async function getUsers() {
+
     clearMessage();
 
+
     try {
-        const response = await fetch(
-            API_URL + "?page=" + currentPage + "&limit=" + limit
+
+        const response =
+            await fetch(
+                API_URL
+                + "?page="
+                + currentPage
+                + "&limit="
+                + limit
+            );
+
+
+        const data =
+            await readJson(response);
+
+
+        displayUsers(
+            data.users || []
         );
 
-        const data = await readJson(response);
 
-        displayUsers(data.users || []);
+        totalPages =
+            Math.max(
+                1,
+                Number(data.totalPages) || 1
+            );
 
-        totalPages = Math.max(1, Number(data.totalPages) || 1);
 
-        document.getElementById("pageInfo").textContent =
-            "Page " + currentPage + " of " + totalPages;
+        document.getElementById(
+            "pageInfo"
+        ).textContent =
+            "Page "
+            + currentPage
+            + " of "
+            + totalPages;
 
-        document.getElementById("prevBtn").disabled = currentPage <= 1;
-        document.getElementById("nextBtn").disabled = currentPage >= totalPages;
 
-    } catch (error) {
-        showMessage(error.message, "error");
+        document.getElementById(
+            "prevBtn"
+        ).disabled =
+            currentPage <= 1;
+
+
+        document.getElementById(
+            "nextBtn"
+        ).disabled =
+            currentPage >= totalPages;
+
     }
+
+
+    catch (error) {
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+    }
+
 }
 
+
+
+/* ==================================================
+   DISPLAY USERS
+   ================================================== */
+
 function displayUsers(users) {
-    const body = document.getElementById("usersBody");
-    body.innerHTML = "";
+
+    const body =
+        document.getElementById(
+            "usersBody"
+        );
+
+
+    body.innerHTML =
+        "";
+
 
     if (users.length === 0) {
+
         body.innerHTML =
-            '<tr><td colspan="10">No users found.</td></tr>';
+            `
+            <tr>
+                <td colspan="10">
+                    No users found.
+                </td>
+            </tr>
+            `;
+
         return;
+
     }
 
+
+
     users.forEach(function(user) {
-        const row = document.createElement("tr");
-        const inactive = user.status === "inactive";
+
+
+        const row =
+            document.createElement("tr");
+
+
+        const inactive =
+            user.status === "inactive";
+
 
         if (inactive) {
-            row.classList.add("inactive-row");
+
+            row.classList.add(
+                "inactive-row"
+            );
+
         }
 
+
+
         row.innerHTML = `
-            <td>${escapeHtml(user.id)}</td>
-            <td>${escapeHtml(user.name)}</td>
-            <td>${escapeHtml(user.dob)}</td>
-            <td>${escapeHtml(user.fathername)}</td>
-            <td>${escapeHtml(user.qualification)}</td>
-            <td>${escapeHtml(user.city)}</td>
-            <td>${escapeHtml(user.mobileno)}</td>
-            <td>${escapeHtml(user.address)}</td>
-            <td class="${inactive ? "status-inactive" : "status-active"}">
+
+            <td>
+                ${escapeHtml(user.id)}
+            </td>
+
+
+            <td>
+                ${escapeHtml(user.name)}
+            </td>
+
+
+            <td>
+                ${escapeHtml(user.dob)}
+            </td>
+
+
+            <td>
+                ${escapeHtml(user.fathername)}
+            </td>
+
+
+            <td>
+                ${escapeHtml(user.qualification)}
+            </td>
+
+
+            <td>
+                ${escapeHtml(user.city)}
+            </td>
+
+
+            <td>
+                ${escapeHtml(user.mobileno)}
+            </td>
+
+
+            <td>
+                ${escapeHtml(user.address)}
+            </td>
+
+
+            <td class="${
+                inactive
+                ? "status-inactive"
+                : "status-active"
+            }">
+
                 ${escapeHtml(user.status)}
+
             </td>
+
+
             <td class="action-column">
-                <button type="button"
-                    ${inactive ? "disabled" : ""}
-                    onclick="updateUser(${Number(user.id)})">U</button>
 
-                <button type="button"
-                    ${inactive ? "disabled" : ""}
-                    onclick="timelog(${Number(user.id)})">V</button>
 
-                <button type="button"
-                    onclick="toggleStatus(${Number(user.id)})">
-                    D
+                <!-- UPDATE -->
+
+                <button
+                    type="button"
+                    ${
+                        inactive
+                        ? "disabled"
+                        : ""
+                    }
+                    onclick="updateUser(
+                        ${Number(user.id)}
+                    )"
+                    title="Update"
+                >
+
+                    <i class="fa-solid fa-pen"></i>
+
                 </button>
+
+
+
+                <!-- VIEW -->
+
+                <button
+                    type="button"
+                    ${
+                        inactive
+                        ? "disabled"
+                        : ""
+                    }
+                    onclick="timelog(
+                        ${Number(user.id)}
+                    )"
+                    title="View History"
+                >
+
+                    <i class="fa-solid fa-eye"></i>
+
+                </button>
+
+
+
+                <!-- STATUS TOGGLE -->
+
+                <button
+                    type="button"
+                    onclick="toggleStatus(
+                        ${Number(user.id)}
+                    )"
+                    title="Activate / Inactivate"
+                >
+
+                    <i class="fa-solid fa-trash"></i>
+
+                </button>
+
+
             </td>
+
         `;
+
 
         body.appendChild(row);
 
-        const historyRow = document.createElement("tr");
-        historyRow.id = "history-row-" + user.id;
-        historyRow.style.display = "none";
-
-        historyRow.innerHTML = `
-            <td colspan="10">
-                <div class="history-box" id="history-box-${user.id}">
-                    <h3>History</h3>
-                    <div class="table-wrap">
-                        <table class="history-table">
-                            <thead>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Action</th>
-                                    <th>Details</th>
-                                </tr>
-                            </thead>
-                            <tbody id="timelog-${user.id}"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </td>
-        `;
-
-        body.appendChild(historyRow);
     });
+
 }
+
+
+
+/* ==================================================
+   VIEW HISTORY
+   ================================================== */
 
 async function timelog(id) {
-    const historyRow = document.getElementById("history-row-" + id);
-    const historyBox = document.getElementById("history-box-" + id);
 
-    if (historyRow.style.display !== "none") {
-        historyRow.style.display = "none";
-        historyBox.style.display = "none";
-        return;
-    }
-
-    try {
-        const response = await fetch(
-            API_URL + "?id=" + encodeURIComponent(id) + "&his=true"
+    const popup =
+        document.getElementById(
+            "historyPopup"
         );
 
-        const data = await readJson(response);
-        const logs = data.history || [];
-        const box = document.getElementById("timelog-" + id);
 
-        box.innerHTML = "";
+    const historyBody =
+        document.getElementById(
+            "historyBody"
+        );
+
+
+    historyBody.innerHTML =
+        `
+        <tr>
+            <td colspan="11">
+                Loading history...
+            </td>
+        </tr>
+        `;
+
+
+    popup.style.display =
+        "flex";
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                API_URL
+                + "?id="
+                + encodeURIComponent(id)
+                + "&his=true"
+
+            );
+
+
+        const data =
+            await readJson(response);
+
+
+        const logs =
+            data.history || [];
+
+
+        historyBody.innerHTML =
+            "";
+
 
         if (logs.length === 0) {
-            box.innerHTML =
-                '<tr><td colspan="3">No history found.</td></tr>';
-        } else {
-            logs.forEach(function(log, index) {
-                const row = document.createElement("tr");
+            const pd = document.getElementById("pd");
+            pd.innerHTML=`user_ID: ${id}`;
 
-                let details = "";
-
-                if (log.action === "U") {
-                    details =
-                        escapeHtml(log.fieldd) +
-                        ": " +
-                        escapeHtml(log.fromm) +
-                        " → " +
-                        escapeHtml(log.too);
-                } else if (log.action === "D") {
-                    details =
-                        "Status: " +
-                        escapeHtml(log.fromm) +
-                        " → " +
-                        escapeHtml(log.too);
-                } else {
-                    details = "Unknown action";
-                }
-
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${escapeHtml(log.action)}</td>
-                    <td>${details}</td>
+            historyBody.innerHTML =
+                `
+                <tr>
+                    <td colspan="11">
+                        No history found.
+                    </td>
+                </tr>
                 `;
 
-                box.appendChild(row);
-            });
+            return;
+
         }
 
-        historyRow.style.display = "table-row";
-        historyBox.style.display = "block";
 
-    } catch (error) {
-        showMessage(error.message, "error");
-    }
-}
+        else{
+            const pd = document.getElementById("pd");
+            pd.innerHTML=`user_ID: ${id}`;
+        logs.forEach(
+            function(log, index) {
 
-async function updateUser(id) {
-    try {
-        const response = await fetch(
-            API_URL + "?id=" + encodeURIComponent(id)
-        );
 
-        const user = await readJson(response);
+                const row =
+                    document.createElement("tr");
 
-        document.getElementById("name").value = user.name || "";
-        document.getElementById("dob").value = user.dob || "";
-        document.getElementById("fathername").value = user.fathername || "";
-        document.getElementById("qualification").value = user.qualification || "";
-        document.getElementById("city").value = user.city || "";
-        document.getElementById("mobileno").value = user.mobileno || "";
-        document.getElementById("address").value = user.address || "";
 
-        editingId = Number(id);
+                let logClass =
+                    "";
 
-        document.getElementById("formTitle").textContent =
-            "Update User #" + id;
 
-        document.getElementById("submitBtn").textContent = "Update";
+                if (
+                    log.action === "CREATE"
+                ) {
 
-        window.scrollTo({ top: 0, behavior: "smooth" });
+                    logClass =
+                        "log-create";
 
-    } catch (error) {
-        showMessage(error.message, "error");
-    }
-}
+                }
 
-async function toggleStatus(id) {
-    const confirmed = confirm(
-        "Change this user's active/inactive status?"
-    );
 
-    if (!confirmed) {
-        return;
-    }
+                else if (
+                    log.action === "UPDATE"
+                ) {
 
-    try {
-        const response = await fetch(
-            API_URL + "?id=" + encodeURIComponent(id),
-            {
-                method: "DELETE"
+                    logClass =
+                        "log-update";
+
+                }
+
+
+                else if (
+                    log.action === "DELETE"
+                ) {
+
+                    logClass =
+                        "log-delete";
+
+                }
+
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+
+                    <td class="${logClass}">
+                        ${escapeHtml(
+                            log.action
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            log.times
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            log.name
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            log.dob
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            log.fathername
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            log.qualification
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            log.city
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            log.mobileno
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            log.address
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            log.status
+                        )}
+                    </td>
+
+                `;
+
+
+                historyBody.appendChild(
+                    row
+                );
+
             }
         );
-
-        const data = await readJson(response);
-
-        showMessage(
-            "Status changed to " + data.status + ".",
-            "success"
-        );
-
-        getUsers();
-
-    } catch (error) {
-        showMessage(error.message, "error");
-    }
-}
-
-document.getElementById("userForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
-    clearMessage();
-
-    const data = getFormData();
-
-    try {
-        let response;
-
-        if (editingId === null) {
-            response = await fetch(API_URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
-        } else {
-            response = await fetch(
-                API_URL + "?id=" + encodeURIComponent(editingId),
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                }
-            );
         }
 
-        const result = await readJson(response);
+    }
+
+
+    catch (error) {
+
+        historyBody.innerHTML =
+            `
+            <tr>
+                <td colspan="11">
+                    ${escapeHtml(
+                        error.message
+                    )}
+                </td>
+            </tr>
+            `;
+
+    }
+
+}
+
+
+
+/* ==================================================
+   CLOSE HISTORY POPUP - X
+   ================================================== */
+
+document.getElementById(
+    "closeHistory"
+).addEventListener(
+    "click",
+    function() {
+
+        document.getElementById(
+            "historyPopup"
+        ).style.display =
+            "none";
+
+    }
+);
+
+
+
+/* ==================================================
+   CLOSE HISTORY POPUP - OUTSIDE
+   ================================================== */
+
+document.getElementById(
+    "historyPopup"
+).addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target ===
+            document.getElementById(
+                "historyPopup"
+            )
+        ) {
+
+            document.getElementById(
+                "historyPopup"
+            ).style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+
+/* ==================================================
+   UPDATE USER
+   ================================================== */
+
+async function updateUser(id) {
+
+    try {
+
+        const response =
+            await fetch(
+
+                API_URL
+                + "?id="
+                + encodeURIComponent(id)
+
+            );
+
+
+        const user =
+            await readJson(response);
+
+
+        document.getElementById(
+            "name"
+        ).value =
+            user.name || "";
+
+
+        document.getElementById(
+            "dob"
+        ).value =
+            user.dob || "";
+
+
+        document.getElementById(
+            "fathername"
+        ).value =
+            user.fathername || "";
+
+
+        document.getElementById(
+            "qualification"
+        ).value =
+            user.qualification || "";
+
+
+        document.getElementById(
+            "city"
+        ).value =
+            user.city || "";
+
+
+        document.getElementById(
+            "mobileno"
+        ).value =
+            user.mobileno || "";
+
+
+        document.getElementById(
+            "address"
+        ).value =
+            user.address || "";
+
+
+        editingId =
+            Number(id);
+
+
+        document.getElementById(
+            "formTitle"
+        ).textContent =
+            "Update User #" + id;
+
+
+        document.getElementById(
+            "submitBtn"
+        ).textContent =
+            "Update";
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    catch (error) {
 
         showMessage(
-            editingId === null
-                ? "User created successfully."
-                : "User updated successfully.",
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+
+/* ==================================================
+   TOGGLE STATUS
+   ================================================== */
+
+async function toggleStatus(id) {
+
+    const confirmed =
+        confirm(
+            "Change this user's active/inactive status?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                API_URL
+                + "?id="
+                + encodeURIComponent(id),
+
+                {
+                    method: "DELETE"
+                }
+
+            );
+
+
+        const data =
+            await readJson(response);
+
+
+        showMessage(
+            "Status changed to "
+            + data.status
+            + ".",
             "success"
         );
 
-        clearForm();
+
         getUsers();
 
-    } catch (error) {
-        showMessage(error.message, "error");
     }
-});
+
+
+    catch (error) {
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+
+/* ==================================================
+   FORM SUBMIT
+   ================================================== */
+
+document.getElementById(
+    "userForm"
+).addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        clearMessage();
+
+
+        const data =
+            getFormData();
+
+
+        try {
+
+            let response;
+
+
+            if (
+                editingId === null
+            ) {
+
+                response =
+                    await fetch(
+                        API_URL,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(data)
+                        }
+                    );
+
+            }
+
+
+            else {
+
+                response =
+                    await fetch(
+
+                        API_URL
+                        + "?id="
+                        + encodeURIComponent(
+                            editingId
+                        ),
+
+                        {
+                            method: "PUT",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(data)
+                        }
+
+                    );
+
+            }
+
+
+            const result =
+                await readJson(
+                    response
+                );
+
+
+            showMessage(
+
+                editingId === null
+                ? "User created successfully."
+                : "User updated successfully.",
+
+                "success"
+
+            );
+
+
+            clearForm();
+
+            getUsers();
+
+        }
+
+
+        catch (error) {
+
+            showMessage(
+                error.message,
+                "error"
+            );
+
+        }
+
+    }
+);
+
+
+
+/* ==================================================
+   CLEAR FORM
+   ================================================== */
 
 function clearForm() {
-    document.getElementById("userForm").reset();
-    editingId = null;
 
-    document.getElementById("formTitle").textContent = "Add User";
-    document.getElementById("submitBtn").textContent = "Submit";
+    document.getElementById(
+        "userForm"
+    ).reset();
+
+
+    editingId =
+        null;
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Add User";
+
+
+    document.getElementById(
+        "submitBtn"
+    ).textContent =
+        "Submit";
+
 }
+
+
+
+/* ==================================================
+   PAGINATION
+   ================================================== */
 
 function previousPage() {
-    if (currentPage > 1) {
+
+    if (
+        currentPage > 1
+    ) {
+
         currentPage--;
+
         getUsers();
+
     }
+
 }
+
+
 
 function nextPage() {
-    if (currentPage < totalPages) {
+
+    if (
+        currentPage < totalPages
+    ) {
+
         currentPage++;
+
         getUsers();
+
     }
+
 }
 
+
+
+/* ==================================================
+   INITIAL LOAD
+   ================================================== */
+
 getUsers();
+
 </script>
+
+
 </body>
 </html>
+
