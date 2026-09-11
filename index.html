@@ -11,35 +11,338 @@
 <title>User Management</title>
 
 <style>
-
+/*9CB080 618764  2B5748  273338*/
 * {
     box-sizing: border-box;
-}
+}   
 
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    background: #f5f5f5;
+    background:  black; 
+    /*repeating-radial-gradient(white,#B9FFB7, #ABC798,#447604);
+    background-image: url("images.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;*/
+    color: #f7f0f8;
 }
+.forview {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.breathing-text {
+    position: relative;
+    display: inline-block;
+    color: yellowgreen;
+
+    font-size: clamp(40px, 8vw, 100px);
+
+    animation: truckRide 5s ease-in-out infinite;
+
+    text-shadow:
+        0 0 4px rgba(246, 232, 95, 0.3);
+}
+
+
+@keyframes truckRide {
+
+    /* ---------------- START ---------------- */
+
+    0% {
+        transform: translateY(0) rotate(0deg);
+
+        text-shadow:
+            0 0 4px rgba(246, 232, 95, 0.3);
+    }
+
+
+    /* accelerating */
+
+    10% {
+        transform: translateY(-1px) rotate(-0.15deg);
+
+        text-shadow:
+            3px 0 4px rgba(246, 232, 95, 0.18),
+            6px 0 10px rgba(246, 232, 95, 0.12);
+    }
+
+
+    20% {
+        transform: translateY(1px) rotate(0.2deg);
+
+        text-shadow:
+            6px 0 5px rgba(246, 232, 95, 0.25),
+            12px 0 16px rgba(246, 232, 95, 0.15);
+    }
+
+
+    /* ---------------- FAST ---------------- */
+
+    30% {
+        transform: translateY(-1px) rotate(-0.2deg);
+
+        text-shadow:
+            10px 0 6px rgba(246, 232, 95, 0.3),
+            20px 0 18px rgba(246, 232, 95, 0.2),
+            35px 0 30px rgba(246, 232, 95, 0.1);
+    }
+
+
+    /* ---------------- ROAD BUMP ---------------- */
+
+    35% {
+        transform: translateY(-4px) rotate(-0.7deg);
+
+        text-shadow:
+            12px 0 7px rgba(246, 232, 95, 0.35),
+            24px 0 20px rgba(246, 232, 95, 0.2);
+    }
+
+
+    37% {
+        transform: translateY(3px) rotate(0.6deg);
+
+        text-shadow:
+            8px 0 6px rgba(246, 232, 95, 0.3),
+            18px 0 18px rgba(246, 232, 95, 0.15);
+    }
+
+
+    /* ---------------- SMOOTH HIGH SPEED ---------------- */
+
+    50% {
+        transform: translateY(0) rotate(0deg);
+
+        text-shadow:
+            14px 0 8px rgba(246, 232, 95, 0.35),
+            28px 0 22px rgba(246, 232, 95, 0.2),
+            45px 0 35px rgba(246, 232, 95, 0.1);
+    }
+
+
+    /* ---------------- SECOND BUMP ---------------- */
+
+    60% {
+        transform: translateY(-3px) rotate(-0.5deg);
+
+        text-shadow:
+            18px 0 9px rgba(246, 232, 95, 0.4),
+            35px 0 25px rgba(246, 232, 95, 0.2);
+    }
+
+
+    62% {
+        transform: translateY(3px) rotate(0.5deg);
+
+        text-shadow:
+            12px 0 7px rgba(246, 232, 95, 0.3),
+            25px 0 20px rgba(246, 232, 95, 0.15);
+    }
+
+
+    /* ---------------- CRUISING ---------------- */
+
+    75% {
+        transform: translateY(0) rotate(0deg);
+
+        text-shadow:
+            8px 0 6px rgba(246, 232, 95, 0.3),
+            18px 0 18px rgba(246, 232, 95, 0.15);
+    }
+
+
+    /* ---------------- SLOWING ---------------- */
+
+    88% {
+        transform: translateY(-1px) rotate(-0.15deg);
+
+        text-shadow:
+            4px 0 5px rgba(246, 232, 95, 0.2),
+            8px 0 12px rgba(246, 232, 95, 0.1);
+    }
+
+
+    /* ---------------- STOP ---------------- */
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+
+        text-shadow:
+            0 0 4px rgba(246, 232, 95, 0.3);
+    }
+}
+
+
+
+
+
+
+
+
+
+/* =========================
+   ADD USER CARD
+   ========================= */
+.card {
+    position: relative;
+    overflow: hidden;
+
+    background: #FFF7ED;
+    color: black;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+
+    isolation: isolate;
+}
+
+
+/* =========================
+   DIAMOND EFFECT
+   ========================= */
+.diamond-effect {
+    position: absolute;
+    inset: 0;
+
+    overflow: hidden;
+    pointer-events: none;
+
+    z-index: 1;
+}
+.card > h1,
+.card > #message,
+.card > form {
+    position: relative;
+    z-index: 2;
+}.diamond {
+    position: absolute;
+
+    width: 40px;
+    height: 40px;
+
+    left: 50%;
+    top: 50%;
+
+    border: 3px solid #3f886360;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(45deg)
+        scale(0);
+
+    opacity: 0;
+}
+
+
+/* This class will be added by JavaScript */
+
+.diamond.run {
+    animation: diamondForward 3s linear infinite;
+}
+
+
+.diamond:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.diamond:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+.diamond:nth-child(3) {
+    animation-delay: 1.2s;
+}
+
+.diamond:nth-child(4) {
+    animation-delay: 1.8s;
+}
+
+.diamond:nth-child(5) {
+    animation-delay: 2.4s;
+}
+
+.diamond:nth-child(6) {
+    animation-delay: 3.0s;
+}
+
+.diamond:nth-child(7) {
+    animation-delay: 3.6s;
+}
+
+.diamond:nth-child(8) {
+    animation-delay: 4.2s;
+}
+
+.diamond:nth-child(9) {
+    animation-delay: 4.8s;
+}
+
+.diamond:nth-child(10) {
+    animation-delay: 5.4s;
+}
+
+@keyframes diamondForward {
+
+    0% {
+        transform:
+            translate(-50%, -50%)
+            rotate(45deg)
+            scale(0);
+
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translate(-50%, -50%)
+            rotate(45deg)
+            scale(15);
+
+        opacity: 0;
+    }
+}
+/* Keep card content above diamonds */
+
+.card-content {
+    position: relative;
+    z-index: 2;
+}
+
 
 .container {
     max-width: 1100px;
     margin: auto;
 }
 
+
 h1,
 h2 {
     margin-top: 0;
 }
 
-.card {
-    background: white;
+
+.headdy {
+    background: #d3c2fa;
+    color: black;
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,.08);
 }
+
 
 
 /* =========================
@@ -72,8 +375,12 @@ input,
 textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
     border-radius: 6px;
+}
+
+.fie {
+    background: #E0F2FE;
 }
 
 textarea {
@@ -83,11 +390,16 @@ textarea {
 
 .buttons {
     margin-top: 15px;
+
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
 }
 
 button {
+    position: relative;
+    overflow: hidden;
     border: 0;
     padding: 9px 14px;
     border-radius: 6px;
@@ -95,17 +407,57 @@ button {
 }
 
 .submit-btn {
-    background: #222;
+    background: #658a00;
     color: white;
+}
+
+.ed-bt {
+    background: #6eac4b;
+    color: rgb(0, 0, 0);
+}
+
+.D-bt {
+    background: #ad3a3a;
+    color: rgb(36, 35, 35);
+}
+
+.v-bt {
+    background: #a2ad3a;
+    color: rgb(0, 0, 0);
 }
 
 .clear-btn {
     background: #ddd;
 }
 
+
 button:disabled {
     cursor: not-allowed;
     opacity: .45;
+}
+
+
+.reveal-left,
+.reveal-right {
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-left {
+    transform: translateX(-100px);
+}
+
+.reveal-right {
+    transform: translateX(100px);
+}
+
+
+/* Added when the element enters the viewport */
+
+.reveal-left.show,
+.reveal-right.show {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 
@@ -121,17 +473,25 @@ table {
     width: 100%;
     border-collapse: collapse;
     min-width: 850px;
+    background-color: #EDF6F1;
+    color: black;
 }
 
 th,
 td {
-    border: 1px solid #ddd;
+    border: 1px solid #504d4d;
     padding: 9px;
     text-align: left;
 }
 
 th {
-    background: #eee;
+    background: #91bba9;
+    color: #111814;
+}
+
+td {
+    background: #e0f4ff;
+    color: black;
 }
 
 .action-column {
@@ -141,6 +501,7 @@ th {
 
 .inactive-row td {
     text-decoration: line-through;
+    background-color: rgba(49, 48, 48, 0.938);
 }
 
 .inactive-row .action-column {
@@ -183,6 +544,7 @@ th {
 .pagination {
     margin-top: 15px;
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 10px;
 }
@@ -221,7 +583,7 @@ th {
 
     position: relative;
 
-    background: white;
+    background: radial-gradient(#A6D9F7,#ABC798,#b9ffb7f6,#023c40);
 
     width: 100%;
 
@@ -271,10 +633,32 @@ th {
     margin-top: 20px;
 }
 
+.box {
+    width: 80%;
+    padding: 50px;
+    background: lightblue;
+
+    animation: slideIn linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-200px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 .history-table th,
 .history-table td {
 
-    border: 1px solid #ddd;
+    border: 2px solid #1a1919;
 
     padding: 8px;
 
@@ -284,7 +668,8 @@ th {
 }
 
 .history-table th {
-    background: #eee;
+    background: #023c40;
+    color: white;
 }
 
 
@@ -301,6 +686,51 @@ th {
 .log-delete {
     font-weight: bold;
 }
+
+
+/* ==================================================
+   FULL WEBSITE PARTICLE BACKGROUND
+   ================================================== */
+
+.particle-word {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+#particles {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+
+/* ==================================================
+   ALL WEBSITE CONTENT STAYS ABOVE THE WEB
+   ================================================== */
+
+.container {
+
+    position: relative;
+
+    z-index: 1;
+
+}
+
 
 
 /* Responsive */
@@ -332,6 +762,12 @@ th {
 
 <body>
 
+<canvas id="particles"> </canvas>
+<div class="forview">
+    <div class="breathing-text">NAGA</div>
+</div>
+
+
 
 <div class="container">
 
@@ -340,7 +776,48 @@ th {
          USER FORM
          ========================= -->
 
-    <div class="card">
+    <div class="card reveal-left">
+        
+         
+        <div class="diamond-effect">
+
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+              <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+              <!-- <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+              <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+              <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+              <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+              <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div> -->
+
+        </div>
 
         <h1 id="formTitle">
             Add User
@@ -363,7 +840,7 @@ th {
                         Name
                     </label>
 
-                    <input
+                    <input class="fie"
                         id="name"
                         type="text"
                         required
@@ -378,7 +855,7 @@ th {
                         DOB
                     </label>
 
-                    <input
+                    <input class="fie"
                         id="dob"
                         type="date"
                         required
@@ -393,7 +870,7 @@ th {
                         Father Name
                     </label>
 
-                    <input
+                    <input class="fie"
                         id="fathername"
                         type="text"
                         required
@@ -408,7 +885,7 @@ th {
                         Qualification
                     </label>
 
-                    <input
+                    <input class="fie"
                         id="qualification"
                         type="text"
                         required
@@ -423,7 +900,7 @@ th {
                         City
                     </label>
 
-                    <input
+                    <input class="fie"
                         id="city"
                         type="text"
                         required
@@ -438,7 +915,7 @@ th {
                         Mobile No
                     </label>
 
-                    <input
+                    <input class="fie"
                         id="mobileno"
                         type="text"
                         required
@@ -453,7 +930,7 @@ th {
                         Address
                     </label>
 
-                    <textarea
+                    <textarea class="fie"
                         id="address"
                         required
                     ></textarea>
@@ -496,7 +973,7 @@ th {
          DASHBOARD
          ========================= -->
 
-    <div class="card">
+    <div class="headdy reveal-right">
 
         <h2>
             Dashboard
@@ -579,10 +1056,15 @@ th {
 
     </div>
 
+    <!-- <div class="diamond-effect">
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+</div> -->
 
 </div>
-
-
 
 <!-- ==================================================
      HISTORY POPUP
@@ -669,6 +1151,431 @@ th {
 
 
 <script>
+
+const submitButton = document.querySelector(".submit-btn");
+const diamonds = document.querySelectorAll(".diamond");
+
+submitButton.addEventListener("mouseenter", function () {
+
+    diamonds.forEach(function(diamond) {
+        diamond.classList.add("run");
+    });
+
+});
+
+
+submitButton.addEventListener("mouseleave", function () {
+
+    diamonds.forEach(function(diamond) {
+        diamond.classList.remove("run");
+
+        // Reset animation
+        diamond.style.animation = "none";
+
+        // Force browser to reset it
+        diamond.offsetHeight;
+
+        diamond.style.animation = "";
+    });
+
+});
+
+
+
+/* ==================================================
+   SCROLL REVEAL
+   ================================================== */
+
+const revealElements =
+    document.querySelectorAll(
+        ".reveal-left, .reveal-right"
+    );
+
+
+const observer =
+    new IntersectionObserver(
+        function(entries) {
+
+            entries.forEach(function(entry) {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("show");
+
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.15
+        }
+    );
+
+
+revealElements.forEach(function(element) {
+
+    observer.observe(element);
+
+});
+
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+
+let mouse = {
+    x: null,
+    y: null
+};
+
+
+/* ==================================================
+   CANVAS
+   ================================================== */
+
+function resizeCanvas() {
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    createParticles();
+
+}
+
+window.addEventListener("resize", resizeCanvas);
+
+
+/* ==================================================
+   MOUSE
+   ================================================== */
+
+window.addEventListener("mousemove", function(event) {
+
+    mouse.x = event.clientX;
+    mouse.y = event.clientY;
+
+});
+
+window.addEventListener("mouseleave", function() {
+
+    mouse.x = null;
+    mouse.y = null;
+
+});
+
+
+/* ==================================================
+   PARTICLE
+   ================================================== */
+
+class Particle {
+
+    constructor() {
+
+        this.x =
+            Math.random() * canvas.width;
+
+        this.y =
+            Math.random() * canvas.height;
+
+
+        this.size =
+            Math.random() * 2 + 1;
+
+
+        /*
+           Random roaming speed
+        */
+
+        this.speedX =
+            (Math.random() - 0.5) * 0.5;
+
+        this.speedY =
+            (Math.random() - 0.5) * 0.5;
+
+    }
+
+
+    update() {
+
+        /*
+           Keep moving
+        */
+
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+
+        /*
+           Wrap around screen
+        */
+
+        if (this.x < 0)
+            this.x = canvas.width;
+
+        if (this.x > canvas.width)
+            this.x = 0;
+
+        if (this.y < 0)
+            this.y = canvas.height;
+
+        if (this.y > canvas.height)
+            this.y = 0;
+
+
+        /*
+           Mouse reaction
+        */
+
+        if (mouse.x !== null) {
+
+            const dx =
+                this.x - mouse.x;
+
+            const dy =
+                this.y - mouse.y;
+
+            const distance =
+                Math.sqrt(
+                    dx * dx +
+                    dy * dy
+                );
+
+            const radius = 150;
+
+
+            if (
+                distance < radius &&
+                distance > 0
+            ) {
+
+                const force =
+                    (radius - distance) /
+                    radius;
+
+
+                this.x +=
+                    (dx / distance) *
+                    force *
+                    2;
+
+                this.y +=
+                    (dy / distance) *
+                    force *
+                    2;
+
+            }
+
+        }
+
+    }
+
+
+    draw() {
+
+        ctx.beginPath();
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI * 2
+        );
+
+
+        ctx.fillStyle =
+            "rgb(238, 247, 118)";
+
+
+        ctx.shadowBlur = 8;
+
+        ctx.shadowColor =
+            "#8B5CF6";
+
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+
+    }
+
+}
+
+
+/* ==================================================
+   CREATE PARTICLES
+   ================================================== */
+
+function createParticles() {
+
+    particles = [];
+
+
+    const amount =
+        Math.floor(
+            (canvas.width * canvas.height) /
+            2000
+        );
+
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        particles.push(
+            new Particle()
+        );
+
+    }
+
+}
+
+
+/* ==================================================
+   PURPLE CONNECTIONS
+   ================================================== */
+
+function connectParticles() {
+
+    const maxDistance = 140;
+
+
+    for (
+        let i = 0;
+        i < particles.length;
+        i++
+    ) {
+
+        for (
+            let j = i + 1;
+            j < particles.length;
+            j++
+        ) {
+
+            const dx =
+                particles[i].x -
+                particles[j].x;
+
+            const dy =
+                particles[i].y -
+                particles[j].y;
+
+
+            const distance =
+                Math.sqrt(
+                    dx * dx +
+                    dy * dy
+                );
+
+
+            /*
+               Connect only nearby particles
+            */
+
+            if (distance < maxDistance) {
+
+                /*
+                   Closer = brighter
+                */
+
+                const opacity =
+                    (1 - distance / maxDistance) *
+                    0.4;
+
+
+                ctx.beginPath();
+
+                ctx.moveTo(
+                    particles[i].x,
+                    particles[i].y
+                );
+
+                ctx.lineTo(
+                    particles[j].x,
+                    particles[j].y
+                );
+
+
+                ctx.strokeStyle =
+                    `rgba(139, 92, 246, ${opacity})`;
+
+                ctx.lineWidth = 0.7;
+
+                ctx.stroke();
+
+            }
+
+        }
+
+    }
+
+}
+
+
+/* ==================================================
+   ANIMATION
+   ================================================== */
+
+function animate() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    /*
+       Move particles
+    */
+
+    for (
+        const particle of particles
+    ) {
+
+        particle.update();
+
+    }
+
+
+    /*
+       Draw purple web
+    */
+
+    connectParticles();
+
+
+    /*
+       Draw particles
+    */
+
+    for (
+        const particle of particles
+    ) {
+
+        particle.draw();
+
+    }
+
+
+    requestAnimationFrame(
+        animate
+    );
+
+}
+
+
+/* ==================================================
+   START
+   ================================================== */
+
+resizeCanvas();
+
+animate();
 
 
 /* ==================================================
@@ -1021,7 +1928,7 @@ function displayUsers(users) {
                     onclick="updateUser(
                         ${Number(user.id)}
                     )"
-                    title="Update"
+                    title="Update" class="ed-bt"
                 >
 
                     <i class="fa-solid fa-pen"></i>
@@ -1042,7 +1949,7 @@ function displayUsers(users) {
                     onclick="timelog(
                         ${Number(user.id)}
                     )"
-                    title="View History"
+                    title="View History"  class="v-bt"
                 >
 
                     <i class="fa-solid fa-eye"></i>
@@ -1058,7 +1965,7 @@ function displayUsers(users) {
                     onclick="toggleStatus(
                         ${Number(user.id)}
                     )"
-                    title="Activate / Inactivate"
+                    title="Activate / Inactivate"  class="D-bt"
                 >
 
                     <i class="fa-solid fa-trash"></i>
