@@ -1,0 +1,2065 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<title>Signup</title>
+
+<style>
+
+/* ==================================================
+   GENERAL
+================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    font-family: Arial, sans-serif;
+
+    margin: 0;
+
+    padding: 20px;
+
+    background: black;
+
+    color: #f7f0f8;
+}
+
+
+/* ==================================================
+   CARD
+================================================== */
+
+.card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #FFF7ED;
+
+    color: black;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+
+    isolation: isolate;
+}
+
+
+/* ==================================================
+   DIAMOND EFFECT
+================================================== */
+
+.diamond-effect {
+
+    position: absolute;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+.card > h1,
+.card > #message,
+.card > form {
+
+    position: relative;
+
+    z-index: 2;
+}
+
+.diamond {
+
+    position: absolute;
+
+    width: 40px;
+
+    height: 40px;
+
+    left: 50%;
+
+    top: 50%;
+
+    border: 3px solid #3f886360;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(45deg)
+        scale(0);
+
+    opacity: 0;
+}
+
+.diamond.run {
+
+    animation:
+        diamondForward 3s linear infinite;
+}
+
+.diamond:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.diamond:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+.diamond:nth-child(3) {
+    animation-delay: 1.2s;
+}
+
+.diamond:nth-child(4) {
+    animation-delay: 1.8s;
+}
+
+.diamond:nth-child(5) {
+    animation-delay: 2.4s;
+}
+
+.diamond:nth-child(6) {
+    animation-delay: 3.0s;
+}
+
+.diamond:nth-child(7) {
+    animation-delay: 3.6s;
+}
+
+.diamond:nth-child(8) {
+    animation-delay: 4.2s;
+}
+
+.diamond:nth-child(9) {
+    animation-delay: 4.8s;
+}
+
+.diamond:nth-child(10) {
+    animation-delay: 5.4s;
+}
+
+@keyframes diamondForward {
+
+    0% {
+
+        transform:
+            translate(-50%, -50%)
+            rotate(45deg)
+            scale(0);
+
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+
+        transform:
+            translate(-50%, -50%)
+            rotate(45deg)
+            scale(15);
+
+        opacity: 0;
+    }
+}
+
+
+/* ==================================================
+   CONTAINER
+================================================== */
+
+.container {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    position: relative;
+
+    z-index: 1;
+}
+
+h1,
+h2 {
+
+    margin-top: 0;
+}
+
+
+/* ==================================================
+   FORM
+================================================== */
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 14px;
+}
+
+.full {
+
+    grid-column: 1 / -1;
+}
+
+label {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-weight: bold;
+}
+
+input,
+textarea,
+button {
+
+    font: inherit;
+}
+
+input,
+textarea {
+
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px solid #000000;
+
+    border-radius: 6px;
+}
+
+.fie {
+
+    background: #E0F2FE;
+
+    color: #000000;
+}
+
+textarea {
+
+    min-height: 80px;
+
+    resize: vertical;
+}
+
+
+/* ==================================================
+   BUTTONS
+================================================== */
+
+.buttons {
+
+    margin-top: 15px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+button {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border: 0;
+
+    padding: 9px 14px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+.submit-btn {
+
+    background: #658a00;
+
+    color: white;
+}
+
+.clear-btn {
+
+    background: #ddd;
+}
+
+button:disabled {
+
+    cursor: not-allowed;
+
+    opacity: .45;
+}
+
+
+/* ==================================================
+   MESSAGE
+================================================== */
+
+.message {
+
+    margin: 10px 0;
+
+    padding: 10px;
+
+    border-radius: 6px;
+
+    display: none;
+}
+
+.error {
+
+    background: #ffe1e1;
+}
+
+.success {
+
+    background: #e1ffe7;
+}
+
+
+/* ==================================================
+   USERNAME
+================================================== */
+
+#usernameStatus {
+
+    display: block;
+
+    margin-top: 10px;
+
+    min-height: 20px;
+}
+
+.available {
+
+    color: #4ade80;
+}
+
+.unavailable {
+
+    color: #f87171;
+}
+
+.checking {
+
+    color: #aaa;
+}
+
+.checking strong,
+.available strong,
+.unavailable strong {
+
+    color: black;
+}
+
+
+/* ==================================================
+   PASSWORD
+================================================== */
+
+.password-box {
+
+    position: relative;
+
+    width: 100%;
+}
+
+.password-box input {
+
+    width: 100%;
+
+    padding-right: 45px;
+}
+
+.password-box button {
+
+    position: absolute;
+
+    right: 1%;
+
+    top: 40%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: none;
+
+    cursor: pointer;
+
+    padding: 5px;
+}
+
+#passStatus {
+
+    white-space: pre-line;
+
+    display: block;
+
+    margin-top: 10px;
+}
+
+
+/* ==================================================
+   RE-ENTER PASSWORD
+================================================== */
+
+#reenterStatus {
+
+    display: block;
+
+    margin-top: 8px;
+}
+
+
+/* ==================================================
+   REVEAL
+================================================== */
+
+.reveal-left,
+.reveal-right {
+
+    opacity: 0;
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+}
+
+.reveal-left {
+
+    transform:
+        translateX(-100px);
+}
+
+.reveal-right {
+
+    transform:
+        translateX(100px);
+}
+
+.reveal-left.show,
+.reveal-right.show {
+
+    opacity: 1;
+
+    transform:
+        translateX(0);
+}
+
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media (max-width: 700px) {
+
+    .form-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .full {
+
+        grid-column: auto;
+    }
+
+    body {
+
+        padding: 10px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     BACKGROUND CANVAS
+================================================== -->
+
+<canvas id="particles"></canvas>
+
+
+<div class="container">
+
+
+<!-- ==================================================
+     SIGNUP CARD
+================================================== -->
+
+<div class="card reveal-left">
+
+
+<!-- DIAMONDS -->
+
+<div class="diamond-effect">
+
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+    <div class="diamond"></div>
+
+</div>
+
+
+<!-- TITLE -->
+
+<h1 id="formTitle" align="center">
+
+    Signup
+
+</h1>
+
+
+<!-- MESSAGE -->
+
+<div id="message"
+     class="message">
+
+</div>
+
+
+<!-- ==================================================
+     FORM
+================================================== -->
+
+<form id="userForm">
+
+<div class="form-grid">
+
+
+<!-- NAME -->
+
+<div>
+
+<label for="name">
+    Name
+</label>
+
+<input
+    class="fie"
+    id="name"
+    type="text"
+    required
+    autocomplete="off"
+>
+
+</div>
+
+
+<!-- DOB -->
+
+<div>
+
+<label for="dob">
+    DOB
+</label>
+
+<input
+    class="fie"
+    id="dob"
+    type="date"
+    required
+>
+
+</div>
+
+
+<!-- FATHER NAME -->
+
+<div>
+
+<label for="fathername">
+    Father Name
+</label>
+
+<input
+    class="fie"
+    id="fathername"
+    type="text"
+    required
+    autocomplete="off"
+>
+
+</div>
+
+
+<!-- QUALIFICATION -->
+
+<div>
+
+<label for="qualification">
+    Qualification
+</label>
+
+<input
+    class="fie"
+    id="qualification"
+    type="text"
+    required
+    autocomplete="off"
+>
+
+</div>
+
+
+<!-- CITY -->
+
+<div>
+
+<label for="city">
+    City
+</label>
+
+<input
+    class="fie"
+    id="city"
+    type="text"
+    required
+    autocomplete="off"
+>
+
+</div>
+
+
+<!-- MOBILE -->
+
+<div>
+
+<label for="mobileno">
+    Mobile No
+</label>
+
+<input
+    class="fie"
+    id="mobileno"
+    type="text"
+    inputmode="numeric"
+    maxlength="10"
+    minlength="10"
+    pattern="[0-9]{10}"
+    required
+    autocomplete="off"
+    placeholder="10 digit mobile number"
+>
+
+</div>
+
+
+<!-- ADDRESS -->
+
+<div class="full">
+
+<label for="address">
+    Address
+</label>
+
+<textarea
+    class="fie"
+    id="address"
+    required
+    autocomplete="off"
+></textarea>
+
+</div>
+
+
+<!-- USERNAME -->
+
+<div>
+
+<label for="username">
+    Username
+</label>
+
+<input
+    type="text"
+    id="username"
+    placeholder="Enter username"
+    minlength="3"
+    required
+    autocomplete="off"
+>
+
+<span id="usernameStatus">
+    Username
+</span>
+
+</div>
+
+
+<!-- PASSWORD -->
+
+<div>
+
+<label for="password">
+    Password
+</label>
+
+<div class="password-box">
+
+<input
+    id="password"
+    type="password"
+    placeholder="Enter password"
+    required
+    autocomplete="new-password"
+>
+
+<button
+    type="button"
+    id="togglePassword">
+
+    👁
+
+</button>
+
+</div>
+
+<span id="passStatus"></span>
+
+</div>
+
+
+<!-- RE-ENTER PASSWORD -->
+
+<div>
+
+<label for="reenterPassword">
+    Re-enter Password
+</label>
+
+<div class="password-box">
+
+<input
+    id="reenterPassword"
+    type="password"
+    placeholder="Re-enter password"
+    required
+    autocomplete="new-password"
+>
+
+</div>
+
+<span id="reenterStatus"></span>
+
+</div>
+
+
+</div>
+
+
+<!-- ==================================================
+     BUTTONS
+================================================== -->
+
+<div class="buttons">
+
+<button
+    class="submit-btn"
+    type="submit"
+    id="submitBtn"
+    disabled>
+
+    SIGNUP
+
+</button>
+
+
+<button
+    class="clear-btn"
+    type="button"
+    onclick="clearForm()">
+
+    Clear
+
+</button>
+
+</div>
+
+
+</form>
+
+</div>
+
+</div>
+
+
+<script>
+
+
+/* ==================================================
+   API
+================================================== */
+
+const API_URL =
+    "http://localhost/apiss/project1/user.php";
+
+const AUTH_URL =
+    "http://localhost/apiss/project1/auth.php";
+
+
+/* ==================================================
+   ELEMENTS
+================================================== */
+
+const form =
+    document.getElementById("userForm");
+
+const submitButton =
+    document.getElementById("submitBtn");
+
+const usernameInput =
+    document.getElementById("username");
+
+const usernameStatus =
+    document.getElementById("usernameStatus");
+
+const passwordInput =
+    document.getElementById("password");
+
+const passStatus =
+    document.getElementById("passStatus");
+
+const reenterPassword =
+    document.getElementById("reenterPassword");
+
+const reenterStatus =
+    document.getElementById("reenterStatus");
+
+const mobileInput =
+    document.getElementById("mobileno");
+
+
+/* ==================================================
+   VALIDATION STATES
+================================================== */
+
+let usernameValid = false;
+
+let passwordValid = false;
+
+let passwordsMatch = false;
+
+let usernameTimer = null;
+
+
+/* ==================================================
+   MESSAGE
+================================================== */
+
+function showMessage(text, type) {
+
+    const box =
+        document.getElementById("message");
+
+    box.textContent = text;
+
+    box.className =
+        "message " + type;
+
+    box.style.display = "block";
+}
+
+
+function clearMessage() {
+
+    const box =
+        document.getElementById("message");
+
+    box.textContent = "";
+
+    box.className = "message";
+
+    box.style.display = "none";
+}
+
+
+/* ==================================================
+   READ JSON
+================================================== */
+
+async function readJson(response) {
+
+    const text =
+        await response.text();
+
+    let data = {};
+
+    try {
+
+        data =
+            text
+            ? JSON.parse(text)
+            : {};
+
+    }
+    catch (error) {
+
+        throw new Error(
+            "Server returned invalid JSON. HTTP "
+            + response.status
+        );
+    }
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            data.message ||
+            data.error ||
+            (
+                "Request failed. HTTP "
+                + response.status
+            )
+        );
+    }
+
+
+    return data;
+}
+
+
+/* ==================================================
+   FORM DATA
+================================================== */
+
+function getFormData() {
+
+    return {
+
+        name:
+            document.getElementById("name")
+            .value.trim(),
+
+        dob:
+            document.getElementById("dob")
+            .value,
+
+        fathername:
+            document.getElementById("fathername")
+            .value.trim(),
+
+        qualification:
+            document.getElementById("qualification")
+            .value.trim(),
+
+        city:
+            document.getElementById("city")
+            .value.trim(),
+
+        mobileno:
+            mobileInput.value,
+
+        address:
+            document.getElementById("address")
+            .value.trim(),
+
+        username:
+            usernameInput.value.trim(),
+
+        password:
+            passwordInput.value
+
+    };
+}
+
+
+/* ==================================================
+   MOBILE NUMBER
+================================================== */
+
+/*
+   Allow ONLY numbers.
+
+   Maximum = 10 digits.
+*/
+
+mobileInput.addEventListener(
+    "input",
+    function () {
+
+        this.value =
+            this.value
+            .replace(/\D/g, "")
+            .slice(0, 10);
+
+    }
+);
+
+
+/* ==================================================
+   UPDATE SIGNUP BUTTON
+================================================== */
+
+function updateSubmitButton() {
+
+    const mobileValid =
+        /^[0-9]{10}$/.test(
+            mobileInput.value
+        );
+
+    const basicFieldsValid =
+        document.getElementById("name").value.trim() !== "" &&
+        document.getElementById("dob").value !== "" &&
+        document.getElementById("fathername").value.trim() !== "" &&
+        document.getElementById("qualification").value.trim() !== "" &&
+        document.getElementById("city").value.trim() !== "" &&
+        document.getElementById("address").value.trim() !== "";
+
+    submitButton.disabled = !(
+        basicFieldsValid &&
+        mobileValid &&
+        usernameValid &&
+        passwordValid &&
+        passwordsMatch
+    );
+}
+
+
+/* ==================================================
+   USERNAME INPUT
+================================================== */
+
+usernameInput.addEventListener(
+    "input",
+    function () {
+
+        const username =
+            this.value.trim();
+
+
+        clearTimeout(usernameTimer);
+
+
+        usernameValid = false;
+
+
+        if (username === "") {
+
+            usernameStatus.textContent =
+                "Username";
+
+            usernameStatus.className = "";
+
+            updateSubmitButton();
+
+            return;
+        }
+
+
+        if (username.length < 3) {
+
+            usernameStatus.innerHTML =
+                "<strong>Username</strong> Enter at least 3 characters";
+
+            usernameStatus.className =
+                "checking";
+
+            updateSubmitButton();
+
+            return;
+        }
+
+
+        usernameStatus.innerHTML =
+            "<strong>Username</strong> Checking...";
+
+        usernameStatus.className =
+            "checking";
+
+
+        updateSubmitButton();
+
+
+        usernameTimer =
+            setTimeout(
+                function () {
+
+                    checkUsername(username);
+
+                },
+                400
+            );
+
+    }
+);
+
+
+/* ==================================================
+   CHECK USERNAME
+================================================== */
+
+async function checkUsername(username) {
+
+    try {
+
+        const url =
+            AUTH_URL +
+            "?action=check_username&username=" +
+            encodeURIComponent(username);
+
+
+        const response =
+            await fetch(url);
+
+
+        const data =
+            await readJson(response);
+
+
+        /*
+           Make sure this result belongs
+           to the current username.
+        */
+
+        if (
+            username !==
+            usernameInput.value.trim()
+        ) {
+
+            return;
+        }
+
+
+        if (data.available === true) {
+
+            usernameValid = true;
+
+            usernameStatus.innerHTML =
+                "<strong>Username</strong> ✓ Username available";
+
+            usernameStatus.className =
+                "available";
+
+        }
+        else {
+
+            usernameValid = false;
+
+            usernameStatus.innerHTML =
+                "<strong>Username</strong> ✗ Username already taken";
+
+            usernameStatus.className =
+                "unavailable";
+        }
+
+
+        updateSubmitButton();
+
+    }
+    catch (error) {
+
+        usernameValid = false;
+
+        usernameStatus.innerHTML =
+            "<strong>Username</strong> Unable to check username";
+
+        usernameStatus.className =
+            "unavailable";
+
+        updateSubmitButton();
+
+        console.error(error);
+    }
+}
+
+
+/* ==================================================
+   PASSWORD VISIBILITY
+================================================== */
+
+const togglePassword =
+    document.getElementById("togglePassword");
+
+
+togglePassword.addEventListener(
+    "click",
+    function () {
+
+        if (
+            passwordInput.type === "password"
+        ) {
+
+            passwordInput.type = "text";
+
+            togglePassword.textContent =
+                "🙈";
+
+        }
+        else {
+
+            passwordInput.type =
+                "password";
+
+            togglePassword.textContent =
+                "👁";
+        }
+    }
+);
+
+
+/* ==================================================
+   PASSWORD VALIDATION
+================================================== */
+
+passwordInput.addEventListener(
+    "input",
+    function () {
+
+        checkPassword();
+
+        checkPasswordMatch();
+
+        updateSubmitButton();
+
+    }
+);
+
+
+function checkPassword() {
+
+    const password =
+        passwordInput.value;
+
+
+    const hasLength =
+        password.length >= 8;
+
+    const hasUppercase =
+        /[A-Z]/.test(password);
+
+    const hasNumber =
+        /[0-9]/.test(password);
+
+    const hasSpecial =
+        /[^A-Za-z0-9]/.test(password);
+
+
+    passStatus.textContent =
+
+        (hasLength ? "✓" : "✗") +
+        " At least 8 characters\n" +
+
+        (hasUppercase ? "✓" : "✗") +
+        " At least 1 UPPER CASE\n" +
+
+        (hasNumber ? "✓" : "✗") +
+        " At least 1 number\n" +
+
+        (hasSpecial ? "✓" : "✗") +
+        " At least 1 special character";
+
+
+    passwordValid =
+        hasLength &&
+        hasUppercase &&
+        hasNumber &&
+        hasSpecial;
+}
+
+
+/* ==================================================
+   PASSWORD MATCH
+================================================== */
+
+reenterPassword.addEventListener(
+    "input",
+    function () {
+
+        checkPasswordMatch();
+
+        updateSubmitButton();
+
+    }
+);
+
+
+function checkPasswordMatch() {
+
+    if (
+        reenterPassword.value === ""
+    ) {
+
+        passwordsMatch = false;
+
+        reenterStatus.textContent = "";
+
+        reenterStatus.className = "";
+
+        return;
+    }
+
+
+    if (
+        passwordInput.value ===
+        reenterPassword.value
+    ) {
+
+        passwordsMatch = true;
+
+        reenterStatus.textContent =
+            "✓ Passwords match";
+
+        reenterStatus.className =
+            "available";
+
+    }
+    else {
+
+        passwordsMatch = false;
+
+        reenterStatus.textContent =
+            "✗ Passwords do not match";
+
+        reenterStatus.className =
+            "unavailable";
+    }
+}
+
+
+/* ==================================================
+   OTHER FORM INPUTS
+================================================== */
+
+document.querySelectorAll(
+    "#userForm input, #userForm textarea"
+).forEach(
+    function (element) {
+
+        element.addEventListener(
+            "input",
+            updateSubmitButton
+        );
+
+        element.addEventListener(
+            "change",
+            updateSubmitButton
+        );
+
+    }
+);
+
+
+/* ==================================================
+   FORM SUBMIT
+================================================== */
+
+form.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+        clearMessage();
+
+
+        /* ==========================================
+           FINAL MOBILE CHECK
+        ========================================== */
+
+        if (
+            !/^[0-9]{10}$/.test(
+                mobileInput.value
+            )
+        ) {
+
+            showMessage(
+                "Mobile number must contain exactly 10 digits.",
+                "error"
+            );
+
+            mobileInput.focus();
+
+            return;
+        }
+
+
+        /* ==========================================
+           FINAL USERNAME CHECK
+        ========================================== */
+
+        if (!usernameValid) {
+
+            showMessage(
+                "Please enter an available username.",
+                "error"
+            );
+
+            usernameInput.focus();
+
+            return;
+        }
+
+
+        /* ==========================================
+           FINAL PASSWORD CHECK
+        ========================================== */
+
+        if (!passwordValid) {
+
+            showMessage(
+                "Please enter a valid password.",
+                "error"
+            );
+
+            passwordInput.focus();
+
+            return;
+        }
+
+
+        /* ==========================================
+           FINAL PASSWORD MATCH CHECK
+        ========================================== */
+
+        if (!passwordsMatch) {
+
+            showMessage(
+                "Passwords do not match.",
+                "error"
+            );
+
+            reenterPassword.focus();
+
+            return;
+        }
+
+
+        /* ==========================================
+           GET DATA
+        ========================================== */
+
+        const data =
+            getFormData();
+
+
+        submitButton.disabled = true;
+
+        submitButton.textContent =
+            "CREATING...";
+
+
+        try {
+
+            /* ======================================
+               CREATE USER
+
+               user.php receives:
+
+               name
+               dob
+               fathername
+               qualification
+               city
+               mobileno
+               address
+               username
+               password
+            ====================================== */
+
+            const response =
+                await fetch(
+                    API_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(data)
+                    }
+                );
+
+
+            const result =
+                await readJson(response);
+
+
+            /* ======================================
+               SUCCESS
+            ====================================== */
+
+            showMessage(
+                "Account created successfully. Redirecting to login...",
+                "success"
+            );
+
+
+            /*
+               Give the user 2 seconds
+               to see the success message.
+            */
+
+            setTimeout(
+                function () {
+
+                    window.location.href =
+                        "login.html";
+
+                },
+                2000
+            );
+
+        }
+        catch (error) {
+
+            showMessage(
+                error.message,
+                "error"
+            );
+
+
+            submitButton.disabled = false;
+
+            submitButton.textContent =
+                "SIGNUP";
+        }
+
+    }
+);
+
+
+/* ==================================================
+   CLEAR FORM
+================================================== */
+
+function clearForm() {
+
+    form.reset();
+
+
+    usernameValid = false;
+
+    passwordValid = false;
+
+    passwordsMatch = false;
+
+
+    usernameStatus.textContent =
+        "Username";
+
+    usernameStatus.className = "";
+
+
+    passStatus.textContent = "";
+
+
+    reenterStatus.textContent = "";
+
+    reenterStatus.className = "";
+
+
+    submitButton.disabled = true;
+
+    submitButton.textContent =
+        "SIGNUP";
+
+
+    clearMessage();
+}
+
+
+/* ==================================================
+   DIAMOND ANIMATION
+================================================== */
+
+const diamonds =
+    document.querySelectorAll(".diamond");
+
+
+submitButton.addEventListener(
+    "mouseenter",
+    function () {
+
+        if (!submitButton.disabled) {
+
+            diamonds.forEach(
+                function (diamond) {
+
+                    diamond.classList.add("run");
+
+                }
+            );
+        }
+    }
+);
+
+
+submitButton.addEventListener(
+    "mouseleave",
+    function () {
+
+        diamonds.forEach(
+            function (diamond) {
+
+                diamond.classList.remove("run");
+
+                diamond.style.animation =
+                    "none";
+
+                diamond.offsetHeight;
+
+                diamond.style.animation = "";
+            }
+        );
+    }
+);
+
+
+/* ==================================================
+   SCROLL REVEAL
+================================================== */
+
+const revealElements =
+    document.querySelectorAll(
+        ".reveal-left, .reveal-right"
+    );
+
+
+const observer =
+    new IntersectionObserver(
+        function (entries) {
+
+            entries.forEach(
+                function (entry) {
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        entry.target.classList.add(
+                            "show"
+                        );
+                    }
+                }
+            );
+
+        },
+        {
+            threshold: 0.15
+        }
+    );
+
+
+revealElements.forEach(
+    function (element) {
+
+        observer.observe(element);
+
+    }
+);
+
+
+/* ==================================================
+   PARTICLE BACKGROUND
+================================================== */
+
+const canvas =
+    document.getElementById("particles");
+
+const ctx =
+    canvas.getContext("2d");
+
+
+let particles = [];
+
+
+let mouse = {
+
+    x: null,
+
+    y: null
+
+};
+
+
+/* ==================================================
+   CANVAS
+================================================== */
+
+function resizeCanvas() {
+
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
+
+    createParticles();
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+/* ==================================================
+   MOUSE
+================================================== */
+
+window.addEventListener(
+    "mousemove",
+    function (event) {
+
+        mouse.x =
+            event.clientX;
+
+        mouse.y =
+            event.clientY;
+
+    }
+);
+
+
+window.addEventListener(
+    "mouseleave",
+    function () {
+
+        mouse.x = null;
+
+        mouse.y = null;
+
+    }
+);
+
+
+/* ==================================================
+   PARTICLE
+================================================== */
+
+class Particle {
+
+    constructor() {
+
+        this.x =
+            Math.random() *
+            canvas.width;
+
+        this.y =
+            Math.random() *
+            canvas.height;
+
+
+        this.size =
+            Math.random() * 2 + 1;
+
+
+        this.speedX =
+            (Math.random() - 0.5) * 0.5;
+
+        this.speedY =
+            (Math.random() - 0.5) * 0.5;
+    }
+
+
+    update() {
+
+        this.x +=
+            this.speedX;
+
+        this.y +=
+            this.speedY;
+
+
+        if (this.x < 0)
+            this.x = canvas.width;
+
+        if (this.x > canvas.width)
+            this.x = 0;
+
+        if (this.y < 0)
+            this.y = canvas.height;
+
+        if (this.y > canvas.height)
+            this.y = 0;
+
+
+        if (mouse.x !== null) {
+
+            const dx =
+                this.x - mouse.x;
+
+            const dy =
+                this.y - mouse.y;
+
+            const distance =
+                Math.sqrt(
+                    dx * dx +
+                    dy * dy
+                );
+
+            const radius = 150;
+
+
+            if (
+                distance < radius &&
+                distance > 0
+            ) {
+
+                const force =
+                    (radius - distance) /
+                    radius;
+
+
+                this.x +=
+                    (dx / distance) *
+                    force *
+                    2;
+
+
+                this.y +=
+                    (dy / distance) *
+                    force *
+                    2;
+            }
+        }
+    }
+
+
+    draw() {
+
+        ctx.beginPath();
+
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI * 2
+        );
+
+
+        ctx.fillStyle =
+            "rgb(238, 247, 118)";
+
+
+        ctx.shadowBlur = 8;
+
+        ctx.shadowColor =
+            "#8B5CF6";
+
+
+        ctx.fill();
+
+
+        ctx.shadowBlur = 0;
+    }
+}
+
+
+/* ==================================================
+   CREATE PARTICLES
+================================================== */
+
+function createParticles() {
+
+    particles = [];
+
+
+    const amount =
+        Math.floor(
+            (
+                canvas.width *
+                canvas.height
+            ) / 2000
+        );
+
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        particles.push(
+            new Particle()
+        );
+    }
+}
+
+
+/* ==================================================
+   CONNECTIONS
+================================================== */
+
+function connectParticles() {
+
+    const maxDistance = 140;
+
+
+    for (
+        let i = 0;
+        i < particles.length;
+        i++
+    ) {
+
+        for (
+            let j = i + 1;
+            j < particles.length;
+            j++
+        ) {
+
+            const dx =
+                particles[i].x -
+                particles[j].x;
+
+            const dy =
+                particles[i].y -
+                particles[j].y;
+
+
+            const distance =
+                Math.sqrt(
+                    dx * dx +
+                    dy * dy
+                );
+
+
+            if (
+                distance <
+                maxDistance
+            ) {
+
+                const opacity =
+                    (
+                        1 -
+                        distance /
+                        maxDistance
+                    ) * 0.4;
+
+
+                ctx.beginPath();
+
+
+                ctx.moveTo(
+                    particles[i].x,
+                    particles[i].y
+                );
+
+
+                ctx.lineTo(
+                    particles[j].x,
+                    particles[j].y
+                );
+
+
+                ctx.strokeStyle =
+                    `rgba(139, 92, 246, ${opacity})`;
+
+
+                ctx.lineWidth = 0.7;
+
+                ctx.stroke();
+            }
+        }
+    }
+}
+
+
+/* ==================================================
+   ANIMATION
+================================================== */
+
+function animate() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    for (
+        const particle of particles
+    ) {
+
+        particle.update();
+    }
+
+
+    connectParticles();
+
+
+    for (
+        const particle of particles
+    ) {
+
+        particle.draw();
+    }
+
+
+    requestAnimationFrame(
+        animate
+    );
+}
+
+
+/* ==================================================
+   START
+================================================== */
+
+resizeCanvas();
+
+animate();
+
+
+/* ==================================================
+   INITIAL BUTTON STATE
+================================================== */
+
+updateSubmitButton();
+
+</script>
+
+</body>
+
+</html>

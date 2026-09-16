@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LOGIN Page</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: rgb(247, 227, 227);
+    color: #f7f0f8;
+}
+
+
+/* ==================================================
+   CONTAINER
+   ================================================== */
+
+.container {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    z-index: 1;
+}
+
+
+/* ==================================================
+   CARD
+   ================================================== */
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: rgb(10, 83, 74);
+    color: #e9ebf0;
+
+    width: 380px;
+    padding: 35px;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.04);
+
+    border: 1px solid #e5e7eb;
+
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+
+/* ==================================================
+   FORM
+   ================================================== */
+
+.form-grid {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    gap: 18px;
+}
+
+.form-grid > div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-weight: bold;
+}
+
+input,
+button {
+    font: inherit;
+}
+
+input {
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px solid #000000;
+
+    border-radius: 6px;
+}
+
+
+/* ==================================================
+   INPUT
+   ================================================== */
+
+.fie {
+    width: 100%;
+
+    background-color: #080808;
+
+    color: whitesmoke;
+}
+
+
+/* ==================================================
+   BUTTONS
+   ================================================== */
+
+.buttons {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.buttons > div {
+    flex-basis: 100%;
+
+    text-align: center;
+}
+
+.buttons > div p {
+    margin: 5px 0;
+}
+
+button {
+    position: relative;
+
+    overflow: hidden;
+
+    border: 0;
+
+    padding: 9px 14px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+.submit-btn {
+    background: #658a00;
+
+    color: white;
+}
+
+.clear-btn {
+    background: #ddd;
+
+    color: black;
+}
+
+button:disabled {
+    cursor: not-allowed;
+
+    opacity: .45;
+}
+
+
+/* ==================================================
+   PASSWORD
+   ================================================== */
+
+.password-box {
+    position: relative;
+
+    width: 100%;
+}
+
+.password-box input {
+    width: 100%;
+
+    padding-right: 45px;
+}
+
+.password-box button {
+    position: absolute;
+
+    right: 1%;
+
+    top: 68%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: none;
+
+    cursor: pointer;
+}
+
+
+/* ==================================================
+   MESSAGE
+   ================================================== */
+
+.message {
+    width: 100%;
+
+    margin: 10px 0;
+
+    padding: 10px;
+
+    border-radius: 6px;
+
+    display: none;
+
+    text-align: center;
+}
+
+.error {
+    background: #000000;
+}
+
+.success {
+    background: #030303;
+}
+
+
+/* ==================================================
+   REVEAL
+   ================================================== */
+
+.reveal-left,
+.reveal-right {
+    opacity: 0;
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+}
+
+.reveal-left {
+    transform: translateX(-100px);
+}
+
+.reveal-right {
+    transform: translateX(100px);
+}
+
+.reveal-left.show,
+.reveal-right.show {
+    opacity: 1;
+
+    transform: translateX(0);
+}
+
+
+/* ==================================================
+   PARTICLE BACKGROUND
+   ================================================== */
+
+#particles {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+/* ==================================================
+   RESPONSIVE
+   ================================================== */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 10px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<canvas id="particles"></canvas>
+
+
+<div class="container">
+
+
+    <div class="card reveal-left">
+
+
+        <h1 id="formTitle">
+            LOGIN
+        </h1>
+
+
+        <div
+            id="message"
+            class="message">
+        </div>
+
+
+        <form id="userForm">
+
+
+            <div class="form-grid">
+
+
+                <!-- USERNAME -->
+
+                <div>
+
+                    <label for="username">
+                        username
+                    </label>
+
+                    <input
+                        class="fie"
+                        id="username"
+                        type="text"
+                        required
+                        autocomplete="username"
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="password-box">
+
+                    <label for="password">
+                        password
+                    </label>
+
+                    <input
+                        class="fie"
+                        id="password"
+                        type="password"
+                        placeholder="Enter password"
+                        required
+                        autocomplete="current-password"
+                    >
+
+                    <button
+                        type="button"
+                        id="togglePassword">
+
+                        👁
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="buttons">
+
+
+                <button
+                    class="submit-btn"
+                    type="submit"
+                    id="submitBtn">
+
+                    LOGIN
+
+                </button>
+
+
+                <button
+                    class="clear-btn"
+                    type="button"
+                    id="clearBtn">
+
+                    Clear
+
+                </button>
+
+
+                <div>
+
+                    <p>
+
+                        <br>
+
+                        <hr>
+
+                        new user....
+
+                        <a href="signup2.html">
+                            signup
+                        </a>
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+/* ==================================================
+   API
+   ================================================== */
+
+const API_URL =
+    "http://localhost/apiss/project1/auth.php";
+
+
+/* ==================================================
+   ELEMENTS
+   ================================================== */
+
+const userForm =
+    document.getElementById("userForm");
+
+const usernameInput =
+    document.getElementById("username");
+
+const passwordInput =
+    document.getElementById("password");
+
+const submitButton =
+    document.getElementById("submitBtn");
+
+const clearButton =
+    document.getElementById("clearBtn");
+
+const togglePassword =
+    document.getElementById("togglePassword");
+
+const messageBox =
+    document.getElementById("message");
+
+
+/* ==================================================
+   LOGIN FORM
+   ================================================== */
+
+userForm.addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+        login();
+
+    }
+);
+
+
+/* ==================================================
+   LOGIN
+   ================================================== */
+
+async function login() {
+
+
+    const username =
+        usernameInput.value.trim();
+
+    const password =
+        passwordInput.value;
+
+
+    console.log(
+        "Username:",
+        username
+    );
+
+    console.log(
+        "Password:",
+        password
+    );
+
+
+    /* -----------------------------
+       VALIDATION
+       ----------------------------- */
+
+    if (username === "") {
+
+        showMessage(
+            "Please enter username",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (password === "") {
+
+        showMessage(
+            "Please enter password",
+            "error"
+        );
+
+        return;
+    }
+
+
+    /* -----------------------------
+       BUTTON
+       ----------------------------- */
+
+    submitButton.disabled = true;
+
+    submitButton.textContent =
+        "LOGINNING...";
+
+
+    clearMessage();
+
+
+    try {
+
+
+        /* -----------------------------
+           SEND REQUEST
+           ----------------------------- */
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    credentials: "include",
+
+                    body: JSON.stringify({
+
+                        action: "login",
+
+                        username:
+                            username,
+
+                        password:
+                            password
+
+                    })
+                }
+            );
+
+
+        /* -----------------------------
+           READ RESPONSE
+           ----------------------------- */
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Server response:",
+            data
+        );
+
+
+        /* -----------------------------
+           SUCCESS
+           ----------------------------- */
+
+        if (
+            response.ok &&
+            data.success === true
+        ) {
+
+
+            showMessage(
+                "Login successful. Redirecting...",
+                "success"
+            );
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "index.html";
+
+                },
+                1000
+            );
+
+
+            return;
+        }
+
+
+        /* -----------------------------
+           FAILED
+           ----------------------------- */
+
+        showMessage(
+            data.message ||
+            data.error ||
+            "Invalid username or password",
+            "error"
+        );
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            "Login error:",
+            error
+        );
+
+
+        showMessage(
+            "Could not connect to server",
+            "error"
+        );
+
+
+    }
+
+
+    finally {
+
+
+        submitButton.disabled =
+            false;
+
+
+        submitButton.textContent =
+            "LOGIN";
+
+    }
+
+}
+
+
+/* ==================================================
+   SHOW / HIDE PASSWORD
+   ================================================== */
+
+togglePassword.addEventListener(
+    "click",
+    function() {
+
+
+        if (
+            passwordInput.type ===
+            "password"
+        ) {
+
+
+            passwordInput.type =
+                "text";
+
+
+            togglePassword.textContent =
+                "🙈";
+
+
+        }
+
+        else {
+
+
+            passwordInput.type =
+                "password";
+
+
+            togglePassword.textContent =
+                "👁";
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   CLEAR
+   ================================================== */
+
+clearButton.addEventListener(
+    "click",
+    function() {
+
+
+        userForm.reset();
+
+
+        passwordInput.type =
+            "password";
+
+
+        togglePassword.textContent =
+            "👁";
+
+
+        clearMessage();
+
+    }
+);
+
+
+/* ==================================================
+   MESSAGE
+   ================================================== */
+
+function showMessage(
+    text,
+    type
+) {
+
+
+    messageBox.textContent =
+        text;
+
+
+    messageBox.className =
+        "message " + type;
+
+
+    messageBox.style.display =
+        "block";
+
+}
+
+
+function clearMessage() {
+
+
+    messageBox.style.display =
+        "none";
+
+
+    messageBox.textContent =
+        "";
+
+}
+
+
+/* ==================================================
+   SCROLL REVEAL
+   ================================================== */
+
+const revealElements =
+    document.querySelectorAll(
+        ".reveal-left, .reveal-right"
+    );
+
+
+const observer =
+    new IntersectionObserver(
+        function(entries) {
+
+            entries.forEach(
+                function(entry) {
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        entry.target
+                            .classList
+                            .add("show");
+
+                    }
+
+                }
+            );
+
+        },
+        {
+            threshold: 0.15
+        }
+    );
+
+
+revealElements.forEach(
+    function(element) {
+
+        observer.observe(element);
+
+    }
+);
+
+
+/* ==================================================
+   PARTICLES
+   ================================================== */
+
+const canvas =
+    document.getElementById(
+        "particles"
+    );
+
+const ctx =
+    canvas.getContext("2d");
+
+
+let particles = [];
+
+
+let mouse = {
+    x: null,
+    y: null
+};
+
+
+/* ==================================================
+   RESIZE
+   ================================================== */
+
+function resizeCanvas() {
+
+
+    canvas.width =
+        window.innerWidth;
+
+
+    canvas.height =
+        window.innerHeight;
+
+
+    createParticles();
+
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+/* ==================================================
+   MOUSE
+   ================================================== */
+
+window.addEventListener(
+    "mousemove",
+    function(event) {
+
+        mouse.x =
+            event.clientX;
+
+        mouse.y =
+            event.clientY;
+
+    }
+);
+
+
+window.addEventListener(
+    "mouseleave",
+    function() {
+
+        mouse.x = null;
+
+        mouse.y = null;
+
+    }
+);
+
+
+/* ==================================================
+   PARTICLE
+   ================================================== */
+
+class Particle {
+
+
+    constructor() {
+
+
+        this.x =
+            Math.random() *
+            canvas.width;
+
+
+        this.y =
+            Math.random() *
+            canvas.height;
+
+
+        this.size =
+            Math.random() * 2 + 1;
+
+
+        this.speedX =
+            (Math.random() - 0.5) *
+            0.5;
+
+
+        this.speedY =
+            (Math.random() - 0.5) *
+            0.5;
+
+    }
+
+
+    update() {
+
+
+        this.x +=
+            this.speedX;
+
+
+        this.y +=
+            this.speedY;
+
+
+        if (this.x < 0)
+            this.x =
+                canvas.width;
+
+
+        if (this.x > canvas.width)
+            this.x = 0;
+
+
+        if (this.y < 0)
+            this.y =
+                canvas.height;
+
+
+        if (this.y > canvas.height)
+            this.y = 0;
+
+
+        if (mouse.x !== null) {
+
+
+            const dx =
+                this.x - mouse.x;
+
+
+            const dy =
+                this.y - mouse.y;
+
+
+            const distance =
+                Math.sqrt(
+                    dx * dx +
+                    dy * dy
+                );
+
+
+            const radius = 150;
+
+
+            if (
+                distance < radius &&
+                distance > 0
+            ) {
+
+
+                const force =
+                    (radius - distance) /
+                    radius;
+
+
+                this.x +=
+                    (dx / distance) *
+                    force *
+                    2;
+
+
+                this.y +=
+                    (dy / distance) *
+                    force *
+                    2;
+
+            }
+
+        }
+
+    }
+
+
+    draw() {
+
+
+        ctx.beginPath();
+
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI * 2
+        );
+
+
+        ctx.fillStyle =
+            "rgb(0, 0, 0)";
+
+
+        ctx.shadowBlur = 8;
+
+
+        ctx.shadowColor =
+            "#8B5CF6";
+
+
+        ctx.fill();
+
+
+        ctx.shadowBlur = 0;
+
+    }
+
+}
+
+
+/* ==================================================
+   CREATE PARTICLES
+   ================================================== */
+
+function createParticles() {
+
+
+    particles = [];
+
+
+    const amount =
+        Math.floor(
+            (
+                canvas.width *
+                canvas.height
+            ) / 2000
+        );
+
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+
+        particles.push(
+            new Particle()
+        );
+
+    }
+
+}
+
+
+/* ==================================================
+   CONNECT PARTICLES
+   ================================================== */
+
+function connectParticles() {
+
+
+    const maxDistance = 140;
+
+
+    for (
+        let i = 0;
+        i < particles.length;
+        i++
+    ) {
+
+
+        for (
+            let j = i + 1;
+            j < particles.length;
+            j++
+        ) {
+
+
+            const dx =
+                particles[i].x -
+                particles[j].x;
+
+
+            const dy =
+                particles[i].y -
+                particles[j].y;
+
+
+            const distance =
+                Math.sqrt(
+                    dx * dx +
+                    dy * dy
+                );
+
+
+            if (
+                distance <
+                maxDistance
+            ) {
+
+
+                const opacity =
+                    (
+                        1 -
+                        distance /
+                        maxDistance
+                    ) * 0.4;
+
+
+                ctx.beginPath();
+
+
+                ctx.moveTo(
+                    particles[i].x,
+                    particles[i].y
+                );
+
+
+                ctx.lineTo(
+                    particles[j].x,
+                    particles[j].y
+                );
+
+
+                ctx.strokeStyle =
+                    `rgba(0,0,0,${opacity})`;
+
+
+                ctx.lineWidth =
+                    0.7;
+
+
+                ctx.stroke();
+
+            }
+
+        }
+
+    }
+
+}
+
+
+/* ==================================================
+   ANIMATION
+   ================================================== */
+
+function animate() {
+
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    for (
+        const particle of particles
+    ) {
+
+        particle.update();
+
+    }
+
+
+    connectParticles();
+
+
+    for (
+        const particle of particles
+    ) {
+
+        particle.draw();
+
+    }
+
+
+    requestAnimationFrame(
+        animate
+    );
+
+}
+
+
+/* ==================================================
+   START
+   ================================================== */
+
+resizeCanvas();
+
+animate();
+
+</script>
+
+
+</body>
+</html>

@@ -148,7 +148,6 @@ function getId()
 | VALIDATE USER DATA
 |--------------------------------------------------------------------------
 */
-
 function validateUser($data)
 {
     $fields = [
@@ -158,9 +157,10 @@ function validateUser($data)
         "qualification",
         "city",
         "mobileno",
-        "address"
+        "address",
+        "username",
+        "password"
     ];
-
 
     foreach ($fields as $field) {
 
@@ -174,9 +174,7 @@ function validateUser($data)
             ], 400);
 
         }
-
     }
-
 
     return [
 
@@ -199,7 +197,13 @@ function validateUser($data)
             trim((string)$data["mobileno"]),
 
         "address" =>
-            trim((string)$data["address"])
+            trim((string)$data["address"]),
+
+        "username" =>
+            trim((string)$data["username"]),
+
+        "password" =>
+            (string)$data["password"]
 
     ];
 }
@@ -507,19 +511,24 @@ if ($method === "GET") {
 
 
         $stmt = $connection->prepare(
-            "SELECT
-                id,
-                name,
-                dob,
-                fathername,
-                qualification,
-                city,
-                mobileno,
-                address,
-                status
-             FROM users
-             WHERE id = ?"
+              "SELECT
+                  users.id,
+                  users.name,
+                  users.dob,
+                  users.fathername,
+                  users.qualification,
+                  users.city,
+                  users.mobileno,
+                  users.address,
+                  users.status,
+                  auth_users.username,
+                  auth_users.password_hash
+               FROM users
+               INNER JOIN auth_users
+                  ON users.id = auth_users.user_id
+               WHERE users.id = ?"
         );
+
 
 
         if (!$stmt) {
@@ -773,9 +782,18 @@ if ($method === "POST") {
 
     try {
 
+        /*
+        ==================================================
+        START TRANSACTION
+        ==================================================
+        */
+
+
 
         /*
-        Insert user.
+        ==================================================
+        INSERT INTO USERS
+        ==================================================
         */
 
         $stmt = $connection->prepare(
@@ -805,7 +823,8 @@ if ($method === "POST") {
         if (!$stmt) {
 
             throw new Exception(
-                "User insert preparation failed"
+                "User insert preparation failed: "
+                . $connection->error
             );
 
         }
@@ -813,19 +832,12 @@ if ($method === "POST") {
 
         $stmt->bind_param(
             "sssssss",
-
             $data["name"],
-
             $data["dob"],
-
             $data["fathername"],
-
             $data["qualification"],
-
             $data["city"],
-
             $data["mobileno"],
-
             $data["address"]
         );
 
@@ -840,6 +852,12 @@ if ($method === "POST") {
         }
 
 
+        /*
+        ==================================================
+        GET GENERATED USER ID
+        ==================================================
+        */
+
         $newId =
             $connection->insert_id;
 
@@ -848,7 +866,84 @@ if ($method === "POST") {
 
 
         /*
-        Get newly created user.
+        ==================================================
+        CREATE PASSWORD HASH
+        ==================================================
+        */
+
+        $passwordHash =
+            password_hash(
+                $data["password"],
+                PASSWORD_DEFAULT
+            );
+
+
+        if ($passwordHash === false) {
+
+            throw new Exception(
+                "Password hashing failed"
+            );
+
+        }
+
+
+        /*
+        ==================================================
+        INSERT INTO AUTH_USERS
+        ==================================================
+        */
+
+        $stmt1 = $connection->prepare(
+            "INSERT INTO auth_users
+            (
+                user_id,
+                username,
+                password_hash
+            )
+            VALUES
+            (
+                ?,
+                ?,
+                ?
+            )"
+        );
+
+
+        if (!$stmt1) {
+
+            throw new Exception(
+                "Auth user insert preparation failed: "
+                . $connection->error
+            );
+
+        }
+
+
+        $stmt1->bind_param(
+            "iss",
+            $newId,
+            $data["username"],
+            $data["password"]
+        );
+
+
+        if (!$stmt1->execute()) {
+
+            throw new Exception(
+                "Auth user creation failed: "
+                . $stmt1->error
+            );
+
+        }
+
+
+        $stmt1->close();
+
+
+        /*
+        ==================================================
+        GET NEWLY CREATED USER
+        ==================================================
         */
 
         $stmt = $connection->prepare(
@@ -862,15 +957,16 @@ if ($method === "POST") {
                 mobileno,
                 address,
                 status
-             FROM users
-             WHERE id = ?"
+            FROM users
+            WHERE id = ?"
         );
 
 
         if (!$stmt) {
 
             throw new Exception(
-                "Created user lookup failed"
+                "Created user lookup failed: "
+                . $connection->error
             );
 
         }
@@ -892,10 +988,12 @@ if ($method === "POST") {
         }
 
 
+        $result =
+            $stmt->get_result();
+
+
         $user =
-            $stmt
-                ->get_result()
-                ->fetch_assoc();
+            $result->fetch_assoc();
 
 
         $stmt->close();
@@ -911,7 +1009,9 @@ if ($method === "POST") {
 
 
         /*
-        Create history.
+        ==================================================
+        CREATE HISTORY
+        ==================================================
         */
 
         createHistoryLog(
@@ -921,38 +1021,49 @@ if ($method === "POST") {
         );
 
 
+        /*
+        ==================================================
+        EVERYTHING SUCCESSFUL
+        ==================================================
+        */
+
         $connection->commit();
 
 
-        sendJson([
+        sendJson(
+            [
+                "message" =>
+                    "User created successfully",
 
-            "message" =>
-                "User created successfully",
+                "id" =>
+                    $newId
+            ],
+            201
+        );
 
-            "id" =>
-                $newId
+    }catch (Exception $e) {
 
-        ], 201);
+    /*
+    ==================================================
+    SOMETHING FAILED
+    ==================================================
+    */
 
-    }
-
-
-    catch (Exception $e) {
-
-        $connection->rollback();
+    $connection->rollback();
 
 
-        sendJson([
-
+    sendJson(
+        [
             "error" =>
                 "User creation failed",
 
             "details" =>
                 $e->getMessage()
+        ],
+        500
+    );
 
-        ], 500);
-
-    }
+}
 
 }
 
@@ -963,7 +1074,6 @@ if ($method === "POST") {
 | PUT - UPDATE USER
 |--------------------------------------------------------------------------
 */
-
 if ($method === "PUT") {
 
     $id =
@@ -1062,7 +1172,7 @@ if ($method === "PUT") {
 
 
         /*
-        Update user.
+        Update user profile.
         */
 
         $stmt = $connection->prepare(
@@ -1120,6 +1230,60 @@ if ($method === "PUT") {
 
             throw new Exception(
                 "Update failed: "
+                . $stmt->error
+            );
+
+        }
+
+
+        $stmt->close();
+
+
+        /*
+        Update authentication information.
+        
+        username and password are stored
+        in auth_users.
+
+        Password hashing is intentionally
+        not being used here, as requested.
+        */
+
+        $stmt = $connection->prepare(
+            "UPDATE auth_users SET
+
+                username = ?,
+
+                password_hash = ?
+
+             WHERE user_id = ?"
+        );
+
+
+        if (!$stmt) {
+
+            throw new Exception(
+                "Auth update preparation failed"
+            );
+
+        }
+
+
+        $stmt->bind_param(
+            "ssi",
+
+            $data["username"],
+
+            $data["password"],
+
+            $id
+        );
+
+
+        if (!$stmt->execute()) {
+
+            throw new Exception(
+                "Auth update failed: "
                 . $stmt->error
             );
 
@@ -1194,6 +1358,10 @@ if ($method === "PUT") {
         );
 
 
+        /*
+        Everything succeeded.
+        */
+
         $connection->commit();
 
 
@@ -1208,6 +1376,10 @@ if ($method === "PUT") {
 
 
     catch (Exception $e) {
+
+        /*
+        Undo everything if any step fails.
+        */
 
         $connection->rollback();
 
@@ -1251,6 +1423,7 @@ if ($method === "PUT") {
     }
 
 }
+
 
 
 

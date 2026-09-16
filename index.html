@@ -732,6 +732,53 @@ td {
 }
 
 
+#usernameStatus {
+        display: block;
+        margin-top: 10px;
+        min-height: 20px;
+  }
+  
+
+
+
+.password-box {
+    position: relative;
+    width: 100%;
+}
+
+.password-box input {
+    width: 100%;
+    padding-right: 45px;
+    box-sizing: border-box;
+}
+
+.password-box button {
+    position: absolute;
+    right: 1%;
+    top: 40%;
+    transform: translateY(-50%);
+
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+
+.password-box span {
+    position: absolute;
+    right: 40%;
+    top: 80%;
+    transform: translateY(-20%);
+
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+#passStatus {
+    white-space: pre-line;
+}
+
 
 /* Responsive */
 
@@ -770,206 +817,7 @@ td {
 
 
 <div class="container">
-
-
-    <!-- =========================
-         USER FORM
-         ========================= -->
-
-    <div class="card reveal-left">
-        
-         
-        <div class="diamond-effect">
-
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-              <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-              <!-- <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-              <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-              <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-              <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-              <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div>
-            <div class="diamond"></div> -->
-
-        </div>
-
-        <h1 id="formTitle">
-            Add User
-        </h1>
-
-
-        <div id="message"
-             class="message">
-        </div>
-
-
-        <form id="userForm">
-
-            <div class="form-grid">
-
-
-                <div>
-
-                    <label for="name">
-                        Name
-                    </label>
-
-                    <input class="fie"
-                        id="name"
-                        type="text"
-                        required
-                    >
-
-                </div>
-
-
-                <div>
-
-                    <label for="dob">
-                        DOB
-                    </label>
-
-                    <input class="fie"
-                        id="dob"
-                        type="date"
-                        required
-                    >
-
-                </div>
-
-
-                <div>
-
-                    <label for="fathername">
-                        Father Name
-                    </label>
-
-                    <input class="fie"
-                        id="fathername"
-                        type="text"
-                        required
-                    >
-
-                </div>
-
-
-                <div>
-
-                    <label for="qualification">
-                        Qualification
-                    </label>
-
-                    <input class="fie"
-                        id="qualification"
-                        type="text"
-                        required
-                    >
-
-                </div>
-
-
-                <div>
-
-                    <label for="city">
-                        City
-                    </label>
-
-                    <input class="fie"
-                        id="city"
-                        type="text"
-                        required
-                    >
-
-                </div>
-
-
-                <div>
-
-                    <label for="mobileno">
-                        Mobile No
-                    </label>
-
-                    <input class="fie"
-                        id="mobileno"
-                        type="text"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="full">
-
-                    <label for="address">
-                        Address
-                    </label>
-
-                    <textarea class="fie"
-                        id="address"
-                        required
-                    ></textarea>
-
-                </div>
-
-
-            </div>
-
-
-            <div class="buttons">
-
-                <button
-                    class="submit-btn"
-                    type="submit"
-                    id="submitBtn"
-                >
-                    Submit
-                </button>
-
-
-                <button
-                    class="clear-btn"
-                    type="button"
-                    onclick="clearForm()"
-                >
-                    Clear
-                </button>
-
-            </div>
-
-
-        </form>
-
-    </div>
-
-
-
-    <!-- =========================
+        <!-- =========================
          DASHBOARD
          ========================= -->
 
@@ -1056,13 +904,274 @@ td {
 
     </div>
 
-    <!-- <div class="diamond-effect">
-    <div class="diamond"></div>
-    <div class="diamond"></div>
-    <div class="diamond"></div>
-    <div class="diamond"></div>
-    <div class="diamond"></div>
-</div> -->
+
+
+    <!-- =========================
+         USER FORM
+         ========================= -->
+
+    <div class="card reveal-left">
+        
+         
+        <div class="diamond-effect">
+
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+              <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+
+        </div>
+
+        <h1 id="formTitle">
+            Add User
+        </h1>
+
+
+        <div id="message"
+             class="message">
+        </div>
+
+
+        <form id="userForm">
+
+            <div class="form-grid">
+
+
+                <div>
+
+                    <label for="name">
+                        Name
+                    </label>
+
+                    <input class="fie"
+                        id="name"
+                        type="text"
+                        required
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="dob">
+                        DOB
+                    </label>
+
+                    <input class="fie"
+                        id="dob"
+                        type="date"
+                        required
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="fathername">
+                        Father Name
+                    </label>
+
+                    <input class="fie"
+                        id="fathername"
+                        type="text"
+                        required
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="qualification">
+                        Qualification
+                    </label>
+
+                    <input class="fie"
+                        id="qualification"
+                        type="text"
+                        required
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="city">
+                        City
+                    </label>
+
+                    <input class="fie"
+                        id="city"
+                        type="text"
+                        required
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="mobileno">
+                        Mobile No
+                    </label>
+                    <input
+                        type="text"
+                        id="mobileno"
+                        maxlength="10"
+                        inputmode="numeric"
+                        placeholder="Enter 10 digit mobile number"
+                        required
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div class="full">
+
+                    <label for="address">
+                        Address
+                    </label>
+
+                    <textarea class="fie"
+                        id="address"
+                        required
+                        autocomplete="off"
+                    ></textarea>
+
+                </div>
+                
+<!-- =========================
+     USERNAME
+========================= -->
+
+<div>
+
+    <label for="username">
+        Username
+    </label>
+
+    <input
+        type="text"
+        id="username"
+        placeholder="Enter username"
+        autocomplete="off"
+    >
+
+    <span id="usernameStatus">
+        Username
+    </span>
+
+</div>
+
+
+<!-- =========================
+     PASSWORD
+========================= -->
+
+<div class="password-box">
+
+    <label for="password">
+        Password
+    </label>
+
+    <input
+        id="password"
+        type="password"
+        placeholder="Enter password"
+        required
+        autocomplete="off"
+    >
+
+    <button
+        type="button"
+        id="togglePassword"
+    >
+        👁
+    </button>
+
+    <span id="passStatus"></span>
+
+</div>
+
+
+<!-- =========================
+     RE-ENTER PASSWORD
+========================= -->
+
+<div
+    class="password-box"
+    id="reenterSection"
+>
+
+    <label for="reenterPassword">
+        Re-enter Password
+    </label>
+
+    <input
+        type="password"
+        id="reenterPassword"
+        placeholder="Re-enter password"
+        required
+        autocomplete="off"
+    >
+
+    <button
+        type="button"
+        id="retogglePassword"
+    >
+        👁
+    </button>
+
+    <span id="reenterStatus"></span>
+
+</div>
+            </div>
+
+
+            <div class="buttons">
+
+                <button
+                    class="submit-btn"
+                    type="submit"
+                    id="submitBtn"
+                >
+                    Submit
+                </button>
+
+
+                <button
+                    class="clear-btn"
+                    type="button"
+                    onclick="clearForm()"
+                >
+                    Clear
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+
+
+
 
 </div>
 
@@ -1152,39 +1261,81 @@ td {
 
 <script>
 
-const submitButton = document.querySelector(".submit-btn");
-const diamonds = document.querySelectorAll(".diamond");
+let originalUsername = "";
+let originalPassword = "";
 
-submitButton.addEventListener("mouseenter", function () {
+/* ==================================================
+   BASIC ELEMENTS
+================================================== */
 
-    diamonds.forEach(function(diamond) {
-        diamond.classList.add("run");
-    });
+const submitButton =
+    document.getElementById("submitBtn");
 
-});
+const password =
+    document.getElementById("password");
+
+const reenterPassword =
+    document.getElementById("reenterPassword");
+
+const reenterSection =
+    document.getElementById("reenterSection");
+
+const username =
+    document.getElementById("username");
+
+const usernameStatus =
+    document.getElementById("usernameStatus");
 
 
-submitButton.addEventListener("mouseleave", function () {
+/* ==================================================
+   DIAMOND EFFECT
+================================================== */
 
-    diamonds.forEach(function(diamond) {
-        diamond.classList.remove("run");
+const diamonds =
+    document.querySelectorAll(".diamond");
 
-        // Reset animation
-        diamond.style.animation = "none";
 
-        // Force browser to reset it
-        diamond.offsetHeight;
+submitButton.addEventListener(
+    "mouseenter",
+    function () {
 
-        diamond.style.animation = "";
-    });
+        diamonds.forEach(
+            function (diamond) {
 
-});
+                diamond.classList.add("run");
 
+            }
+        );
+
+    }
+);
+
+
+submitButton.addEventListener(
+    "mouseleave",
+    function () {
+
+        diamonds.forEach(
+            function (diamond) {
+
+                diamond.classList.remove("run");
+
+                diamond.style.animation = "none";
+
+                diamond.offsetHeight;
+
+                diamond.style.animation = "";
+
+            }
+        );
+
+    }
+);
 
 
 /* ==================================================
    SCROLL REVEAL
-   ================================================== */
+================================================== */
 
 const revealElements =
     document.querySelectorAll(
@@ -1194,17 +1345,21 @@ const revealElements =
 
 const observer =
     new IntersectionObserver(
-        function(entries) {
+        function (entries) {
 
-            entries.forEach(function(entry) {
+            entries.forEach(
+                function (entry) {
 
-                if (entry.isIntersecting) {
+                    if (entry.isIntersecting) {
 
-                    entry.target.classList.add("show");
+                        entry.target.classList.add(
+                            "show"
+                        );
+
+                    }
 
                 }
-
-            });
+            );
 
         },
         {
@@ -1213,16 +1368,28 @@ const observer =
     );
 
 
-revealElements.forEach(function(element) {
+revealElements.forEach(
+    function (element) {
 
-    observer.observe(element);
+        observer.observe(element);
 
-});
+    }
+);
 
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+
+/* ==================================================
+   PARTICLES
+================================================== */
+
+const canvas =
+    document.getElementById("particles");
+
+const ctx =
+    canvas.getContext("2d");
+
 
 let particles = [];
+
 
 let mouse = {
     x: null,
@@ -1232,61 +1399,74 @@ let mouse = {
 
 /* ==================================================
    CANVAS
-   ================================================== */
+================================================== */
 
 function resizeCanvas() {
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
 
     createParticles();
 
 }
 
-window.addEventListener("resize", resizeCanvas);
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
 
 
 /* ==================================================
    MOUSE
-   ================================================== */
+================================================== */
 
-window.addEventListener("mousemove", function(event) {
+window.addEventListener(
+    "mousemove",
+    function (event) {
 
-    mouse.x = event.clientX;
-    mouse.y = event.clientY;
+        mouse.x =
+            event.clientX;
 
-});
+        mouse.y =
+            event.clientY;
 
-window.addEventListener("mouseleave", function() {
+    }
+);
 
-    mouse.x = null;
-    mouse.y = null;
 
-});
+window.addEventListener(
+    "mouseleave",
+    function () {
+
+        mouse.x = null;
+        mouse.y = null;
+
+    }
+);
 
 
 /* ==================================================
    PARTICLE
-   ================================================== */
+================================================== */
 
 class Particle {
 
     constructor() {
 
         this.x =
-            Math.random() * canvas.width;
+            Math.random() *
+            canvas.width;
 
         this.y =
-            Math.random() * canvas.height;
-
+            Math.random() *
+            canvas.height;
 
         this.size =
             Math.random() * 2 + 1;
-
-
-        /*
-           Random roaming speed
-        */
 
         this.speedX =
             (Math.random() - 0.5) * 0.5;
@@ -1299,34 +1479,42 @@ class Particle {
 
     update() {
 
-        /*
-           Keep moving
-        */
+        this.x +=
+            this.speedX;
 
-        this.x += this.speedX;
-        this.y += this.speedY;
+        this.y +=
+            this.speedY;
 
 
-        /*
-           Wrap around screen
-        */
+        if (this.x < 0) {
 
-        if (this.x < 0)
-            this.x = canvas.width;
+            this.x =
+                canvas.width;
 
-        if (this.x > canvas.width)
+        }
+
+
+        if (this.x > canvas.width) {
+
             this.x = 0;
 
-        if (this.y < 0)
-            this.y = canvas.height;
+        }
 
-        if (this.y > canvas.height)
+
+        if (this.y < 0) {
+
+            this.y =
+                canvas.height;
+
+        }
+
+
+        if (this.y > canvas.height) {
+
             this.y = 0;
 
+        }
 
-        /*
-           Mouse reaction
-        */
 
         if (mouse.x !== null) {
 
@@ -1405,7 +1593,7 @@ class Particle {
 
 /* ==================================================
    CREATE PARTICLES
-   ================================================== */
+================================================== */
 
 function createParticles() {
 
@@ -1414,8 +1602,10 @@ function createParticles() {
 
     const amount =
         Math.floor(
-            (canvas.width * canvas.height) /
-            2000
+            (
+                canvas.width *
+                canvas.height
+            ) / 2000
         );
 
 
@@ -1435,8 +1625,8 @@ function createParticles() {
 
 
 /* ==================================================
-   PURPLE CONNECTIONS
-   ================================================== */
+   CONNECT PARTICLES
+================================================== */
 
 function connectParticles() {
 
@@ -1471,19 +1661,16 @@ function connectParticles() {
                 );
 
 
-            /*
-               Connect only nearby particles
-            */
-
-            if (distance < maxDistance) {
-
-                /*
-                   Closer = brighter
-                */
+            if (
+                distance <
+                maxDistance
+            ) {
 
                 const opacity =
-                    (1 - distance / maxDistance) *
-                    0.4;
+                    (
+                        1 -
+                        distance / maxDistance
+                    ) * 0.4;
 
 
                 ctx.beginPath();
@@ -1517,7 +1704,7 @@ function connectParticles() {
 
 /* ==================================================
    ANIMATION
-   ================================================== */
+================================================== */
 
 function animate() {
 
@@ -1529,10 +1716,6 @@ function animate() {
     );
 
 
-    /*
-       Move particles
-    */
-
     for (
         const particle of particles
     ) {
@@ -1542,16 +1725,8 @@ function animate() {
     }
 
 
-    /*
-       Draw purple web
-    */
-
     connectParticles();
 
-
-    /*
-       Draw particles
-    */
 
     for (
         const particle of particles
@@ -1569,10 +1744,6 @@ function animate() {
 }
 
 
-/* ==================================================
-   START
-   ================================================== */
-
 resizeCanvas();
 
 animate();
@@ -1580,10 +1751,14 @@ animate();
 
 /* ==================================================
    API
-   ================================================== */
+================================================== */
 
 const API_URL =
     "http://localhost/apiss/project1/user.php";
+
+
+const api_usr =
+    "http://localhost/apiss/project1/auth.php";
 
 
 let currentPage = 1;
@@ -1595,23 +1770,49 @@ let totalPages = 1;
 let editingId = null;
 
 
+/* ==================================================
+   VALIDATION STATE
+================================================== */
+
+let usernameValid = false;
+
+let passwordValid = false;
+
+let passwordsMatch = false;
+
+let usernameTimer;
+
+
+/* ==================================================
+   INITIAL PASSWORD STATE
+================================================== */
+
+reenterSection.style.display = "none";
+
+submitButton.disabled = true;
+
 
 /* ==================================================
    MESSAGE
-   ================================================== */
+================================================== */
 
 function showMessage(text, type) {
 
     const box =
         document.getElementById("message");
 
-    box.textContent = text;
+
+    box.textContent =
+        text;
+
 
     box.className =
         "message " + type;
 
+
     box.style.display =
         "block";
+
 }
 
 
@@ -1620,53 +1821,103 @@ function clearMessage() {
     const box =
         document.getElementById("message");
 
+
     box.style.display =
         "none";
 
+
     box.textContent =
         "";
-}
 
+}
 
 
 /* ==================================================
    FORM DATA
-   ================================================== */
+================================================== */
+
+const mobile =
+    document.getElementById("mobileno");
+
+
+mobile.addEventListener(
+    "input",
+    function () {
+
+        this.value =
+            this.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
+
+    }
+);
+
 
 function getFormData() {
 
     return {
 
         name:
-            document.getElementById("name").value.trim(),
+            document
+                .getElementById("name")
+                .value
+                .trim(),
 
         dob:
-            document.getElementById("dob").value,
+            document
+                .getElementById("dob")
+                .value,
 
         fathername:
-            document.getElementById("fathername").value.trim(),
+            document
+                .getElementById("fathername")
+                .value
+                .trim(),
 
         qualification:
-            document.getElementById("qualification").value.trim(),
+            document
+                .getElementById("qualification")
+                .value
+                .trim(),
 
         city:
-            document.getElementById("city").value.trim(),
+            document
+                .getElementById("city")
+                .value
+                .trim(),
 
         mobileno:
-            document.getElementById("mobileno").value.trim(),
+            document
+                .getElementById("mobileno")
+                .value
+                .trim(),
 
         address:
-            document.getElementById("address").value.trim()
+            document
+                .getElementById("address")
+                .value
+                .trim(),
+
+        username:
+            document
+                .getElementById("username")
+                .value
+                .trim(),
+
+        password:
+            document
+                .getElementById("password")
+                .value
+                .trim()
 
     };
 
 }
 
 
-
 /* ==================================================
    ESCAPE HTML
-   ================================================== */
+================================================== */
 
 function escapeHtml(value) {
 
@@ -1681,13 +1932,13 @@ function escapeHtml(value) {
         .replace(/"/g, "&quot;")
 
         .replace(/'/g, "&#039;");
-}
 
+}
 
 
 /* ==================================================
    READ JSON
-   ================================================== */
+================================================== */
 
 async function readJson(response) {
 
@@ -1721,21 +1972,511 @@ async function readJson(response) {
 
         throw new Error(
             data.error ||
-            ("Request failed. HTTP "
-            + response.status)
+            data.message ||
+            (
+                "Request failed. HTTP "
+                + response.status
+            )
         );
 
     }
 
 
     return data;
+
 }
 
+
+/* ==================================================
+   UPDATE SUBMIT BUTTON
+================================================== */
+
+function updateSubmitButton() {
+
+    submitButton.disabled = !(
+        usernameValid &&
+        passwordValid &&
+        passwordsMatch
+    );
+
+}
+
+
+/* ==================================================
+   CHECKING USERNAME
+================================================== */
+
+username.addEventListener(
+    "input",
+    function () {
+
+        const value =
+            this.value.trim();
+
+
+        clearTimeout(
+            usernameTimer
+        );
+
+
+        usernameValid = false;
+
+        updateSubmitButton();
+
+
+        /* -------------------------
+           EMPTY
+        ------------------------- */
+
+        if (value.length === 0) {
+
+            usernameStatus.textContent =
+                "Username";
+
+            usernameStatus.className =
+                "";
+
+            return;
+
+        }
+
+
+        /* -------------------------
+           LESS THAN 3
+        ------------------------- */
+
+        if (value.length < 3) {
+
+            usernameStatus.innerHTML =
+                "<strong>Username</strong> " +
+                "Enter at least 3 characters";
+
+            usernameStatus.className =
+                "checking";
+
+            return;
+
+        }
+
+
+        /* -------------------------
+           CHECKING
+        ------------------------- */
+
+        usernameStatus.innerHTML =
+            "<strong>Username</strong> " +
+            "Checking...";
+
+        usernameStatus.className =
+            "checking";
+
+
+        usernameTimer =
+            setTimeout(
+                function () {
+
+                    checkUsername(
+                        value
+                    );
+
+                },
+                400
+            );
+
+    }
+);
+
+
+/* ==================================================
+   CHECK USERNAME WITH BACKEND
+================================================== */
+
+async function checkUsername(usernameValue) {
+
+    try {
+
+        let url =
+            api_usr +
+            "?action=check_username&username=" +
+            encodeURIComponent(usernameValue);
+
+        if (editingId !== null) {
+            url +=
+                "&exclude_id=" +
+                encodeURIComponent(editingId);
+        }
+
+        const response =
+            await fetch(url);
+
+
+        const data =
+            await response.json();
+
+
+        /*
+           Make sure the response still
+           belongs to the current username.
+        */
+
+        if (
+            username.value.trim() !==
+            usernameValue
+        ) {
+
+            return;
+
+        }
+
+
+        if (data.available) {
+
+            usernameValid = true;
+
+
+            usernameStatus.innerHTML =
+                "<strong>Username</strong> " +
+                "✓ Username available";
+
+
+            usernameStatus.className =
+                "available";
+
+        }
+
+        else {
+
+            usernameValid = false;
+
+
+            usernameStatus.innerHTML =
+                "<strong>Username</strong> " +
+                "✗ Username already taken";
+
+
+            usernameStatus.className =
+                "unavailable";
+
+        }
+
+
+        updateSubmitButton();
+
+    }
+
+
+    catch (error) {
+
+        console.error(error);
+
+
+        usernameValid = false;
+
+
+        usernameStatus.innerHTML =
+            "<strong>Username</strong> " +
+            "Unable to check username";
+
+
+        usernameStatus.className =
+            "unavailable";
+
+
+        updateSubmitButton();
+
+    }
+
+}
+
+
+/* ==================================================
+   PASSWORD VISIBILITY
+================================================== */
+
+const togglePassword =
+    document.getElementById(
+        "togglePassword"
+    );
+
+
+togglePassword.addEventListener(
+    "click",
+    function () {
+
+        if (
+            password.type ===
+            "password"
+        ) {
+
+            password.type =
+                "text";
+
+            togglePassword.textContent =
+                "🙈";
+
+        }
+
+        else {
+
+            password.type =
+                "password";
+
+            togglePassword.textContent =
+                "👁";
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   RE-ENTER PASSWORD VISIBILITY
+================================================== */
+
+const retogglePassword =
+    document.getElementById(
+        "retogglePassword"
+    );
+
+
+retogglePassword.addEventListener(
+    "click",
+    function () {
+
+        if (
+            reenterPassword.type ===
+            "password"
+        ) {
+
+            reenterPassword.type =
+                "text";
+
+            retogglePassword.textContent =
+                "🙈";
+
+        }
+
+        else {
+
+            reenterPassword.type =
+                "password";
+
+            retogglePassword.textContent =
+                "👁";
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   CHECK PASSWORD
+================================================== */
+
+function checkpass() {
+
+    const value =
+        password.value;
+
+
+    const status =
+        document.getElementById(
+            "passStatus"
+        );
+
+
+    const hasLength =
+        value.length >= 8;
+
+
+    const hasUppercase =
+        /[A-Z]/.test(value);
+
+
+    const hasNumber =
+        /[0-9]/.test(value);
+
+
+    const hasSpecial =
+        /[^A-Za-z0-9]/.test(value);
+
+
+    passwordValid =
+        hasLength &&
+        hasUppercase &&
+        hasNumber &&
+        hasSpecial;
+
+
+    /* -------------------------
+       SHOW REQUIREMENTS
+    ------------------------- */
+
+    status.textContent =
+        (hasLength ? "✓" : "✗") +
+        " At least 8 characters\n" +
+
+        (hasUppercase ? "✓" : "✗") +
+        " At least 1 UPPER CASE\n" +
+
+        (hasNumber ? "✓" : "✗") +
+        " At least 1 number\n" +
+
+        (hasSpecial ? "✓" : "✗") +
+        " At least 1 special character";
+
+
+    /* -------------------------
+       PASSWORD VALID
+    ------------------------- */
+
+    if (passwordValid) {
+
+        reenterSection.style.display =
+            "block";
+
+    }
+
+
+    /* -------------------------
+       PASSWORD INVALID
+    ------------------------- */
+
+    else {
+
+        reenterSection.style.display =
+            "none";
+
+
+        passwordsMatch =
+            false;
+
+
+        reenterPassword.value =
+            "";
+
+
+        document.getElementById(
+            "reenterStatus"
+        ).textContent =
+            "";
+
+    }
+
+
+    updateSubmitButton();
+
+}
+
+
+/* ==================================================
+   PASSWORD INPUT
+================================================== */
+
+password.addEventListener(
+    "input",
+    function () {
+
+        checkpass();
+
+    }
+);
+
+
+/* ==================================================
+   CHECK RE-ENTER PASSWORD
+================================================== */
+
+function checkPasswords() {
+
+    const status =
+        document.getElementById(
+            "reenterStatus"
+        );
+
+
+    if (!passwordValid) {
+
+        passwordsMatch =
+            false;
+
+        status.textContent =
+            "";
+
+        updateSubmitButton();
+
+        return;
+
+    }
+
+
+    if (
+        reenterPassword.value === ""
+    ) {
+
+        passwordsMatch =
+            false;
+
+        status.textContent =
+            "";
+
+        updateSubmitButton();
+
+        return;
+
+    }
+
+
+    passwordsMatch =
+        password.value ===
+        reenterPassword.value;
+
+
+    if (passwordsMatch) {
+
+        status.textContent =
+            "✓ Passwords match";
+
+        status.className =
+            "available";
+
+    }
+
+    else {
+
+        status.textContent =
+            "✗ Passwords do not match";
+
+        status.className =
+            "unavailable";
+
+    }
+
+
+    updateSubmitButton();
+
+}
+
+
+/* ==================================================
+   RE-ENTER PASSWORD INPUT
+================================================== */
+
+reenterPassword.addEventListener(
+    "input",
+    function () {
+
+        checkPasswords();
+
+    }
+);
 
 
 /* ==================================================
    GET USERS
-   ================================================== */
+================================================== */
 
 async function getUsers() {
 
@@ -1755,7 +2496,9 @@ async function getUsers() {
 
 
         const data =
-            await readJson(response);
+            await readJson(
+                response
+            );
 
 
         displayUsers(
@@ -1766,7 +2509,9 @@ async function getUsers() {
         totalPages =
             Math.max(
                 1,
-                Number(data.totalPages) || 1
+                Number(
+                    data.totalPages
+                ) || 1
             );
 
 
@@ -1805,10 +2550,9 @@ async function getUsers() {
 }
 
 
-
 /* ==================================================
    DISPLAY USERS
-   ================================================== */
+================================================== */
 
 function displayUsers(users) {
 
@@ -1818,177 +2562,158 @@ function displayUsers(users) {
         );
 
 
-    body.innerHTML =
-        "";
+    body.innerHTML = "";
 
 
     if (users.length === 0) {
 
-        body.innerHTML =
-            `
+        body.innerHTML = `
             <tr>
                 <td colspan="10">
                     No users found.
                 </td>
             </tr>
-            `;
+        `;
 
         return;
 
     }
 
 
+    users.forEach(
+        function (user) {
 
-    users.forEach(function(user) {
-
-
-        const row =
-            document.createElement("tr");
-
-
-        const inactive =
-            user.status === "inactive";
+            const row =
+                document.createElement("tr");
 
 
-        if (inactive) {
+            const inactive =
+                user.status ===
+                "inactive";
 
-            row.classList.add(
-                "inactive-row"
-            );
+
+            if (inactive) {
+
+                row.classList.add(
+                    "inactive-row"
+                );
+
+            }
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${escapeHtml(user.id)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.name)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.dob)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.fathername)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.qualification)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.city)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.mobileno)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.address)}
+                </td>
+
+                <td class="${
+                    inactive
+                    ? "status-inactive"
+                    : "status-active"
+                }">
+
+                    ${escapeHtml(user.status)}
+
+                </td>
+
+                <td class="action-column">
+
+                    <button
+                        type="button"
+                        ${
+                            inactive
+                            ? "disabled"
+                            : ""
+                        }
+                        onclick="updateUser(
+                            ${Number(user.id)}
+                        )"
+                        title="Update"
+                        class="ed-bt"
+                    >
+
+                        <i class="fa-solid fa-pen"></i>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        ${
+                            inactive
+                            ? "disabled"
+                            : ""
+                        }
+                        onclick="timelog(
+                            ${Number(user.id)}
+                        )"
+                        title="View History"
+                        class="v-bt"
+                    >
+
+                        <i class="fa-solid fa-eye"></i>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        onclick="toggleStatus(
+                            ${Number(user.id)}
+                        )"
+                        title="Activate / Inactivate"
+                        class="D-bt"
+                    >
+
+                        <i class="fa-solid fa-trash"></i>
+
+                    </button>
+
+                </td>
+
+            `;
+
+
+            body.appendChild(row);
 
         }
-
-
-
-        row.innerHTML = `
-
-            <td>
-                ${escapeHtml(user.id)}
-            </td>
-
-
-            <td>
-                ${escapeHtml(user.name)}
-            </td>
-
-
-            <td>
-                ${escapeHtml(user.dob)}
-            </td>
-
-
-            <td>
-                ${escapeHtml(user.fathername)}
-            </td>
-
-
-            <td>
-                ${escapeHtml(user.qualification)}
-            </td>
-
-
-            <td>
-                ${escapeHtml(user.city)}
-            </td>
-
-
-            <td>
-                ${escapeHtml(user.mobileno)}
-            </td>
-
-
-            <td>
-                ${escapeHtml(user.address)}
-            </td>
-
-
-            <td class="${
-                inactive
-                ? "status-inactive"
-                : "status-active"
-            }">
-
-                ${escapeHtml(user.status)}
-
-            </td>
-
-
-            <td class="action-column">
-
-
-                <!-- UPDATE -->
-
-                <button
-                    type="button"
-                    ${
-                        inactive
-                        ? "disabled"
-                        : ""
-                    }
-                    onclick="updateUser(
-                        ${Number(user.id)}
-                    )"
-                    title="Update" class="ed-bt"
-                >
-
-                    <i class="fa-solid fa-pen"></i>
-
-                </button>
-
-
-
-                <!-- VIEW -->
-
-                <button
-                    type="button"
-                    ${
-                        inactive
-                        ? "disabled"
-                        : ""
-                    }
-                    onclick="timelog(
-                        ${Number(user.id)}
-                    )"
-                    title="View History"  class="v-bt"
-                >
-
-                    <i class="fa-solid fa-eye"></i>
-
-                </button>
-
-
-
-                <!-- STATUS TOGGLE -->
-
-                <button
-                    type="button"
-                    onclick="toggleStatus(
-                        ${Number(user.id)}
-                    )"
-                    title="Activate / Inactivate"  class="D-bt"
-                >
-
-                    <i class="fa-solid fa-trash"></i>
-
-                </button>
-
-
-            </td>
-
-        `;
-
-
-        body.appendChild(row);
-
-    });
+    );
 
 }
 
 
-
 /* ==================================================
    VIEW HISTORY
-   ================================================== */
+================================================== */
 
 async function timelog(id) {
 
@@ -2004,14 +2729,23 @@ async function timelog(id) {
         );
 
 
-    historyBody.innerHTML =
-        `
+    const pd =
+        document.getElementById(
+            "pd"
+        );
+
+
+    historyBody.innerHTML = `
         <tr>
             <td colspan="11">
                 Loading history...
             </td>
         </tr>
-        `;
+    `;
+
+
+    pd.textContent =
+        "user_ID: " + id;
 
 
     popup.style.display =
@@ -2032,7 +2766,9 @@ async function timelog(id) {
 
 
         const data =
-            await readJson(response);
+            await readJson(
+                response
+            );
 
 
         const logs =
@@ -2044,40 +2780,33 @@ async function timelog(id) {
 
 
         if (logs.length === 0) {
-            const pd = document.getElementById("pd");
-            pd.innerHTML=`user_ID: ${id}`;
 
-            historyBody.innerHTML =
-                `
+            historyBody.innerHTML = `
                 <tr>
                     <td colspan="11">
                         No history found.
                     </td>
                 </tr>
-                `;
+            `;
 
             return;
 
         }
 
 
-        else{
-            const pd = document.getElementById("pd");
-            pd.innerHTML=`user_ID: ${id}`;
         logs.forEach(
-            function(log, index) {
-
+            function (log, index) {
 
                 const row =
                     document.createElement("tr");
 
 
-                let logClass =
-                    "";
+                let logClass = "";
 
 
                 if (
-                    log.action === "CREATE"
+                    log.action ===
+                    "CREATE"
                 ) {
 
                     logClass =
@@ -2085,9 +2814,9 @@ async function timelog(id) {
 
                 }
 
-
                 else if (
-                    log.action === "UPDATE"
+                    log.action ===
+                    "UPDATE"
                 ) {
 
                     logClass =
@@ -2095,9 +2824,9 @@ async function timelog(id) {
 
                 }
 
-
                 else if (
-                    log.action === "DELETE"
+                    log.action ===
+                    "DELETE"
                 ) {
 
                     logClass =
@@ -2106,13 +2835,11 @@ async function timelog(id) {
                 }
 
 
-
                 row.innerHTML = `
 
                     <td>
                         ${index + 1}
                     </td>
-
 
                     <td class="${logClass}">
                         ${escapeHtml(
@@ -2120,13 +2847,11 @@ async function timelog(id) {
                         )}
                     </td>
 
-
                     <td>
                         ${escapeHtml(
                             log.times
                         )}
                     </td>
-
 
                     <td>
                         ${escapeHtml(
@@ -2134,13 +2859,11 @@ async function timelog(id) {
                         )}
                     </td>
 
-
                     <td>
                         ${escapeHtml(
                             log.dob
                         )}
                     </td>
-
 
                     <td>
                         ${escapeHtml(
@@ -2148,13 +2871,11 @@ async function timelog(id) {
                         )}
                     </td>
 
-
                     <td>
                         ${escapeHtml(
                             log.qualification
                         )}
                     </td>
-
 
                     <td>
                         ${escapeHtml(
@@ -2162,20 +2883,17 @@ async function timelog(id) {
                         )}
                     </td>
 
-
                     <td>
                         ${escapeHtml(
                             log.mobileno
                         )}
                     </td>
 
-
                     <td>
                         ${escapeHtml(
                             log.address
                         )}
                     </td>
-
 
                     <td>
                         ${escapeHtml(
@@ -2192,15 +2910,13 @@ async function timelog(id) {
 
             }
         );
-        }
 
     }
 
 
     catch (error) {
 
-        historyBody.innerHTML =
-            `
+        historyBody.innerHTML = `
             <tr>
                 <td colspan="11">
                     ${escapeHtml(
@@ -2208,23 +2924,22 @@ async function timelog(id) {
                     )}
                 </td>
             </tr>
-            `;
+        `;
 
     }
 
 }
 
 
-
 /* ==================================================
-   CLOSE HISTORY POPUP - X
-   ================================================== */
+   CLOSE HISTORY - X
+================================================== */
 
 document.getElementById(
     "closeHistory"
 ).addEventListener(
     "click",
-    function() {
+    function () {
 
         document.getElementById(
             "historyPopup"
@@ -2235,16 +2950,15 @@ document.getElementById(
 );
 
 
-
 /* ==================================================
-   CLOSE HISTORY POPUP - OUTSIDE
-   ================================================== */
+   CLOSE HISTORY - OUTSIDE
+================================================== */
 
 document.getElementById(
     "historyPopup"
 ).addEventListener(
     "click",
-    function(event) {
+    function (event) {
 
         if (
             event.target ===
@@ -2264,10 +2978,9 @@ document.getElementById(
 );
 
 
-
 /* ==================================================
    UPDATE USER
-   ================================================== */
+================================================== */
 
 async function updateUser(id) {
 
@@ -2275,17 +2988,21 @@ async function updateUser(id) {
 
         const response =
             await fetch(
-
                 API_URL
                 + "?id="
                 + encodeURIComponent(id)
-
             );
 
 
         const user =
-            await readJson(response);
+            await readJson(
+                response
+            );
 
+
+        /*
+           Fill user information.
+        */
 
         document.getElementById(
             "name"
@@ -2329,9 +3046,52 @@ async function updateUser(id) {
             user.address || "";
 
 
+        document.getElementById(
+            "username"
+        ).value =
+            user.username || "";
+
+
+        /*
+           Backend returns the password
+           as "password".
+
+           Do NOT use password_hash here.
+        */
+
+        document.getElementById(
+            "password"
+        ).value =
+            user.password_hash || "";
+
+
+        /*
+           Store which user is being edited.
+        */
+
         editingId =
             Number(id);
 
+
+        /*
+           Store the original username
+           and password.
+
+           These are used to detect
+           whether the user actually
+           changed them.
+        */
+
+        originalUsername =
+            user.username || "";
+
+        originalPassword =
+            user.password || "";
+
+
+        /*
+           Change form into UPDATE mode.
+        */
 
         document.getElementById(
             "formTitle"
@@ -2344,6 +3104,83 @@ async function updateUser(id) {
         ).textContent =
             "Update";
 
+
+        /*
+           Existing username is already valid.
+        */
+
+        usernameValid =
+            true;
+
+
+        /*
+           Existing password is already valid.
+        */
+
+        passwordValid =
+            true;
+
+
+        /*
+           Existing password is considered
+           matching because the user has not
+           changed it.
+        */
+
+        passwordsMatch =
+            true;
+
+
+        /*
+           Password re-enter section is hidden
+           until the password is changed.
+        */
+
+        reenterPassword.value =
+            "";
+
+        reenterSection.style.display =
+            "none";
+
+
+        /*
+           Clear password validation messages.
+        */
+
+        document.getElementById(
+            "passStatus"
+        ).textContent =
+            "";
+
+
+        document.getElementById(
+            "reenterStatus"
+        ).textContent =
+            "";
+
+
+        /*
+           Show current username as valid.
+        */
+
+        usernameStatus.innerHTML =
+            "<strong>Username</strong> ✓ Current username";
+
+
+        usernameStatus.className =
+            "available";
+
+
+        /*
+           Enable UPDATE button.
+        */
+
+        updateSubmitButton();
+
+
+        /*
+           Scroll to form.
+        */
 
         window.scrollTo({
             top: 0,
@@ -2365,10 +3202,250 @@ async function updateUser(id) {
 }
 
 
+/* ==================================================
+   FORM SUBMIT
+================================================== */
+
+document.getElementById(
+    "userForm"
+).addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+
+        clearMessage();
+
+
+        /*
+           Final validation before
+           sending the request.
+        */
+
+        if (!usernameValid) {
+
+            showMessage(
+                "Please enter an available username.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!passwordValid) {
+
+            showMessage(
+                "Please enter a valid password.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!passwordsMatch) {
+
+            showMessage(
+                "Passwords do not match.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const data =
+            getFormData();
+
+
+        try {
+
+            let response;
+
+
+            /* -------------------------
+               CREATE
+            ------------------------- */
+
+            if (
+                editingId === null
+            ) {
+
+                response =
+                    await fetch(
+                        API_URL,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    data
+                                )
+                        }
+                    );
+
+            }
+
+
+            /* -------------------------
+               UPDATE
+            ------------------------- */
+
+            else {
+
+                response =
+                    await fetch(
+
+                        API_URL
+                        + "?id="
+                        + encodeURIComponent(
+                            editingId
+                        ),
+
+                        {
+                            method: "PUT",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    data
+                                )
+                        }
+
+                    );
+
+            }
+
+
+            const result =
+                await readJson(
+                    response
+                );
+
+
+            showMessage(
+
+                editingId === null
+                ? "User created successfully."
+                : "User updated successfully.",
+
+                "success"
+
+            );
+
+
+            clearForm();
+
+
+            getUsers();
+
+        }
+
+
+        catch (error) {
+
+            showMessage(
+                error.message,
+                "error"
+            );
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   CLEAR FORM
+================================================== */
+
+function clearForm() {
+
+    document.getElementById(
+        "userForm"
+    ).reset();
+
+
+    editingId =
+        null;
+
+
+    usernameValid =
+        false;
+
+
+    passwordValid =
+        false;
+
+
+    passwordsMatch =
+        false;
+
+
+    clearTimeout(
+        usernameTimer
+    );
+
+
+    usernameStatus.textContent =
+        "Username";
+
+
+    usernameStatus.className =
+        "";
+
+
+    document.getElementById(
+        "passStatus"
+    ).textContent =
+        "";
+
+
+    document.getElementById(
+        "reenterStatus"
+    ).textContent =
+        "";
+
+
+    reenterSection.style.display =
+        "none";
+
+
+    submitButton.disabled =
+        true;
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Add User";
+
+
+    document.getElementById(
+        "submitBtn"
+    ).textContent =
+        "Submit";
+
+}
+
 
 /* ==================================================
    TOGGLE STATUS
-   ================================================== */
+================================================== */
 
 async function toggleStatus(id) {
 
@@ -2402,7 +3479,9 @@ async function toggleStatus(id) {
 
 
         const data =
-            await readJson(response);
+            await readJson(
+                response
+            );
 
 
         showMessage(
@@ -2430,153 +3509,9 @@ async function toggleStatus(id) {
 }
 
 
-
-/* ==================================================
-   FORM SUBMIT
-   ================================================== */
-
-document.getElementById(
-    "userForm"
-).addEventListener(
-    "submit",
-    async function(event) {
-
-        event.preventDefault();
-
-        clearMessage();
-
-
-        const data =
-            getFormData();
-
-
-        try {
-
-            let response;
-
-
-            if (
-                editingId === null
-            ) {
-
-                response =
-                    await fetch(
-                        API_URL,
-                        {
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify(data)
-                        }
-                    );
-
-            }
-
-
-            else {
-
-                response =
-                    await fetch(
-
-                        API_URL
-                        + "?id="
-                        + encodeURIComponent(
-                            editingId
-                        ),
-
-                        {
-                            method: "PUT",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify(data)
-                        }
-
-                    );
-
-            }
-
-
-            const result =
-                await readJson(
-                    response
-                );
-
-
-            showMessage(
-
-                editingId === null
-                ? "User created successfully."
-                : "User updated successfully.",
-
-                "success"
-
-            );
-
-
-            clearForm();
-
-            getUsers();
-
-        }
-
-
-        catch (error) {
-
-            showMessage(
-                error.message,
-                "error"
-            );
-
-        }
-
-    }
-);
-
-
-
-/* ==================================================
-   CLEAR FORM
-   ================================================== */
-
-function clearForm() {
-
-    document.getElementById(
-        "userForm"
-    ).reset();
-
-
-    editingId =
-        null;
-
-
-    document.getElementById(
-        "formTitle"
-    ).textContent =
-        "Add User";
-
-
-    document.getElementById(
-        "submitBtn"
-    ).textContent =
-        "Submit";
-
-}
-
-
-
 /* ==================================================
    PAGINATION
-   ================================================== */
+================================================== */
 
 function previousPage() {
 
@@ -2591,7 +3526,6 @@ function previousPage() {
     }
 
 }
-
 
 
 function nextPage() {
@@ -2609,10 +3543,9 @@ function nextPage() {
 }
 
 
-
 /* ==================================================
    INITIAL LOAD
-   ================================================== */
+================================================== */
 
 getUsers();
 
