@@ -9,6 +9,64 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
 
+
+
+if (
+    $_SERVER["REQUEST_METHOD"] === "GET" &&
+    isset($_GET["action"]) &&
+    $_GET["action"] === "session"
+) {
+    echo json_encode([
+        "logged_in" => isset($_SESSION["user_id"]),
+        "user" => isset($_SESSION["user_id"])
+            ? [
+                "id" => $_SESSION["user_id"],
+                "username" => $_SESSION["username"]
+            ]
+            : null
+    ]);
+
+    exit;
+}
+
+if (
+    $_SERVER["REQUEST_METHOD"] === "GET" &&
+    isset($_GET["action"]) &&
+    $_GET["action"] === "logout"
+) {
+    $_SESSION = [];
+
+    if (ini_get("session.use_cookies")) {
+        $params = session_get_cookie_params();
+
+        setcookie(
+            session_name(),
+            '',
+            time() - 42000,
+            $params["path"],
+            $params["domain"],
+            $params["secure"],
+            $params["httponly"]
+        );
+    }
+
+    session_destroy();
+
+    echo json_encode([
+        "success" => true,
+        "logged_in" => false
+    ]);
+
+    exit;
+}
+
+
+
+
+
+
+
+
 /* -------------------------
    OPTIONS / CORS
 ------------------------- */
@@ -276,8 +334,7 @@ if (!is_array($data)) {
 if (
     isset($data["action"]) &&
     $data["action"] === "register"
-) 
-{
+){
 
     if (
         !isset($data["username"]) ||
@@ -553,7 +610,6 @@ if ($password !== $user["password_hash"]) {
 
     exit;
 }
-
 
 /* -------------------------
    INVALID ACTION

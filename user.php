@@ -1651,7 +1651,7 @@ if ($method === "PATCH") {
         createHistoryLog(
             $connection,
             $updatedUser,
-            "DELETE"
+            "ACTIVE TOGGLE"
         );
 
 
@@ -1918,7 +1918,7 @@ if ($method === "DELETE") {
         createHistoryLog(
             $connection,
             $updatedUser,
-            "DELETE"
+            "ACTIVETOGGLE"
         );
 
 

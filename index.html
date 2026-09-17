@@ -1,39 +1,58 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <title>User Management</title>
 
 <style>
-/*9CB080 618764  2B5748  273338*/
+
+/* =========================
+   GENERAL
+========================= */
+
 * {
     box-sizing: border-box;
-}   
+}
 
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    background:  black; 
-    /*repeating-radial-gradient(white,#B9FFB7, #ABC798,#447604);
-    background-image: url("images.jpeg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;*/
+    background: black;
     color: #f7f0f8;
 }
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    position: relative;
+    z-index: 1;
+}
+
+h1,
+h2 {
+    margin-top: 0;
+}
+
+
+/* =========================
+   TOP TITLE
+========================= */
+
 .forview {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-
     position: relative;
     overflow: hidden;
 }
@@ -42,297 +61,86 @@ body {
     position: relative;
     display: inline-block;
     color: yellowgreen;
-
     font-size: clamp(40px, 8vw, 100px);
-
     animation: truckRide 5s ease-in-out infinite;
 
     text-shadow:
         0 0 4px rgba(246, 232, 95, 0.3);
 }
 
-
 @keyframes truckRide {
-
-    /* ---------------- START ---------------- */
 
     0% {
         transform: translateY(0) rotate(0deg);
-
         text-shadow:
             0 0 4px rgba(246, 232, 95, 0.3);
     }
 
-
-    /* accelerating */
-
     10% {
         transform: translateY(-1px) rotate(-0.15deg);
-
         text-shadow:
             3px 0 4px rgba(246, 232, 95, 0.18),
             6px 0 10px rgba(246, 232, 95, 0.12);
     }
 
-
     20% {
         transform: translateY(1px) rotate(0.2deg);
-
         text-shadow:
             6px 0 5px rgba(246, 232, 95, 0.25),
             12px 0 16px rgba(246, 232, 95, 0.15);
     }
 
-
-    /* ---------------- FAST ---------------- */
-
     30% {
         transform: translateY(-1px) rotate(-0.2deg);
-
         text-shadow:
             10px 0 6px rgba(246, 232, 95, 0.3),
             20px 0 18px rgba(246, 232, 95, 0.2),
             35px 0 30px rgba(246, 232, 95, 0.1);
     }
 
-
-    /* ---------------- ROAD BUMP ---------------- */
-
     35% {
         transform: translateY(-4px) rotate(-0.7deg);
-
-        text-shadow:
-            12px 0 7px rgba(246, 232, 95, 0.35),
-            24px 0 20px rgba(246, 232, 95, 0.2);
     }
-
 
     37% {
         transform: translateY(3px) rotate(0.6deg);
-
-        text-shadow:
-            8px 0 6px rgba(246, 232, 95, 0.3),
-            18px 0 18px rgba(246, 232, 95, 0.15);
     }
-
-
-    /* ---------------- SMOOTH HIGH SPEED ---------------- */
 
     50% {
         transform: translateY(0) rotate(0deg);
-
         text-shadow:
             14px 0 8px rgba(246, 232, 95, 0.35),
             28px 0 22px rgba(246, 232, 95, 0.2),
             45px 0 35px rgba(246, 232, 95, 0.1);
     }
 
-
-    /* ---------------- SECOND BUMP ---------------- */
-
     60% {
         transform: translateY(-3px) rotate(-0.5deg);
-
-        text-shadow:
-            18px 0 9px rgba(246, 232, 95, 0.4),
-            35px 0 25px rgba(246, 232, 95, 0.2);
     }
-
 
     62% {
         transform: translateY(3px) rotate(0.5deg);
-
-        text-shadow:
-            12px 0 7px rgba(246, 232, 95, 0.3),
-            25px 0 20px rgba(246, 232, 95, 0.15);
     }
-
-
-    /* ---------------- CRUISING ---------------- */
 
     75% {
         transform: translateY(0) rotate(0deg);
-
-        text-shadow:
-            8px 0 6px rgba(246, 232, 95, 0.3),
-            18px 0 18px rgba(246, 232, 95, 0.15);
     }
-
-
-    /* ---------------- SLOWING ---------------- */
 
     88% {
         transform: translateY(-1px) rotate(-0.15deg);
-
-        text-shadow:
-            4px 0 5px rgba(246, 232, 95, 0.2),
-            8px 0 12px rgba(246, 232, 95, 0.1);
     }
-
-
-    /* ---------------- STOP ---------------- */
 
     100% {
         transform: translateY(0) rotate(0deg);
-
         text-shadow:
             0 0 4px rgba(246, 232, 95, 0.3);
     }
 }
 
 
-
-
-
-
-
-
-
 /* =========================
-   ADD USER CARD
-   ========================= */
-.card {
-    position: relative;
-    overflow: hidden;
-
-    background: #FFF7ED;
-    color: black;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.08);
-
-    isolation: isolate;
-}
-
-
-/* =========================
-   DIAMOND EFFECT
-   ========================= */
-.diamond-effect {
-    position: absolute;
-    inset: 0;
-
-    overflow: hidden;
-    pointer-events: none;
-
-    z-index: 1;
-}
-.card > h1,
-.card > #message,
-.card > form {
-    position: relative;
-    z-index: 2;
-}.diamond {
-    position: absolute;
-
-    width: 40px;
-    height: 40px;
-
-    left: 50%;
-    top: 50%;
-
-    border: 3px solid #3f886360;
-
-    transform:
-        translate(-50%, -50%)
-        rotate(45deg)
-        scale(0);
-
-    opacity: 0;
-}
-
-
-/* This class will be added by JavaScript */
-
-.diamond.run {
-    animation: diamondForward 3s linear infinite;
-}
-
-
-.diamond:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.diamond:nth-child(2) {
-    animation-delay: 0.6s;
-}
-
-.diamond:nth-child(3) {
-    animation-delay: 1.2s;
-}
-
-.diamond:nth-child(4) {
-    animation-delay: 1.8s;
-}
-
-.diamond:nth-child(5) {
-    animation-delay: 2.4s;
-}
-
-.diamond:nth-child(6) {
-    animation-delay: 3.0s;
-}
-
-.diamond:nth-child(7) {
-    animation-delay: 3.6s;
-}
-
-.diamond:nth-child(8) {
-    animation-delay: 4.2s;
-}
-
-.diamond:nth-child(9) {
-    animation-delay: 4.8s;
-}
-
-.diamond:nth-child(10) {
-    animation-delay: 5.4s;
-}
-
-@keyframes diamondForward {
-
-    0% {
-        transform:
-            translate(-50%, -50%)
-            rotate(45deg)
-            scale(0);
-
-        opacity: 0;
-    }
-
-    10% {
-        opacity: 1;
-    }
-
-    100% {
-        transform:
-            translate(-50%, -50%)
-            rotate(45deg)
-            scale(15);
-
-        opacity: 0;
-    }
-}
-/* Keep card content above diamonds */
-
-.card-content {
-    position: relative;
-    z-index: 2;
-}
-
-
-.container {
-    max-width: 1100px;
-    margin: auto;
-}
-
-
-h1,
-h2 {
-    margin-top: 0;
-}
-
+   DASHBOARD
+========================= */
 
 .headdy {
     background: #d3c2fa;
@@ -343,127 +151,27 @@ h2 {
     box-shadow: 0 2px 8px rgba(0,0,0,.08);
 }
 
-
-
-/* =========================
-   FORM
-   ========================= */
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-}
-
-.full {
-    grid-column: 1 / -1;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-input,
-textarea,
-button {
-    font: inherit;
-}
-
-input,
-textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #000000;
-    border-radius: 6px;
-}
-
-.fie {
-    background: #E0F2FE;
-}
-
-textarea {
-    min-height: 80px;
-    resize: vertical;
-}
-
-.buttons {
-    margin-top: 15px;
-
+.dashboard-header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
-button {
-    position: relative;
-    overflow: hidden;
-    border: 0;
-    padding: 9px 14px;
-    border-radius: 6px;
-    cursor: pointer;
+.dashboard-header h2 {
+    margin: 0;
 }
 
-.submit-btn {
+.add-user-btn {
     background: #658a00;
     color: white;
 }
 
-.ed-bt {
-    background: #6eac4b;
-    color: rgb(0, 0, 0);
-}
-
-.D-bt {
-    background: #ad3a3a;
-    color: rgb(36, 35, 35);
-}
-
-.v-bt {
-    background: #a2ad3a;
-    color: rgb(0, 0, 0);
-}
-
-.clear-btn {
-    background: #ddd;
-}
-
-
-button:disabled {
-    cursor: not-allowed;
-    opacity: .45;
-}
-
-
-.reveal-left,
-.reveal-right {
-    opacity: 0;
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.reveal-left {
-    transform: translateX(-100px);
-}
-
-.reveal-right {
-    transform: translateX(100px);
-}
-
-
-/* Added when the element enters the viewport */
-
-.reveal-left.show,
-.reveal-right.show {
-    opacity: 1;
-    transform: translateX(0);
-}
-
 
 /* =========================
-   DASHBOARD TABLE
-   ========================= */
+   TABLE
+========================= */
 
 .table-wrap {
     overflow-x: auto;
@@ -508,38 +216,59 @@ td {
     text-decoration: none !important;
 }
 
-.status-active {
-    font-weight: bold;
-}
-
+.status-active,
 .status-inactive {
     font-weight: bold;
 }
 
 
 /* =========================
-   MESSAGE
-   ========================= */
+   BUTTONS
+========================= */
 
-.message {
-    margin: 10px 0;
-    padding: 10px;
+button {
+    position: relative;
+    overflow: hidden;
+    border: 0;
+    padding: 9px 14px;
     border-radius: 6px;
-    display: none;
+    cursor: pointer;
+    font: inherit;
 }
 
-.error {
-    background: #ffe1e1;
+button:disabled {
+    cursor: not-allowed;
+    opacity: .45;
 }
 
-.success {
-    background: #e1ffe7;
+.submit-btn {
+    background: #658a00;
+    color: white;
+}
+
+.ed-bt {
+    background: #6eac4b;
+    color: black;
+}
+
+.D-bt {
+    background: #ad3a3a;
+    color: rgb(36, 35, 35);
+}
+
+.v-bt {
+    background: #a2ad3a;
+    color: black;
+}
+
+.clear-btn {
+    background: #ddd;
 }
 
 
 /* =========================
    PAGINATION
-   ========================= */
+========================= */
 
 .pagination {
     margin-top: 15px;
@@ -550,12 +279,33 @@ td {
 }
 
 
-/* ==================================================
-   HISTORY POPUP
-   ================================================== */
+/* =========================
+   MESSAGE
+========================= */
 
-.history-popup {
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 6px;
+    display: none;
+}
 
+.error {
+    background: #ffe1e1;
+    color: #000;
+}
+
+.success {
+    background: #e1ffe7;
+    color: #000;
+}
+
+
+/* =========================
+   UPDATE / ADD MODAL
+========================= */
+
+.form-popup {
     display: none;
 
     position: fixed;
@@ -566,28 +316,24 @@ td {
     width: 100%;
     height: 100%;
 
-    background: rgba(0, 0, 0, 0.55);
+    background: rgba(0, 0, 0, 0.70);
 
     justify-content: center;
     align-items: center;
 
     padding: 20px;
 
-    z-index: 1000;
+    z-index: 2000;
 }
 
-
-/* White popup box */
-
-.history-popup-box {
-
+.form-popup-box {
     position: relative;
 
-    background: radial-gradient(#A6D9F7,#ABC798,#b9ffb7f6,#023c40);
+    background: #FFF7ED;
+    color: black;
 
     width: 100%;
-
-    max-width: 1200px;
+    max-width: 900px;
 
     max-height: 90vh;
 
@@ -595,14 +341,16 @@ td {
 
     border-radius: 10px;
 
-    overflow: auto;
+    overflow-y: auto;
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.5);
 }
 
 
-/* X button */
+/* Close X */
 
-.close-history {
-
+.close-form {
     position: absolute;
 
     top: 10px;
@@ -620,10 +368,266 @@ td {
 }
 
 
-/* History table */
+/* =========================
+   FORM
+========================= */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 14px;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-weight: bold;
+}
+
+input,
+textarea,
+button {
+    font: inherit;
+}
+
+input,
+textarea {
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px solid #000;
+
+    border-radius: 6px;
+}
+
+.fie {
+    background: #E0F2FE;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+
+/* =========================
+   PASSWORD
+========================= */
+
+.password-box {
+    position: relative;
+    width: 100%;
+}
+
+.password-box input {
+    width: 100%;
+    padding-right: 45px;
+}
+
+.password-box button {
+    position: absolute;
+
+    right: 1%;
+    top: 40%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: none;
+
+    cursor: pointer;
+}
+
+#passStatus,
+#reenterStatus {
+    white-space: pre-line;
+    display: block;
+    margin-top: 5px;
+}
+
+.available {
+    color: green;
+}
+
+.unavailable {
+    color: red;
+}
+
+.checking {
+    color: #555;
+}
+
+#usernameStatus {
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+/* =========================
+   MODAL BUTTONS
+========================= */
+
+.form-buttons {
+    margin-top: 15px;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+}
+
+
+/* =========================
+   DIAMOND EFFECT
+========================= */
+
+.diamond-effect {
+    position: absolute;
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+.form-popup-box > h2,
+.form-popup-box > #message,
+.form-popup-box > form {
+    position: relative;
+    z-index: 2;
+}
+
+.diamond {
+    position: absolute;
+
+    width: 40px;
+    height: 40px;
+
+    left: 50%;
+    top: 50%;
+
+    border: 3px solid #3f886360;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(45deg)
+        scale(0);
+
+    opacity: 0;
+}
+
+.diamond.run {
+    animation:
+        diamondForward
+        3s linear infinite;
+}
+
+@keyframes diamondForward {
+
+    0% {
+        transform:
+            translate(-50%, -50%)
+            rotate(45deg)
+            scale(0);
+
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translate(-50%, -50%)
+            rotate(45deg)
+            scale(15);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   HISTORY POPUP
+========================= */
+
+.history-popup {
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    z-index: 3000;
+}
+
+.history-popup-box {
+    position: relative;
+
+    background:
+        radial-gradient(
+            #A6D9F7,
+            #ABC798,
+            #b9ffb7f6,
+            #023c40
+        );
+
+    width: 100%;
+    max-width: 1200px;
+
+    max-height: 90vh;
+
+    padding: 25px;
+
+    border-radius: 10px;
+
+    overflow: auto;
+}
+
+.close-history {
+    position: absolute;
+
+    top: 10px;
+    right: 10px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    padding: 5px 10px;
+}
 
 .history-table {
-
     width: 100%;
 
     min-width: 1200px;
@@ -633,31 +637,8 @@ td {
     margin-top: 20px;
 }
 
-.box {
-    width: 80%;
-    padding: 50px;
-    background: lightblue;
-
-    animation: slideIn linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 40%;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-200px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
 .history-table th,
 .history-table td {
-
     border: 2px solid #1a1919;
 
     padding: 8px;
@@ -672,115 +653,63 @@ td {
     color: white;
 }
 
-
-/* Log type */
-
-.log-create {
-    font-weight: bold;
-}
-
-.log-update {
-    font-weight: bold;
-}
-
+.log-create,
+.log-update,
 .log-delete {
     font-weight: bold;
 }
 
 
-/* ==================================================
-   FULL WEBSITE PARTICLE BACKGROUND
-   ================================================== */
-
-.particle-word {
-
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100vh;
-
-    overflow: hidden;
-
-    pointer-events: none;
-
-    z-index: 0;
-}
+/* =========================
+   PARTICLES
+========================= */
 
 #particles {
     position: fixed;
+
     inset: 0;
+
     width: 100%;
     height: 100%;
+
     pointer-events: none;
+
     z-index: -1;
 }
 
 
-/* ==================================================
-   ALL WEBSITE CONTENT STAYS ABOVE THE WEB
-   ================================================== */
+/* =========================
+   REVEAL
+========================= */
 
-.container {
+.reveal-left,
+.reveal-right {
+    opacity: 0;
 
-    position: relative;
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+}
 
-    z-index: 1;
+.reveal-left {
+    transform: translateX(-100px);
+}
 
+.reveal-right {
+    transform: translateX(100px);
+}
+
+.reveal-left.show,
+.reveal-right.show {
+    opacity: 1;
+
+    transform: translateX(0);
 }
 
 
-#usernameStatus {
-        display: block;
-        margin-top: 10px;
-        min-height: 20px;
-  }
-  
-
-
-
-.password-box {
-    position: relative;
-    width: 100%;
-}
-
-.password-box input {
-    width: 100%;
-    padding-right: 45px;
-    box-sizing: border-box;
-}
-
-.password-box button {
-    position: absolute;
-    right: 1%;
-    top: 40%;
-    transform: translateY(-50%);
-
-    border: none;
-    background: none;
-    cursor: pointer;
-}
-
-
-.password-box span {
-    position: absolute;
-    right: 40%;
-    top: 80%;
-    transform: translateY(-20%);
-
-    border: none;
-    background: none;
-    cursor: pointer;
-}
-
-#passStatus {
-    white-space: pre-line;
-}
-
-
-/* Responsive */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 700px) {
 
@@ -796,8 +725,14 @@ td {
         padding: 10px;
     }
 
-    .history-popup-box {
+    .history-popup-box,
+    .form-popup-box {
         padding: 15px;
+    }
+
+    .dashboard-header {
+        align-items: flex-start;
+        flex-direction: column;
     }
 
 }
@@ -809,110 +744,116 @@ td {
 
 <body>
 
-<canvas id="particles"> </canvas>
+<canvas id="particles"></canvas>
+
+
 <div class="forview">
-    <div class="breathing-text">NAGA</div>
+
+    <div class="breathing-text">
+        NAGA
+    </div>
+
 </div>
 
 
-
 <div class="container">
-        <!-- =========================
-         DASHBOARD
-         ========================= -->
 
-    <div class="headdy reveal-right">
+<!-- =========================
+     DASHBOARD
+========================= -->
 
+<div class="headdy reveal-right">
+
+    <div class="dashboard-header">
+        <div id="Dhere">
         <h2>
             Dashboard
         </h2>
-
-
-        <div class="table-wrap">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>ID</th>
-
-                        <th>Name</th>
-
-                        <th>DOB</th>
-
-                        <th>Father Name</th>
-
-                        <th>Qualification</th>
-
-                        <th>City</th>
-
-                        <th>Mobile</th>
-
-                        <th>Address</th>
-
-                        <th>Status</th>
-
-                        <th>Actions</th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody id="usersBody">
-
-                </tbody>
-
-            </table>
-
         </div>
 
-
-
-        <!-- =========================
-             PAGINATION
-             ========================= -->
-
-        <div class="pagination">
-
-            <button
-                type="button"
-                onclick="previousPage()"
-                id="prevBtn"
-            >
-                Previous
-            </button>
-
-
-            <span id="pageInfo">
-                Page 1
-            </span>
-
-
-            <button
-                type="button"
-                onclick="nextPage()"
-                id="nextBtn"
-            >
-                Next
-            </button>
-
-        </div>
-
+        <button
+            type="button"
+            id="addUserBtn"
+            class="add-user-btn"
+        >
+            <i class="fa-solid fa-plus"></i>
+            Add User
+        </button>
 
     </div>
 
 
+    <div class="table-wrap">
 
-    <!-- =========================
-         USER FORM
-         ========================= -->
+        <table>
 
-    <div class="card reveal-left">
-        
-         
+            <thead>
+
+                <tr>
+                    <th>S.No.</th>
+                    <th>USER ID</th>
+                    <th>Name</th>
+                    <th>DOB</th>
+                    <th>Father Name</th>
+                    <th>Qualification</th>
+                    <th>City</th>
+                    <th>Mobile</th>
+                    <th>Address</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="usersBody">
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div class="pagination">
+
+        <button
+            type="button"
+            onclick="previousPage()"
+            id="prevBtn"
+        >
+            Previous
+        </button>
+
+        <span id="pageInfo">
+            Page 1
+        </span>
+
+        <button
+            type="button"
+            onclick="nextPage()"
+            id="nextBtn"
+        >
+            Next
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- ==================================================
+     ADD / UPDATE POPUP
+================================================== -->
+
+<div
+    id="formPopup"
+    class="form-popup"
+>
+
+    <div class="form-popup-box">
+
         <div class="diamond-effect">
 
             <div class="diamond"></div>
@@ -920,7 +861,7 @@ td {
             <div class="diamond"></div>
             <div class="diamond"></div>
             <div class="diamond"></div>
-              <div class="diamond"></div>
+            <div class="diamond"></div>
             <div class="diamond"></div>
             <div class="diamond"></div>
             <div class="diamond"></div>
@@ -928,13 +869,25 @@ td {
 
         </div>
 
-        <h1 id="formTitle">
+
+        <button
+            id="closeForm"
+            class="close-form"
+            type="button"
+        >
+            X
+        </button>
+
+
+        <h2 id="formTitle">
             Add User
-        </h1>
+        </h2>
 
 
-        <div id="message"
-             class="message">
+        <div
+            id="message"
+            class="message"
+        >
         </div>
 
 
@@ -943,13 +896,16 @@ td {
             <div class="form-grid">
 
 
+                <!-- NAME -->
+
                 <div>
 
                     <label for="name">
-                        Name
+                        Name*
                     </label>
 
-                    <input class="fie"
+                    <input
+                        class="fie"
                         id="name"
                         type="text"
                         required
@@ -959,29 +915,34 @@ td {
                 </div>
 
 
+                <!-- DOB -->
+
                 <div>
 
                     <label for="dob">
-                        DOB
+                        DOB*
                     </label>
 
-                    <input class="fie"
+                    <input
+                        class="fie"
                         id="dob"
                         type="date"
                         required
-                        autocomplete="off"
                     >
 
                 </div>
 
 
+                <!-- FATHER NAME -->
+
                 <div>
 
                     <label for="fathername">
-                        Father Name
+                        Father Name*
                     </label>
 
-                    <input class="fie"
+                    <input
+                        class="fie"
                         id="fathername"
                         type="text"
                         required
@@ -991,13 +952,16 @@ td {
                 </div>
 
 
+                <!-- QUALIFICATION -->
+
                 <div>
 
                     <label for="qualification">
-                        Qualification
+                        Qualification*
                     </label>
 
-                    <input class="fie"
+                    <input
+                        class="fie"
                         id="qualification"
                         type="text"
                         required
@@ -1007,13 +971,16 @@ td {
                 </div>
 
 
+                <!-- CITY -->
+
                 <div>
 
                     <label for="city">
-                        City
+                        City*
                     </label>
 
-                    <input class="fie"
+                    <input
+                        class="fie"
                         id="city"
                         type="text"
                         required
@@ -1023,17 +990,64 @@ td {
                 </div>
 
 
+                <!-- MOBILE -->
+
                 <div>
 
                     <label for="mobileno">
-                        Mobile No
+                        Mobile No*
                     </label>
+
+                   <input
+                    class="fie"
+                    type="text"
+                    id="mobileno"
+                    maxlength="10"
+                    minlength="10"
+                    pattern="[0-9]{10}"
+                    inputmode="numeric"
+                    placeholder="Enter 10 digit mobile number"
+                    required
+                    autocomplete="off"
+                >
+
+                </div>
+
+
+                <!-- ADDRESS -->
+
+                <div class="full">
+
+                    <label for="address">
+                        Address*
+                    </label>
+
+                    <textarea
+                        class="fie"
+                        id="address"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- USERNAME -->
+
+                <div>
+
+                    <label
+                        for="username"
+                        id="usernameStatus"
+                    >
+                        Username*
+                    </label>
+
                     <input
+                        class="fie"
                         type="text"
-                        id="mobileno"
-                        maxlength="10"
-                        inputmode="numeric"
-                        placeholder="Enter 10 digit mobile number"
+                        id="username"
+                        placeholder="Enter username"
+                        minlength="3"
                         required
                         autocomplete="off"
                     >
@@ -1041,109 +1055,75 @@ td {
                 </div>
 
 
-                <div class="full">
+                <!-- PASSWORD -->
 
-                    <label for="address">
-                        Address
+                <div class="password-box">
+
+                    <label for="password">
+                        Password*
                     </label>
 
-                    <textarea class="fie"
-                        id="address"
+                    <input
+                        id="password"
+                        type="password"
+                        placeholder="Enter password"
                         required
                         autocomplete="off"
-                    ></textarea>
+                    >
+
+                    <button
+                        type="button"
+                        id="togglePassword"
+                    >
+                        👁
+                    </button>
+
+                    <span id="passStatus"></span>
 
                 </div>
-                
-<!-- =========================
-     USERNAME
-========================= -->
-
-<div>
-
-    <label for="username">
-        Username
-    </label>
-
-    <input
-        type="text"
-        id="username"
-        placeholder="Enter username"
-        autocomplete="off"
-    >
-
-    <span id="usernameStatus">
-        Username
-    </span>
-
-</div>
 
 
-<!-- =========================
-     PASSWORD
-========================= -->
+                <!-- REENTER PASSWORD -->
 
-<div class="password-box">
+                <div
+                    class="password-box"
+                    id="reenterSection"
+                >
 
-    <label for="password">
-        Password
-    </label>
+                    <label for="reenterPassword">
+                        Re-enter Password
+                    </label>
 
-    <input
-        id="password"
-        type="password"
-        placeholder="Enter password"
-        required
-        autocomplete="off"
-    >
+                    <input
+                        type="password"
+                        id="reenterPassword"
+                        placeholder="Re-enter password"
+                        autocomplete="off"
+                    >
 
-    <button
-        type="button"
-        id="togglePassword"
-    >
-        👁
-    </button>
+                    <button
+                        type="button"
+                        id="retogglePassword"
+                    >
+                        👁
+                    </button>
 
-    <span id="passStatus"></span>
+                    <span id="reenterStatus"></span>
 
-</div>
+                </div>
 
-
-<!-- =========================
-     RE-ENTER PASSWORD
-========================= -->
-
-<div
-    class="password-box"
-    id="reenterSection"
->
-
-    <label for="reenterPassword">
-        Re-enter Password
-    </label>
-
-    <input
-        type="password"
-        id="reenterPassword"
-        placeholder="Re-enter password"
-        required
-        autocomplete="off"
-    >
-
-    <button
-        type="button"
-        id="retogglePassword"
-    >
-        👁
-    </button>
-
-    <span id="reenterStatus"></span>
-
-</div>
             </div>
 
 
-            <div class="buttons">
+            <div class="form-buttons">
+
+                <button
+                    type="button"
+                    id="cancelForm"
+                    class="clear-btn"
+                >
+                    Cancel
+                </button>
 
                 <button
                     class="submit-btn"
@@ -1153,42 +1133,25 @@ td {
                     Submit
                 </button>
 
-
-                <button
-                    class="clear-btn"
-                    type="button"
-                    onclick="clearForm()"
-                >
-                    Clear
-                </button>
-
             </div>
-
 
         </form>
 
     </div>
 
-
-
-
-
 </div>
+
 
 <!-- ==================================================
      HISTORY POPUP
-     ================================================== -->
+================================================== -->
 
 <div
     id="historyPopup"
     class="history-popup"
 >
 
-
     <div class="history-popup-box">
-
-
-        <!-- X -->
 
         <button
             id="closeHistory"
@@ -1198,78 +1161,118 @@ td {
             X
         </button>
 
-
-        <h2 align="center">
-            User History 
+        <h2 style="text-align:center;">
+            User History
         </h2>
 
-        <p id="pd" align="center">user_ID = ???</p>
+        <p
+            id="pd"
+            style="text-align:center;"
+        >
+            user_ID = ???
+        </p>
+
         <div class="table-wrap">
 
-            
             <table class="history-table">
-
 
                 <thead>
 
                     <tr>
 
                         <th>S.No</th>
-
                         <th>Log Type</th>
-
                         <th>Time</th>
-
                         <th>Name</th>
-
                         <th>DOB</th>
-
                         <th>Father Name</th>
-
                         <th>Qualification</th>
-
                         <th>City</th>
-
                         <th>Mobile</th>
-
                         <th>Address</th>
-
                         <th>Status</th>
 
                     </tr>
 
                 </thead>
 
-
                 <tbody id="historyBody">
-
                 </tbody>
-
 
             </table>
 
-
         </div>
 
-
     </div>
-
 
 </div>
 
 
-
 <script>
+let curser = "nothing";
+/* ==================================================
+   SESSION CHECK
+================================================== */
 
-let originalUsername = "";
-let originalPassword = "";
+async function checkSession() {
+
+    try {
+
+        const response = await fetch(
+            "auth.php?action=session&_=" + Date.now(),
+            {
+                credentials: "include",
+                cache: "no-store"
+            }
+        );
+
+        const data = await response.json();
+
+        if (!data.logged_in) {
+
+            window.location.replace("login.html");
+
+            return false;
+        }
+        curser=data.username;
+        return true;
+
+    }
+    catch (error) {
+
+        console.error(
+            "Session check failed:",
+            error
+        );
+
+        window.location.replace("login.html");
+        
+        return false;
+    }
+}
+
 
 /* ==================================================
    BASIC ELEMENTS
 ================================================== */
 
+const formPopup =
+    document.getElementById("formPopup");
+
+const userForm =
+    document.getElementById("userForm");
+
 const submitButton =
     document.getElementById("submitBtn");
+
+const addUserButton =
+    document.getElementById("addUserBtn");
+
+const closeFormButton =
+    document.getElementById("closeForm");
+
+const cancelFormButton =
+    document.getElementById("cancelForm");
 
 const password =
     document.getElementById("password");
@@ -1286,13 +1289,2131 @@ const username =
 const usernameStatus =
     document.getElementById("usernameStatus");
 
+const mobile =
+    document.getElementById("mobileno");
+
+
+/* ==================================================
+   API
+================================================== */
+
+const API_URL =
+    "http://localhost/apiss/project1/user.php";
+
+const AUTH_URL =
+    "http://localhost/apiss/project1/auth.php";
+
+
+/* ==================================================
+   STATE
+================================================== */
+
+let currentPage = 1;
+
+const limit = 5;
+
+let totalPages = 1;
+
+let editingId = null;
+
+let originalData = null;
+
+let usernameValid = false;
+
+let usernameTimer = null;
+
+let usernameCheckVersion = 0;
+
+
+/* ==================================================
+   PASSWORD STATE
+================================================== */
+
+let passwordValid = false;
+
+let passwordsMatch = false;
+
+//  FOR SNO NUMBERS
+
+let count=1;
+
+
+/* ==================================================
+   FORM MODE
+================================================== */
+
+function isUpdateMode() {
+
+    return editingId !== null;
+
+}
+
+
+/* ==================================================
+   MESSAGE
+================================================== */
+
+function showMessage(text, type) {
+
+    const box =
+        document.getElementById("message");
+
+    box.textContent = text;
+
+    box.className =
+        "message " + type;
+
+    box.style.display =
+        "block";
+}
+
+
+function clearMessage() {
+
+    const box =
+        document.getElementById("message");
+
+    box.style.display =
+        "none";
+
+    box.textContent =
+        "";
+}
+
+
+/* ==================================================
+   GET FORM DATA
+================================================== */
+
+function getFormData() {
+
+    return {
+
+        name:
+            document.getElementById("name")
+                .value.trim(),
+
+        dob:
+            document.getElementById("dob")
+                .value,
+
+        fathername:
+            document.getElementById("fathername")
+                .value.trim(),
+
+        qualification:
+            document.getElementById("qualification")
+                .value.trim(),
+
+        city:
+            document.getElementById("city")
+                .value.trim(),
+
+        mobileno:
+            document.getElementById("mobileno")
+                .value.trim(),
+
+        address:
+            document.getElementById("address")
+                .value.trim(),
+
+        username:
+            document.getElementById("username")
+                .value.trim(),
+
+        password:
+            document.getElementById("password")
+                .value
+
+    };
+
+}
+
+
+/* ==================================================
+   CHECK WHETHER DATA CHANGED
+================================================== */
+
+function hasDataChanged() {
+
+    if (!isUpdateMode()) {
+
+        return true;
+    }
+
+    const current =
+        getFormData();
+
+    return (
+
+        current.name !== originalData.name ||
+
+        current.dob !== originalData.dob ||
+
+        current.fathername !== originalData.fathername ||
+
+        current.qualification !== originalData.qualification ||
+
+        current.city !== originalData.city ||
+
+        current.mobileno !== originalData.mobileno ||
+
+        current.address !== originalData.address ||
+
+        current.username !== originalData.username ||
+
+        current.password !== originalData.password
+    );
+
+}
+
+
+/* ==================================================
+   FORM VALIDITY
+================================================== */
+
+function updateSubmitButton() {
+
+    if (!isUpdateMode()) {
+
+        submitButton.disabled =
+            !(
+                userForm.checkValidity() &&
+                usernameValid &&
+                passwordValid &&
+                passwordsMatch
+            );
+
+        return;
+    }
+
+
+    /*
+       UPDATE MODE
+
+       Password does not have to be changed.
+
+       If password is unchanged,
+       password validation is not required.
+
+       If password is changed,
+       it must be valid and confirmed.
+    */
+
+    const currentPassword =
+        password.value;
+
+    const passwordChanged =
+        currentPassword !==
+        originalData.password;
+
+
+    let passwordOkay;
+
+
+    if (!passwordChanged) {
+
+        passwordOkay = true;
+
+    }
+    else {
+
+        passwordOkay =
+            passwordValid &&
+            passwordsMatch;
+    }
+
+
+    submitButton.disabled =
+        !(
+            userForm.checkValidity() &&
+            usernameValid &&
+            passwordOkay &&
+            hasDataChanged()
+        );
+
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+mobile.addEventListener(
+    "input",
+    function () {
+
+        this.value =
+            this.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
+
+        updateSubmitButton();
+
+    }
+);
+
+
+/* ==================================================
+   ESCAPE HTML
+================================================== */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* ==================================================
+   READ JSON
+================================================== */
+
+async function readJson(response) {
+
+    const text =
+        await response.text();
+
+    let data;
+
+    try {
+
+        data =
+            text
+                ? JSON.parse(text)
+                : {};
+
+    }
+    catch (error) {
+
+        throw new Error(
+            "Server returned invalid JSON. HTTP "
+            + response.status
+        );
+    }
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            data.error ||
+            data.message ||
+            (
+                "Request failed. HTTP "
+                + response.status
+            )
+        );
+
+    }
+
+    return data;
+}
+
+
+/* ==================================================
+   CHECK USERNAME
+================================================== */
+
+username.addEventListener(
+    "input",
+    function () {
+
+        const value =
+            this.value.trim();
+
+        clearTimeout(usernameTimer);
+
+        usernameValid = false;
+
+        usernameCheckVersion++;
+
+        updateSubmitButton();
+
+
+        if (value === "") {
+
+            usernameStatus.innerHTML =
+                "<strong>Username</strong>";
+
+            usernameStatus.className =
+                "";
+
+            return;
+        }
+
+
+        if (value.length < 3) {
+
+            usernameStatus.innerHTML =
+                "<strong>Username</strong> " +
+                "Enter at least 3 characters";
+
+            usernameStatus.className =
+                "checking";
+
+            return;
+        }
+
+
+        /*
+           During UPDATE:
+           if username is exactly the original
+           username, it is automatically valid.
+        */
+
+        if (
+            isUpdateMode() &&
+            value === originalData.username
+        ) {
+
+            usernameValid = true;
+
+            usernameStatus.innerHTML =
+                "<strong>Username</strong> " +
+                "✓ Current username";
+
+            usernameStatus.className =
+                "available";
+
+            updateSubmitButton();
+
+            return;
+        }
+
+
+        usernameStatus.innerHTML =
+            "<strong>Username</strong> Checking...";
+
+        usernameStatus.className =
+            "checking";
+
+
+        const version =
+            usernameCheckVersion;
+
+
+        usernameTimer =
+            setTimeout(
+                function () {
+
+                    checkUsername(
+                        value,
+                        version
+                    );
+
+                },
+                400
+            );
+
+    }
+);
+
+
+/* ==================================================
+   BACKEND USERNAME CHECK
+================================================== */
+
+async function checkUsername(
+    usernameValue,
+    version
+) {
+
+    try {
+
+        let url =
+            AUTH_URL +
+            "?action=check_username&username=" +
+            encodeURIComponent(usernameValue);
+
+
+        if (isUpdateMode()) {
+
+            url +=
+                "&exclude_id=" +
+                encodeURIComponent(editingId);
+
+        }
+
+
+        const response =
+            await fetch(url, {
+                credentials: "include"
+            });
+
+
+        const data =
+            await response.json();
+
+
+        /*
+           Ignore an old request.
+        */
+
+        if (
+            version !==
+            usernameCheckVersion
+        ) {
+            return;
+        }
+
+
+        /*
+           Username changed while request
+           was running.
+        */
+
+        if (
+            username.value.trim() !==
+            usernameValue
+        ) {
+            return;
+        }
+
+
+        if (data.available) {
+
+            usernameValid = true;
+
+            usernameStatus.innerHTML =
+                "<strong>Username</strong> " +
+                "✓ Username available";
+
+            usernameStatus.className =
+                "available";
+
+        }
+        else {
+
+            usernameValid = false;
+
+            usernameStatus.innerHTML =
+                "<strong>Username</strong> " +
+                "✗ Username already taken";
+
+            usernameStatus.className =
+                "unavailable";
+
+        }
+
+
+        updateSubmitButton();
+
+    }
+    catch (error) {
+
+        console.error(error);
+
+        usernameValid = false;
+
+        usernameStatus.innerHTML =
+            "<strong>Username</strong> " +
+            "Unable to check username";
+
+        usernameStatus.className =
+            "unavailable";
+
+        updateSubmitButton();
+    }
+
+}
+
+
+/* ==================================================
+   PASSWORD VALIDATION
+================================================== */
+
+function checkpass() {
+
+    const value =
+        password.value;
+
+    const status =
+        document.getElementById("passStatus");
+
+
+    /*
+       UPDATE MODE:
+       If password is unchanged,
+       don't show password requirements.
+    */
+
+    if (
+        isUpdateMode() &&
+        value === originalData.password
+    ) {
+
+        passwordValid = true;
+
+        status.textContent = "";
+
+        updateSubmitButton();
+
+        return;
+    }
+
+
+    const hasLength =
+        value.length >= 8;
+
+    const hasUppercase =
+        /[A-Z]/.test(value);
+
+    const hasNumber =
+        /[0-9]/.test(value);
+
+    const hasSpecial =
+        /[^A-Za-z0-9]/.test(value);
+
+
+    passwordValid =
+        hasLength &&
+        hasUppercase &&
+        hasNumber &&
+        hasSpecial;
+
+
+    status.textContent =
+        (hasLength ? "✓" : "✗") +
+        " At least 8 characters\n" +
+
+        (hasUppercase ? "✓" : "✗") +
+        " At least 1 UPPER CASE\n" +
+
+        (hasNumber ? "✓" : "✗") +
+        " At least 1 number\n" +
+
+        (hasSpecial ? "✓" : "✗") +
+        " At least 1 special character";
+
+
+    if (passwordValid) {
+
+        reenterSection.style.display =
+            "block";
+
+    }
+    else {
+
+        reenterSection.style.display =
+            "none";
+
+        passwordsMatch = false;
+
+        reenterPassword.value = "";
+
+        document.getElementById(
+            "reenterStatus"
+        ).textContent = "";
+
+    }
+
+
+    updateSubmitButton();
+
+}
+
+
+/* ==================================================
+   PASSWORD INPUT
+================================================== */
+
+password.addEventListener(
+    "input",
+    function () {
+
+        checkpass();
+
+        checkPasswords();
+
+        updateSubmitButton();
+
+    }
+);
+
+
+/* ==================================================
+   REENTER PASSWORD
+================================================== */
+
+function checkPasswords() {
+
+    const status =
+        document.getElementById(
+            "reenterStatus"
+        );
+
+
+    /*
+       Existing unchanged password.
+    */
+
+    if (
+        isUpdateMode() &&
+        password.value ===
+        originalData.password
+    ) {
+
+        passwordsMatch = true;
+
+        status.textContent = "";
+
+        updateSubmitButton();
+
+        return;
+    }
+
+
+    if (!passwordValid) {
+
+        passwordsMatch = false;
+
+        status.textContent = "";
+
+        updateSubmitButton();
+
+        return;
+    }
+
+
+    if (
+        reenterPassword.value === ""
+    ) {
+
+        passwordsMatch = false;
+
+        status.textContent = "";
+
+        updateSubmitButton();
+
+        return;
+    }
+
+
+    passwordsMatch =
+        password.value ===
+        reenterPassword.value;
+
+
+    if (passwordsMatch) {
+
+        status.textContent =
+            "✓ Passwords match";
+
+        status.className =
+            "available";
+
+    }
+    else {
+
+        status.textContent =
+            "✗ Passwords do not match";
+
+        status.className =
+            "unavailable";
+    }
+
+
+    updateSubmitButton();
+
+}
+
+
+reenterPassword.addEventListener(
+    "input",
+    function () {
+
+        checkPasswords();
+
+    }
+);
+
+
+/* ==================================================
+   OTHER FORM INPUTS
+================================================== */
+
+[
+    "name",
+    "dob",
+    "fathername",
+    "qualification",
+    "city",
+    "address"
+].forEach(
+    function (id) {
+
+        document.getElementById(id)
+            .addEventListener(
+                "input",
+                function () {
+
+                    updateSubmitButton();
+
+                }
+            );
+
+    }
+);
+
+
+/* ==================================================
+   OPEN ADD USER
+================================================== */
+
+addUserButton.addEventListener(
+    "click",
+    function () {
+
+        openAddUser();
+
+    }
+);
+
+
+/* ==================================================
+   OPEN ADD FORM
+================================================== */
+
+function openAddUser() {
+
+    editingId = null;
+
+    originalData = null;
+
+    clearMessage();
+
+    userForm.reset();
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Add User";
+
+
+    submitButton.textContent =
+        "Submit";
+
+
+    usernameValid = false;
+
+    passwordValid = false;
+
+    passwordsMatch = false;
+
+
+    usernameStatus.innerHTML =
+        "<strong>Username</strong>";
+
+    usernameStatus.className =
+        "";
+
+
+    document.getElementById(
+        "passStatus"
+    ).textContent = "";
+
+
+    document.getElementById(
+        "reenterStatus"
+    ).textContent = "";
+
+
+    reenterSection.style.display =
+        "none";
+
+
+    formPopup.style.display =
+        "flex";
+
+
+    updateSubmitButton();
+
+}
+
+
+/* ==================================================
+   CLOSE FORM
+================================================== */
+
+function closeForm() {
+
+    formPopup.style.display =
+        "none";
+
+    clearMessage();
+
+    userForm.reset();
+
+    editingId = null;
+
+    originalData = null;
+
+    usernameValid = false;
+
+    passwordValid = false;
+
+    passwordsMatch = false;
+
+    clearTimeout(usernameTimer);
+
+}
+
+
+closeFormButton.addEventListener(
+    "click",
+    closeForm
+);
+
+
+cancelFormButton.addEventListener(
+    "click",
+    closeForm
+);
+
+
+formPopup.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target ===
+            formPopup
+        ) {
+
+            closeForm();
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   PASSWORD VISIBILITY
+================================================== */
+
+document.getElementById(
+    "togglePassword"
+).addEventListener(
+    "click",
+    function () {
+
+        if (
+            password.type ===
+            "password"
+        ) {
+
+            password.type =
+                "text";
+
+            this.textContent =
+                "🙈";
+
+        }
+        else {
+
+            password.type =
+                "password";
+
+            this.textContent =
+                "👁";
+
+        }
+
+    }
+);
+
+
+document.getElementById(
+    "retogglePassword"
+).addEventListener(
+    "click",
+    function () {
+
+        if (
+            reenterPassword.type ===
+            "password"
+        ) {
+
+            reenterPassword.type =
+                "text";
+
+            this.textContent =
+                "🙈";
+
+        }
+        else {
+
+            reenterPassword.type =
+                "password";
+
+            this.textContent =
+                "👁";
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   GET USERS
+================================================== */
+
+async function getUsers() {
+
+    clearMessage();
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL +
+                "?page=" +
+                currentPage +
+                "&limit=" +
+                limit,
+                {
+                    credentials: "include",
+                    cache: "no-store"
+                }
+            );
+
+
+        const data =
+            await readJson(response);
+
+
+        displayUsers(
+        data.users || [],
+        Number(data.total) || 0
+    );
+
+
+        totalPages =
+            Math.max(
+                1,
+                Number(
+                    data.totalPages
+                ) || 1
+            );
+
+
+        document.getElementById(
+            "pageInfo"
+        ).textContent =
+            "Page " +
+            currentPage +
+            " of " +
+            totalPages;
+
+
+        document.getElementById(
+            "prevBtn"
+        ).disabled =
+            currentPage <= 1;
+
+
+        document.getElementById(
+            "nextBtn"
+        ).disabled =
+            currentPage >= totalPages;
+
+    }
+    catch (error) {
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ==================================================
+   DISPLAY USERS
+================================================== */
+function displayUsers(users, total) {
+
+    const body =
+        document.getElementById("usersBody");
+
+    const coun =
+        document.getElementById("Dhere");
+
+   
+
+    body.innerHTML = "";
+
+    coun.innerHTML =
+        `<h2>Dashboard</h2>
+         <p>No. of entries : ${total}</p>`;
+
+
+    if (users.length === 0) {
+
+        body.innerHTML = `
+            <tr>
+                <td colspan="10">
+                    No users found.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    users.forEach(
+        function (user, index) {
+
+            const row =
+                document.createElement("tr");
+
+            const inactive =
+                user.status === "inactive";
+
+            if (inactive) {
+
+                row.classList.add(
+                    "inactive-row"
+                );
+
+            }
+
+            row.innerHTML = `
+                <td>
+                    ${(currentPage - 1) * limit + index + 1}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.id)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.name)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.dob)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.fathername)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.qualification)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.city)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.mobileno)}
+                </td>
+
+                <td>
+                    ${escapeHtml(user.address)}
+                </td>
+
+                <td class="${
+                    inactive
+                    ? "status-inactive"
+                    : "status-active"
+                }">
+
+                    ${escapeHtml(user.status)}
+
+                </td>
+
+                <td class="action-column">
+                    <button type="button" 
+                            ${ inactive ? "disabled" : "" } 
+                            onclick="updateUser( ${Number(user.id)} )"
+                            title="Update"  
+                            class="ed-bt" >
+                                <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button type="button" 
+                            ${ inactive ? "disabled" : "" }
+                            onclick="timelog( ${Number(user.id)} )"
+                            title="View History"
+                            class="v-bt" >
+                                <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button type="button"
+                            onclick="toggleStatus( ${Number(user.id)} )"
+                            title="Activate / Inactivate"
+                            class="D-bt" >
+                                <i class="fa-solid fa-trash"></i>
+                    </button>
+
+                </td>
+            `;
+
+            count+=1;
+
+            body.appendChild(row);
+        }
+    );
+}
+
+
+/* ==================================================
+   UPDATE USER
+================================================== */
+
+async function updateUser(id) {
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL +
+                "?id=" +
+                encodeURIComponent(id),
+                {
+                    credentials: "include",
+                    cache: "no-store"
+                }
+            );
+
+
+        const user =
+            await readJson(response);
+
+
+        editingId =
+            Number(id);
+
+
+        /*
+           IMPORTANT:
+           user.php returns password_hash,
+           not password.
+        */
+
+        const existingPassword =
+            user.password_hash || "";
+
+
+        originalData = {
+
+            name:
+                user.name || "",
+
+            dob:
+                user.dob || "",
+
+            fathername:
+                user.fathername || "",
+
+            qualification:
+                user.qualification || "",
+
+            city:
+                user.city || "",
+
+            mobileno:
+                user.mobileno || "",
+
+            address:
+                user.address || "",
+
+            username:
+                user.username || "",
+
+            password:
+                existingPassword
+
+        };
+
+
+        /*
+           Fill form.
+        */
+
+        document.getElementById(
+            "name"
+        ).value =
+            originalData.name;
+
+
+        document.getElementById(
+            "dob"
+        ).value =
+            originalData.dob;
+
+
+        document.getElementById(
+            "fathername"
+        ).value =
+            originalData.fathername;
+
+
+        document.getElementById(
+            "qualification"
+        ).value =
+            originalData.qualification;
+
+
+        document.getElementById(
+            "city"
+        ).value =
+            originalData.city;
+
+
+        document.getElementById(
+            "mobileno"
+        ).value =
+            originalData.mobileno;
+
+
+        document.getElementById(
+            "address"
+        ).value =
+            originalData.address;
+
+
+        document.getElementById(
+            "username"
+        ).value =
+            originalData.username;
+
+
+        document.getElementById(
+            "password"
+        ).value =
+            originalData.password;
+
+
+        document.getElementById(
+            "reenterPassword"
+        ).value =
+            "";
+
+
+        /*
+           Update mode.
+        */
+
+        document.getElementById(
+            "formTitle"
+        ).textContent =
+            "Update User #" + id;
+
+
+        submitButton.textContent =
+            "Update";
+
+
+        /*
+           Current username is automatically valid.
+        */
+
+        usernameValid = true;
+
+        usernameStatus.innerHTML =
+            "<strong>Username</strong> " +
+            "✓ Current username";
+
+        usernameStatus.className =
+            "available";
+
+
+        /*
+           Existing password is valid.
+        */
+
+        passwordValid = true;
+
+        passwordsMatch = true;
+
+
+        document.getElementById(
+            "passStatus"
+        ).textContent = "";
+
+
+        document.getElementById(
+            "reenterStatus"
+        ).textContent = "";
+
+
+        reenterSection.style.display =
+            "none";
+
+
+        clearMessage();
+
+
+        /*
+           IMPORTANT:
+           Update starts disabled because
+           nothing has changed yet.
+        */
+
+        submitButton.disabled =
+            true;
+
+
+        formPopup.style.display =
+            "flex";
+
+    }
+    catch (error) {
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ==================================================
+   FORM SUBMIT
+================================================== */
+
+userForm.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+        clearMessage();
+
+
+        /*
+           ==========================================
+           CHECK EACH FIELD ONE BY ONE
+           ==========================================
+           
+           If a required field is empty,
+           automatically focus that field.
+        */
+
+        const requiredFields = [
+            document.getElementById("name"),
+            document.getElementById("dob"),
+            document.getElementById("fathername"),
+            document.getElementById("qualification"),
+            document.getElementById("city"),
+            document.getElementById("mobileno"),
+            document.getElementById("address"),
+            document.getElementById("username"),
+            document.getElementById("password")
+        ];
+
+
+        for (
+            const field of requiredFields
+        ) {
+
+            if (
+                field.value.trim() === ""
+            ) {
+
+                field.focus();
+
+                return;
+            }
+
+        }
+
+
+        /*
+           ==========================================
+           MOBILE NUMBER
+           ==========================================
+           
+           Must contain EXACTLY 10 digits.
+           
+           If not:
+           - stop submission
+           - focus mobile field
+        */
+
+        const mobileValue =
+            mobile.value.trim();
+
+
+        if (
+            !/^[0-9]{10}$/.test(
+                mobileValue
+            )
+        ) {
+
+            mobile.focus();
+
+            mobile.setSelectionRange(
+                mobile.value.length,
+                mobile.value.length
+            );
+
+            return;
+        }
+
+
+        /*
+           ==========================================
+           USERNAME
+           ==========================================
+        */
+
+        if (!usernameValid) {
+
+            showMessage(
+                "Please enter an available username.",
+                "error"
+            );
+
+            username.focus();
+
+            return;
+        }
+
+
+        /*
+           ==========================================
+           UPDATE MODE
+           ==========================================
+        */
+
+        if (isUpdateMode()) {
+
+            const currentPassword =
+                password.value;
+
+
+            const passwordChanged =
+                currentPassword !==
+                originalData.password;
+
+
+            if (passwordChanged) {
+
+                if (!passwordValid) {
+
+                    showMessage(
+                        "Please enter a valid password.",
+                        "error"
+                    );
+
+                    password.focus();
+
+                    return;
+                }
+
+
+                if (!passwordsMatch) {
+
+                    showMessage(
+                        "Passwords do not match.",
+                        "error"
+                    );
+
+                    reenterPassword.focus();
+
+                    return;
+                }
+
+            }
+
+
+            if (!hasDataChanged()) {
+
+                showMessage(
+                    "No changes were made.",
+                    "error"
+                );
+
+                return;
+            }
+
+        }
+
+
+        /*
+           ==========================================
+           ADD MODE
+           ==========================================
+        */
+
+        else {
+
+            if (!passwordValid) {
+
+                showMessage(
+                    "Please enter a valid password.",
+                    "error"
+                );
+
+                password.focus();
+
+                return;
+            }
+
+
+            if (!passwordsMatch) {
+
+                showMessage(
+                    "Passwords do not match.",
+                    "error"
+                );
+
+                reenterPassword.focus();
+
+                return;
+            }
+
+        }
+
+
+        const data =
+            getFormData();
+
+
+        submitButton.disabled =
+            true;
+
+
+        const oldText =
+            submitButton.textContent;
+
+
+        submitButton.textContent =
+            isUpdateMode()
+            ? "Updating..."
+            : "Creating...";
+
+
+        try {
+
+            let response;
+
+
+            /*
+               CREATE
+            */
+
+            if (
+                editingId === null
+            ) {
+
+                response =
+                    await fetch(
+                        API_URL,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            credentials:
+                                "include",
+
+                            body:
+                                JSON.stringify(data)
+                        }
+                    );
+
+            }
+
+
+            /*
+               UPDATE
+            */
+
+            else {
+
+                response =
+                    await fetch(
+                        API_URL +
+                        "?id=" +
+                        encodeURIComponent(
+                            editingId
+                        ),
+                        {
+                            method: "PUT",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            credentials:
+                                "include",
+
+                            body:
+                                JSON.stringify(data)
+                        }
+                    );
+
+            }
+
+
+            const result =
+                await readJson(response);
+
+
+            showMessage(
+                editingId === null
+                ? "User created successfully."
+                : "User updated successfully.",
+                "success"
+            );
+
+
+            /*
+               Refresh dashboard.
+            */
+
+            await getUsers();
+
+
+            /*
+               Close popup after successful operation.
+            */
+
+            setTimeout(
+                function () {
+
+                    closeForm();
+
+                },
+                500
+            );
+
+        }
+        catch (error) {
+
+            showMessage(
+                error.message,
+                "error"
+            );
+
+            submitButton.disabled =
+                false;
+
+            submitButton.textContent =
+                oldText;
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   CLEAR / RESET
+================================================== */
+
+function clearForm() {
+
+    userForm.reset();
+
+    editingId = null;
+
+    originalData = null;
+
+    usernameValid = false;
+
+    passwordValid = false;
+
+    passwordsMatch = false;
+
+    clearTimeout(usernameTimer);
+
+    usernameStatus.innerHTML =
+        "<strong>Username</strong>";
+
+    usernameStatus.className =
+        "";
+
+    document.getElementById(
+        "passStatus"
+    ).textContent = "";
+
+    document.getElementById(
+        "reenterStatus"
+    ).textContent = "";
+
+    reenterSection.style.display =
+        "none";
+
+    submitButton.disabled =
+        true;
+
+    submitButton.textContent =
+        "Submit";
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Add User";
+
+}
+
+
+/* ==================================================
+   TOGGLE STATUS
+================================================== */
+
+async function toggleStatus(id) {
+
+    const confirmed =
+        confirm(
+            "Change this user's active/inactive status?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL +
+                "?id=" +
+                encodeURIComponent(id),
+                {
+                    method: "DELETE",
+                    credentials: "include"
+                }
+            );
+
+
+        const data =
+            await readJson(response);
+
+
+        showMessage(
+            "Status changed to " +
+            data.status +
+            ".",
+            "success"
+        );
+
+
+        getUsers();
+
+    }
+    catch (error) {
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ==================================================
+   PAGINATION
+================================================== */
+
+function previousPage() {
+
+    if (currentPage > 1) {
+
+        currentPage--;
+
+        getUsers();
+
+    }
+
+}
+
+
+function nextPage() {
+
+    if (
+        currentPage <
+        totalPages
+    ) {
+
+        currentPage++;
+
+        getUsers();
+
+    }
+
+}
+
+
+/* ==================================================
+   HISTORY
+================================================== */
+
+async function timelog(id) {
+
+    const popup =
+        document.getElementById(
+            "historyPopup"
+        );
+
+    const historyBody =
+        document.getElementById(
+            "historyBody"
+        );
+
+    const pd =
+        document.getElementById("pd");
+
+
+    historyBody.innerHTML = `
+
+        <tr>
+
+            <td colspan="11">
+                Loading history...
+            </td>
+
+        </tr>
+
+    `;
+
+
+    pd.textContent =
+        "user_ID: " + id;
+
+
+    popup.style.display =
+        "flex";
+
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL +
+                "?id=" +
+                encodeURIComponent(id) +
+                "&his=true",
+                {
+                    credentials: "include",
+                    cache: "no-store"
+                }
+            );
+
+
+        const data =
+            await readJson(response);
+
+
+        const logs =
+            data.history || [];
+
+
+        historyBody.innerHTML =
+            "";
+
+
+        if (logs.length === 0) {
+
+            historyBody.innerHTML = `
+
+                <tr>
+
+                    <td colspan="11">
+                        No history found.
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+        }
+
+
+        logs.forEach(
+            function (log, index) {
+
+                const row =
+                    document.createElement("tr");
+
+
+                let logClass = "";
+
+
+                if (
+                    log.action ===
+                    "CREATE"
+                ) {
+
+                    logClass =
+                        "log-create";
+
+                }
+                else if (
+                    log.action ===
+                    "UPDATE"
+                ) {
+
+                    logClass =
+                        "log-update";
+
+                }
+                else if (
+                    log.action ===
+                    "DELETE"
+                ) {
+
+                    logClass =
+                        "log-delete";
+
+                }
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td class="${logClass}">
+                        ${escapeHtml(log.action)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(log.times)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(log.name)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(log.dob)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(log.fathername)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(log.qualification)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(log.city)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(log.mobileno)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(log.address)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(log.status)}
+                    </td>
+
+                `;
+
+
+                historyBody.appendChild(row);
+
+            }
+        );
+
+    }
+    catch (error) {
+
+        historyBody.innerHTML = `
+
+            <tr>
+
+                <td colspan="11">
+
+                    ${escapeHtml(
+                        error.message
+                    )}
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* ==================================================
+   CLOSE HISTORY
+================================================== */
+
+document.getElementById(
+    "closeHistory"
+).addEventListener(
+    "click",
+    function () {
+
+        document.getElementById(
+            "historyPopup"
+        ).style.display =
+            "none";
+
+    }
+);
+
+
+document.getElementById(
+    "historyPopup"
+).addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target ===
+            document.getElementById(
+                "historyPopup"
+            )
+        ) {
+
+            document.getElementById(
+                "historyPopup"
+            ).style.display =
+                "none";
+
+        }
+
+    }
+);
+
 
 /* ==================================================
    DIAMOND EFFECT
 ================================================== */
 
 const diamonds =
-    document.querySelectorAll(".diamond");
+    document.querySelectorAll(
+        ".diamond"
+    );
 
 
 submitButton.addEventListener(
@@ -1302,7 +3423,9 @@ submitButton.addEventListener(
         diamonds.forEach(
             function (diamond) {
 
-                diamond.classList.add("run");
+                diamond.classList.add(
+                    "run"
+                );
 
             }
         );
@@ -1318,13 +3441,17 @@ submitButton.addEventListener(
         diamonds.forEach(
             function (diamond) {
 
-                diamond.classList.remove("run");
+                diamond.classList.remove(
+                    "run"
+                );
 
-                diamond.style.animation = "none";
+                diamond.style.animation =
+                    "none";
 
                 diamond.offsetHeight;
 
-                diamond.style.animation = "";
+                diamond.style.animation =
+                    "";
 
             }
         );
@@ -1350,7 +3477,9 @@ const observer =
             entries.forEach(
                 function (entry) {
 
-                    if (entry.isIntersecting) {
+                    if (
+                        entry.isIntersecting
+                    ) {
 
                         entry.target.classList.add(
                             "show"
@@ -1382,7 +3511,9 @@ revealElements.forEach(
 ================================================== */
 
 const canvas =
-    document.getElementById("particles");
+    document.getElementById(
+        "particles"
+    );
 
 const ctx =
     canvas.getContext("2d");
@@ -1396,10 +3527,6 @@ let mouse = {
     y: null
 };
 
-
-/* ==================================================
-   CANVAS
-================================================== */
 
 function resizeCanvas() {
 
@@ -1420,10 +3547,6 @@ window.addEventListener(
 );
 
 
-/* ==================================================
-   MOUSE
-================================================== */
-
 window.addEventListener(
     "mousemove",
     function (event) {
@@ -1443,15 +3566,12 @@ window.addEventListener(
     function () {
 
         mouse.x = null;
+
         mouse.y = null;
 
     }
 );
 
-
-/* ==================================================
-   PARTICLE
-================================================== */
 
 class Particle {
 
@@ -1493,13 +3613,14 @@ class Particle {
 
         }
 
-
-        if (this.x > canvas.width) {
+        if (
+            this.x >
+            canvas.width
+        ) {
 
             this.x = 0;
 
         }
-
 
         if (this.y < 0) {
 
@@ -1508,21 +3629,27 @@ class Particle {
 
         }
 
-
-        if (this.y > canvas.height) {
+        if (
+            this.y >
+            canvas.height
+        ) {
 
             this.y = 0;
 
         }
 
 
-        if (mouse.x !== null) {
+        if (
+            mouse.x !== null
+        ) {
 
             const dx =
-                this.x - mouse.x;
+                this.x -
+                mouse.x;
 
             const dy =
-                this.y - mouse.y;
+                this.y -
+                mouse.y;
 
             const distance =
                 Math.sqrt(
@@ -1591,10 +3718,6 @@ class Particle {
 }
 
 
-/* ==================================================
-   CREATE PARTICLES
-================================================== */
-
 function createParticles() {
 
     particles = [];
@@ -1623,10 +3746,6 @@ function createParticles() {
 
 }
 
-
-/* ==================================================
-   CONNECT PARTICLES
-================================================== */
 
 function connectParticles() {
 
@@ -1669,7 +3788,8 @@ function connectParticles() {
                 const opacity =
                     (
                         1 -
-                        distance / maxDistance
+                        distance /
+                        maxDistance
                     ) * 0.4;
 
 
@@ -1687,7 +3807,12 @@ function connectParticles() {
 
 
                 ctx.strokeStyle =
-                    `rgba(139, 92, 246, ${opacity})`;
+                    `rgba(
+                        139,
+                        92,
+                        246,
+                        ${opacity}
+                    )`;
 
                 ctx.lineWidth = 0.7;
 
@@ -1701,10 +3826,6 @@ function connectParticles() {
 
 }
 
-
-/* ==================================================
-   ANIMATION
-================================================== */
 
 function animate() {
 
@@ -1750,1808 +3871,37 @@ animate();
 
 
 /* ==================================================
-   API
+   INITIAL LOAD
 ================================================== */
 
-const API_URL =
-    "http://localhost/apiss/project1/user.php";
-
-
-const api_usr =
-    "http://localhost/apiss/project1/auth.php";
-
-
-let currentPage = 1;
-
-const limit = 5;
-
-let totalPages = 1;
-
-let editingId = null;
-
-
-/* ==================================================
-   VALIDATION STATE
-================================================== */
-
-let usernameValid = false;
-
-let passwordValid = false;
-
-let passwordsMatch = false;
-
-let usernameTimer;
-
-
-/* ==================================================
-   INITIAL PASSWORD STATE
-================================================== */
-
-reenterSection.style.display = "none";
-
-submitButton.disabled = true;
-
-
-/* ==================================================
-   MESSAGE
-================================================== */
-
-function showMessage(text, type) {
-
-    const box =
-        document.getElementById("message");
-
-
-    box.textContent =
-        text;
-
-
-    box.className =
-        "message " + type;
-
-
-    box.style.display =
-        "block";
-
-}
-
-
-function clearMessage() {
-
-    const box =
-        document.getElementById("message");
-
-
-    box.style.display =
-        "none";
-
-
-    box.textContent =
-        "";
-
-}
-
-
-/* ==================================================
-   FORM DATA
-================================================== */
-
-const mobile =
-    document.getElementById("mobileno");
-
-
-mobile.addEventListener(
-    "input",
-    function () {
-
-        this.value =
-            this.value
-                .replace(/\D/g, "")
-                .slice(0, 10);
-
-    }
-);
-
-
-function getFormData() {
-
-    return {
-
-        name:
-            document
-                .getElementById("name")
-                .value
-                .trim(),
-
-        dob:
-            document
-                .getElementById("dob")
-                .value,
-
-        fathername:
-            document
-                .getElementById("fathername")
-                .value
-                .trim(),
-
-        qualification:
-            document
-                .getElementById("qualification")
-                .value
-                .trim(),
-
-        city:
-            document
-                .getElementById("city")
-                .value
-                .trim(),
-
-        mobileno:
-            document
-                .getElementById("mobileno")
-                .value
-                .trim(),
-
-        address:
-            document
-                .getElementById("address")
-                .value
-                .trim(),
-
-        username:
-            document
-                .getElementById("username")
-                .value
-                .trim(),
-
-        password:
-            document
-                .getElementById("password")
-                .value
-                .trim()
-
-    };
-
-}
-
-
-/* ==================================================
-   ESCAPE HTML
-================================================== */
-
-function escapeHtml(value) {
-
-    return String(value ?? "")
-
-        .replace(/&/g, "&amp;")
-
-        .replace(/</g, "&lt;")
-
-        .replace(/>/g, "&gt;")
-
-        .replace(/"/g, "&quot;")
-
-        .replace(/'/g, "&#039;");
-
-}
-
-
-/* ==================================================
-   READ JSON
-================================================== */
-
-async function readJson(response) {
-
-    const text =
-        await response.text();
-
-
-    let data;
-
-
-    try {
-
-        data =
-            text
-                ? JSON.parse(text)
-                : {};
-
-    }
-
-    catch (error) {
-
-        throw new Error(
-            "Server returned invalid JSON. HTTP "
-            + response.status
-        );
-
-    }
-
-
-    if (!response.ok) {
-
-        throw new Error(
-            data.error ||
-            data.message ||
-            (
-                "Request failed. HTTP "
-                + response.status
-            )
-        );
-
-    }
-
-
-    return data;
-
-}
-
-
-/* ==================================================
-   UPDATE SUBMIT BUTTON
-================================================== */
-
-function updateSubmitButton() {
-
-    submitButton.disabled = !(
-        usernameValid &&
-        passwordValid &&
-        passwordsMatch
-    );
-
-}
-
-
-/* ==================================================
-   CHECKING USERNAME
-================================================== */
-
-username.addEventListener(
-    "input",
-    function () {
-
-        const value =
-            this.value.trim();
-
-
-        clearTimeout(
-            usernameTimer
-        );
-
-
-        usernameValid = false;
-
-        updateSubmitButton();
-
-
-        /* -------------------------
-           EMPTY
-        ------------------------- */
-
-        if (value.length === 0) {
-
-            usernameStatus.textContent =
-                "Username";
-
-            usernameStatus.className =
-                "";
-
-            return;
-
-        }
-
-
-        /* -------------------------
-           LESS THAN 3
-        ------------------------- */
-
-        if (value.length < 3) {
-
-            usernameStatus.innerHTML =
-                "<strong>Username</strong> " +
-                "Enter at least 3 characters";
-
-            usernameStatus.className =
-                "checking";
-
-            return;
-
-        }
-
-
-        /* -------------------------
-           CHECKING
-        ------------------------- */
-
-        usernameStatus.innerHTML =
-            "<strong>Username</strong> " +
-            "Checking...";
-
-        usernameStatus.className =
-            "checking";
-
-
-        usernameTimer =
-            setTimeout(
-                function () {
-
-                    checkUsername(
-                        value
-                    );
-
-                },
-                400
-            );
-
-    }
-);
-
-
-/* ==================================================
-   CHECK USERNAME WITH BACKEND
-================================================== */
-
-async function checkUsername(usernameValue) {
-
-    try {
-
-        let url =
-            api_usr +
-            "?action=check_username&username=" +
-            encodeURIComponent(usernameValue);
-
-        if (editingId !== null) {
-            url +=
-                "&exclude_id=" +
-                encodeURIComponent(editingId);
-        }
-
-        const response =
-            await fetch(url);
-
-
-        const data =
-            await response.json();
-
-
-        /*
-           Make sure the response still
-           belongs to the current username.
-        */
-
-        if (
-            username.value.trim() !==
-            usernameValue
-        ) {
-
-            return;
-
-        }
-
-
-        if (data.available) {
-
-            usernameValid = true;
-
-
-            usernameStatus.innerHTML =
-                "<strong>Username</strong> " +
-                "✓ Username available";
-
-
-            usernameStatus.className =
-                "available";
-
-        }
-
-        else {
-
-            usernameValid = false;
-
-
-            usernameStatus.innerHTML =
-                "<strong>Username</strong> " +
-                "✗ Username already taken";
-
-
-            usernameStatus.className =
-                "unavailable";
-
-        }
-
-
-        updateSubmitButton();
-
-    }
-
-
-    catch (error) {
-
-        console.error(error);
-
-
-        usernameValid = false;
-
-
-        usernameStatus.innerHTML =
-            "<strong>Username</strong> " +
-            "Unable to check username";
-
-
-        usernameStatus.className =
-            "unavailable";
-
-
-        updateSubmitButton();
-
-    }
-
-}
-
-
-/* ==================================================
-   PASSWORD VISIBILITY
-================================================== */
-
-const togglePassword =
-    document.getElementById(
-        "togglePassword"
-    );
-
-
-togglePassword.addEventListener(
-    "click",
-    function () {
-
-        if (
-            password.type ===
-            "password"
-        ) {
-
-            password.type =
-                "text";
-
-            togglePassword.textContent =
-                "🙈";
-
-        }
-
-        else {
-
-            password.type =
-                "password";
-
-            togglePassword.textContent =
-                "👁";
-
-        }
-
-    }
-);
-
-
-/* ==================================================
-   RE-ENTER PASSWORD VISIBILITY
-================================================== */
-
-const retogglePassword =
-    document.getElementById(
-        "retogglePassword"
-    );
-
-
-retogglePassword.addEventListener(
-    "click",
-    function () {
-
-        if (
-            reenterPassword.type ===
-            "password"
-        ) {
-
-            reenterPassword.type =
-                "text";
-
-            retogglePassword.textContent =
-                "🙈";
-
-        }
-
-        else {
-
-            reenterPassword.type =
-                "password";
-
-            retogglePassword.textContent =
-                "👁";
-
-        }
-
-    }
-);
-
-
-/* ==================================================
-   CHECK PASSWORD
-================================================== */
-
-function checkpass() {
-
-    const value =
-        password.value;
-
-
-    const status =
-        document.getElementById(
-            "passStatus"
-        );
-
-
-    const hasLength =
-        value.length >= 8;
-
-
-    const hasUppercase =
-        /[A-Z]/.test(value);
-
-
-    const hasNumber =
-        /[0-9]/.test(value);
-
-
-    const hasSpecial =
-        /[^A-Za-z0-9]/.test(value);
-
-
-    passwordValid =
-        hasLength &&
-        hasUppercase &&
-        hasNumber &&
-        hasSpecial;
-
-
-    /* -------------------------
-       SHOW REQUIREMENTS
-    ------------------------- */
-
-    status.textContent =
-        (hasLength ? "✓" : "✗") +
-        " At least 8 characters\n" +
-
-        (hasUppercase ? "✓" : "✗") +
-        " At least 1 UPPER CASE\n" +
-
-        (hasNumber ? "✓" : "✗") +
-        " At least 1 number\n" +
-
-        (hasSpecial ? "✓" : "✗") +
-        " At least 1 special character";
-
-
-    /* -------------------------
-       PASSWORD VALID
-    ------------------------- */
-
-    if (passwordValid) {
-
-        reenterSection.style.display =
-            "block";
-
-    }
-
-
-    /* -------------------------
-       PASSWORD INVALID
-    ------------------------- */
-
-    else {
-
-        reenterSection.style.display =
-            "none";
-
-
-        passwordsMatch =
-            false;
-
-
-        reenterPassword.value =
-            "";
-
-
-        document.getElementById(
-            "reenterStatus"
-        ).textContent =
-            "";
-
-    }
-
-
-    updateSubmitButton();
-
-}
-
-
-/* ==================================================
-   PASSWORD INPUT
-================================================== */
-
-password.addEventListener(
-    "input",
-    function () {
-
-        checkpass();
-
-    }
-);
-
-
-/* ==================================================
-   CHECK RE-ENTER PASSWORD
-================================================== */
-
-function checkPasswords() {
-
-    const status =
-        document.getElementById(
-            "reenterStatus"
-        );
-
-
-    if (!passwordValid) {
-
-        passwordsMatch =
-            false;
-
-        status.textContent =
-            "";
-
-        updateSubmitButton();
-
-        return;
-
-    }
-
-
-    if (
-        reenterPassword.value === ""
-    ) {
-
-        passwordsMatch =
-            false;
-
-        status.textContent =
-            "";
-
-        updateSubmitButton();
-
-        return;
-
-    }
-
-
-    passwordsMatch =
-        password.value ===
-        reenterPassword.value;
-
-
-    if (passwordsMatch) {
-
-        status.textContent =
-            "✓ Passwords match";
-
-        status.className =
-            "available";
-
-    }
-
-    else {
-
-        status.textContent =
-            "✗ Passwords do not match";
-
-        status.className =
-            "unavailable";
-
-    }
-
-
-    updateSubmitButton();
-
-}
-
-
-/* ==================================================
-   RE-ENTER PASSWORD INPUT
-================================================== */
-
-reenterPassword.addEventListener(
-    "input",
-    function () {
-
-        checkPasswords();
-
-    }
-);
-
-
-/* ==================================================
-   GET USERS
-================================================== */
-
-async function getUsers() {
-
-    clearMessage();
-
-
-    try {
-
-        const response =
-            await fetch(
-                API_URL
-                + "?page="
-                + currentPage
-                + "&limit="
-                + limit
-            );
-
-
-        const data =
-            await readJson(
-                response
-            );
-
-
-        displayUsers(
-            data.users || []
-        );
-
-
-        totalPages =
-            Math.max(
-                1,
-                Number(
-                    data.totalPages
-                ) || 1
-            );
-
-
-        document.getElementById(
-            "pageInfo"
-        ).textContent =
-            "Page "
-            + currentPage
-            + " of "
-            + totalPages;
-
-
-        document.getElementById(
-            "prevBtn"
-        ).disabled =
-            currentPage <= 1;
-
-
-        document.getElementById(
-            "nextBtn"
-        ).disabled =
-            currentPage >= totalPages;
-
-    }
-
-
-    catch (error) {
-
-        showMessage(
-            error.message,
-            "error"
-        );
-
-    }
-
-}
-
-
-/* ==================================================
-   DISPLAY USERS
-================================================== */
-
-function displayUsers(users) {
-
-    const body =
-        document.getElementById(
-            "usersBody"
-        );
-
-
-    body.innerHTML = "";
-
-
-    if (users.length === 0) {
-
-        body.innerHTML = `
-            <tr>
-                <td colspan="10">
-                    No users found.
-                </td>
-            </tr>
-        `;
-
-        return;
-
-    }
-
-
-    users.forEach(
-        function (user) {
-
-            const row =
-                document.createElement("tr");
-
-
-            const inactive =
-                user.status ===
-                "inactive";
-
-
-            if (inactive) {
-
-                row.classList.add(
-                    "inactive-row"
-                );
-
-            }
-
-
-            row.innerHTML = `
-
-                <td>
-                    ${escapeHtml(user.id)}
-                </td>
-
-                <td>
-                    ${escapeHtml(user.name)}
-                </td>
-
-                <td>
-                    ${escapeHtml(user.dob)}
-                </td>
-
-                <td>
-                    ${escapeHtml(user.fathername)}
-                </td>
-
-                <td>
-                    ${escapeHtml(user.qualification)}
-                </td>
-
-                <td>
-                    ${escapeHtml(user.city)}
-                </td>
-
-                <td>
-                    ${escapeHtml(user.mobileno)}
-                </td>
-
-                <td>
-                    ${escapeHtml(user.address)}
-                </td>
-
-                <td class="${
-                    inactive
-                    ? "status-inactive"
-                    : "status-active"
-                }">
-
-                    ${escapeHtml(user.status)}
-
-                </td>
-
-                <td class="action-column">
-
-                    <button
-                        type="button"
-                        ${
-                            inactive
-                            ? "disabled"
-                            : ""
-                        }
-                        onclick="updateUser(
-                            ${Number(user.id)}
-                        )"
-                        title="Update"
-                        class="ed-bt"
-                    >
-
-                        <i class="fa-solid fa-pen"></i>
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        ${
-                            inactive
-                            ? "disabled"
-                            : ""
-                        }
-                        onclick="timelog(
-                            ${Number(user.id)}
-                        )"
-                        title="View History"
-                        class="v-bt"
-                    >
-
-                        <i class="fa-solid fa-eye"></i>
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        onclick="toggleStatus(
-                            ${Number(user.id)}
-                        )"
-                        title="Activate / Inactivate"
-                        class="D-bt"
-                    >
-
-                        <i class="fa-solid fa-trash"></i>
-
-                    </button>
-
-                </td>
-
-            `;
-
-
-            body.appendChild(row);
-
-        }
-    );
-
-}
-
-
-/* ==================================================
-   VIEW HISTORY
-================================================== */
-
-async function timelog(id) {
-
-    const popup =
-        document.getElementById(
-            "historyPopup"
-        );
-
-
-    const historyBody =
-        document.getElementById(
-            "historyBody"
-        );
-
-
-    const pd =
-        document.getElementById(
-            "pd"
-        );
-
-
-    historyBody.innerHTML = `
-        <tr>
-            <td colspan="11">
-                Loading history...
-            </td>
-        </tr>
-    `;
-
-
-    pd.textContent =
-        "user_ID: " + id;
-
-
-    popup.style.display =
-        "flex";
-
-
-    try {
-
-        const response =
-            await fetch(
-
-                API_URL
-                + "?id="
-                + encodeURIComponent(id)
-                + "&his=true"
-
-            );
-
-
-        const data =
-            await readJson(
-                response
-            );
-
-
-        const logs =
-            data.history || [];
-
-
-        historyBody.innerHTML =
-            "";
-
-
-        if (logs.length === 0) {
-
-            historyBody.innerHTML = `
-                <tr>
-                    <td colspan="11">
-                        No history found.
-                    </td>
-                </tr>
-            `;
-
-            return;
-
-        }
-
-
-        logs.forEach(
-            function (log, index) {
-
-                const row =
-                    document.createElement("tr");
-
-
-                let logClass = "";
-
-
-                if (
-                    log.action ===
-                    "CREATE"
-                ) {
-
-                    logClass =
-                        "log-create";
-
-                }
-
-                else if (
-                    log.action ===
-                    "UPDATE"
-                ) {
-
-                    logClass =
-                        "log-update";
-
-                }
-
-                else if (
-                    log.action ===
-                    "DELETE"
-                ) {
-
-                    logClass =
-                        "log-delete";
-
-                }
-
-
-                row.innerHTML = `
-
-                    <td>
-                        ${index + 1}
-                    </td>
-
-                    <td class="${logClass}">
-                        ${escapeHtml(
-                            log.action
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            log.times
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            log.name
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            log.dob
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            log.fathername
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            log.qualification
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            log.city
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            log.mobileno
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            log.address
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            log.status
-                        )}
-                    </td>
-
-                `;
-
-
-                historyBody.appendChild(
-                    row
-                );
-
-            }
-        );
-
-    }
-
-
-    catch (error) {
-
-        historyBody.innerHTML = `
-            <tr>
-                <td colspan="11">
-                    ${escapeHtml(
-                        error.message
-                    )}
-                </td>
-            </tr>
-        `;
-
-    }
-
-}
-
-
-/* ==================================================
-   CLOSE HISTORY - X
-================================================== */
-
-document.getElementById(
-    "closeHistory"
-).addEventListener(
-    "click",
-    function () {
-
-        document.getElementById(
-            "historyPopup"
-        ).style.display =
-            "none";
-
-    }
-);
-
-
-/* ==================================================
-   CLOSE HISTORY - OUTSIDE
-================================================== */
-
-document.getElementById(
-    "historyPopup"
-).addEventListener(
-    "click",
-    function (event) {
-
-        if (
-            event.target ===
-            document.getElementById(
-                "historyPopup"
-            )
-        ) {
-
-            document.getElementById(
-                "historyPopup"
-            ).style.display =
-                "none";
-
-        }
-
-    }
-);
-
-
-/* ==================================================
-   UPDATE USER
-================================================== */
-
-async function updateUser(id) {
-
-    try {
-
-        const response =
-            await fetch(
-                API_URL
-                + "?id="
-                + encodeURIComponent(id)
-            );
-
-
-        const user =
-            await readJson(
-                response
-            );
-
-
-        /*
-           Fill user information.
-        */
-
-        document.getElementById(
-            "name"
-        ).value =
-            user.name || "";
-
-
-        document.getElementById(
-            "dob"
-        ).value =
-            user.dob || "";
-
-
-        document.getElementById(
-            "fathername"
-        ).value =
-            user.fathername || "";
-
-
-        document.getElementById(
-            "qualification"
-        ).value =
-            user.qualification || "";
-
-
-        document.getElementById(
-            "city"
-        ).value =
-            user.city || "";
-
-
-        document.getElementById(
-            "mobileno"
-        ).value =
-            user.mobileno || "";
-
-
-        document.getElementById(
-            "address"
-        ).value =
-            user.address || "";
-
-
-        document.getElementById(
-            "username"
-        ).value =
-            user.username || "";
-
-
-        /*
-           Backend returns the password
-           as "password".
-
-           Do NOT use password_hash here.
-        */
-
-        document.getElementById(
-            "password"
-        ).value =
-            user.password_hash || "";
-
-
-        /*
-           Store which user is being edited.
-        */
-
-        editingId =
-            Number(id);
-
-
-        /*
-           Store the original username
-           and password.
-
-           These are used to detect
-           whether the user actually
-           changed them.
-        */
-
-        originalUsername =
-            user.username || "";
-
-        originalPassword =
-            user.password || "";
-
-
-        /*
-           Change form into UPDATE mode.
-        */
-
-        document.getElementById(
-            "formTitle"
-        ).textContent =
-            "Update User #" + id;
-
-
-        document.getElementById(
-            "submitBtn"
-        ).textContent =
-            "Update";
-
-
-        /*
-           Existing username is already valid.
-        */
-
-        usernameValid =
-            true;
-
-
-        /*
-           Existing password is already valid.
-        */
-
-        passwordValid =
-            true;
-
-
-        /*
-           Existing password is considered
-           matching because the user has not
-           changed it.
-        */
-
-        passwordsMatch =
-            true;
-
-
-        /*
-           Password re-enter section is hidden
-           until the password is changed.
-        */
-
-        reenterPassword.value =
-            "";
-
-        reenterSection.style.display =
-            "none";
-
-
-        /*
-           Clear password validation messages.
-        */
-
-        document.getElementById(
-            "passStatus"
-        ).textContent =
-            "";
-
-
-        document.getElementById(
-            "reenterStatus"
-        ).textContent =
-            "";
-
-
-        /*
-           Show current username as valid.
-        */
-
-        usernameStatus.innerHTML =
-            "<strong>Username</strong> ✓ Current username";
-
-
-        usernameStatus.className =
-            "available";
-
-
-        /*
-           Enable UPDATE button.
-        */
-
-        updateSubmitButton();
-
-
-        /*
-           Scroll to form.
-        */
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    }
-
-
-    catch (error) {
-
-        showMessage(
-            error.message,
-            "error"
-        );
-
-    }
-
-}
-
-
-/* ==================================================
-   FORM SUBMIT
-================================================== */
-
-document.getElementById(
-    "userForm"
-).addEventListener(
-    "submit",
-    async function (event) {
-
-        event.preventDefault();
-
-
-        clearMessage();
-
-
-        /*
-           Final validation before
-           sending the request.
-        */
-
-        if (!usernameValid) {
-
-            showMessage(
-                "Please enter an available username.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (!passwordValid) {
-
-            showMessage(
-                "Please enter a valid password.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (!passwordsMatch) {
-
-            showMessage(
-                "Passwords do not match.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        const data =
-            getFormData();
-
-
-        try {
-
-            let response;
-
-
-            /* -------------------------
-               CREATE
-            ------------------------- */
-
-            if (
-                editingId === null
-            ) {
-
-                response =
-                    await fetch(
-                        API_URL,
-                        {
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify(
-                                    data
-                                )
-                        }
-                    );
-
-            }
-
-
-            /* -------------------------
-               UPDATE
-            ------------------------- */
-
-            else {
-
-                response =
-                    await fetch(
-
-                        API_URL
-                        + "?id="
-                        + encodeURIComponent(
-                            editingId
-                        ),
-
-                        {
-                            method: "PUT",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify(
-                                    data
-                                )
-                        }
-
-                    );
-
-            }
-
-
-            const result =
-                await readJson(
-                    response
-                );
-
-
-            showMessage(
-
-                editingId === null
-                ? "User created successfully."
-                : "User updated successfully.",
-
-                "success"
-
-            );
-
-
-            clearForm();
-
-
+checkSession().then(
+    function (loggedIn) {
+
+        if (loggedIn) {
+            console.log(curser);
             getUsers();
 
         }
 
-
-        catch (error) {
-
-            showMessage(
-                error.message,
-                "error"
-            );
-
-        }
-
     }
 );
 
 
 /* ==================================================
-   CLEAR FORM
+   BACK/FORWARD CACHE SESSION CHECK
 ================================================== */
 
-function clearForm() {
+window.addEventListener(
+    "pageshow",
+    function () {
 
-    document.getElementById(
-        "userForm"
-    ).reset();
-
-
-    editingId =
-        null;
-
-
-    usernameValid =
-        false;
-
-
-    passwordValid =
-        false;
-
-
-    passwordsMatch =
-        false;
-
-
-    clearTimeout(
-        usernameTimer
-    );
-
-
-    usernameStatus.textContent =
-        "Username";
-
-
-    usernameStatus.className =
-        "";
-
-
-    document.getElementById(
-        "passStatus"
-    ).textContent =
-        "";
-
-
-    document.getElementById(
-        "reenterStatus"
-    ).textContent =
-        "";
-
-
-    reenterSection.style.display =
-        "none";
-
-
-    submitButton.disabled =
-        true;
-
-
-    document.getElementById(
-        "formTitle"
-    ).textContent =
-        "Add User";
-
-
-    document.getElementById(
-        "submitBtn"
-    ).textContent =
-        "Submit";
-
-}
-
-
-/* ==================================================
-   TOGGLE STATUS
-================================================== */
-
-async function toggleStatus(id) {
-
-    const confirmed =
-        confirm(
-            "Change this user's active/inactive status?"
-        );
-
-
-    if (!confirmed) {
-
-        return;
+        checkSession();
 
     }
-
-
-    try {
-
-        const response =
-            await fetch(
-
-                API_URL
-                + "?id="
-                + encodeURIComponent(id),
-
-                {
-                    method: "DELETE"
-                }
-
-            );
-
-
-        const data =
-            await readJson(
-                response
-            );
-
-
-        showMessage(
-            "Status changed to "
-            + data.status
-            + ".",
-            "success"
-        );
-
-
-        getUsers();
-
-    }
-
-
-    catch (error) {
-
-        showMessage(
-            error.message,
-            "error"
-        );
-
-    }
-
-}
-
-
-/* ==================================================
-   PAGINATION
-================================================== */
-
-function previousPage() {
-
-    if (
-        currentPage > 1
-    ) {
-
-        currentPage--;
-
-        getUsers();
-
-    }
-
-}
-
-
-function nextPage() {
-
-    if (
-        currentPage < totalPages
-    ) {
-
-        currentPage++;
-
-        getUsers();
-
-    }
-
-}
-
-
-/* ==================================================
-   INITIAL LOAD
-================================================== */
-
-getUsers();
+);
 
 </script>
 
-
 </body>
-</html>
 
+</html>

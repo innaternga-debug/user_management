@@ -17,7 +17,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    background: rgb(247, 227, 227);
+    background: rgb(15, 15, 15);
     color: #f7f0f8;
 }
 
@@ -48,8 +48,8 @@ body {
     justify-content: center;
     align-items: center;
 
-    background: rgb(10, 83, 74);
-    color: #e9ebf0;
+    background: rgb(239, 237, 243);
+    color: #252525;
 
     width: 380px;
     padding: 35px;
@@ -57,10 +57,10 @@ body {
     border-radius: 16px;
 
     box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.08),
+        0 10% 30% rgba(0, 0, 0, 0.08),
         0 2px 8px rgba(0, 0, 0, 0.04);
 
-    border: 1px solid #e5e7eb;
+    border: 2px dotted #0d0d0e;
 
     overflow: hidden;
     margin-bottom: 20px;
@@ -95,32 +95,31 @@ label {
     font-weight: bold;
 }
 
-input,
-button {
-    font: inherit;
-}
-
-input {
-    width: 100%;
-
-    padding: 10px;
-
-    border: 1px solid #000000;
-
-    border-radius: 6px;
-}
-
-
 /* ==================================================
    INPUT
    ================================================== */
 
+input,
+button {
+    font: inherit;
+}
+input {
+    width: 50%;
+    padding: 10px;
+
+    border: none;
+    border-bottom: 2px solid #131212;
+
+    outline: none;
+}
+
+
 .fie {
     width: 100%;
 
-    background-color: #080808;
+    background-color: rgb(228, 230, 236);
 
-    color: whitesmoke;
+    color: rgb(12, 12, 12);
 }
 
 
@@ -163,7 +162,7 @@ button {
 }
 
 .submit-btn {
-    background: #658a00;
+    background: #3a5ae6;
 
     color: white;
 }
@@ -276,6 +275,8 @@ button:disabled {
 
 #particles {
     position: fixed;
+    color: rgb(197, 198, 255);
+
 
     inset: 0;
 
@@ -347,7 +348,8 @@ button:disabled {
                         id="username"
                         type="text"
                         required
-                        autocomplete="username"
+                        autocomplete="off"
+                        placeholder="Enter username"
                     >
 
                 </div>
@@ -415,7 +417,7 @@ button:disabled {
 
                         <hr>
 
-                        new user....
+                        New User....
 
                         <a href="signup2.html">
                             signup
@@ -489,6 +491,46 @@ userForm.addEventListener(
 
     }
 );
+
+window.addEventListener("pageshow", async function () {
+
+    // Always make login page fresh
+    document.getElementById("userForm").reset();
+    document.getElementById("message").style.display = "none";
+    document.getElementById("message").textContent = "";
+
+    // If we came back here after a successful login,
+    // destroy the PHP session.
+    if (sessionStorage.getItem("loggedInFlow") === "true") {
+
+        try {
+            await fetch("auth.php?action=logout", {
+                credentials: "include"
+            });
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+
+        sessionStorage.removeItem("loggedInFlow");
+    }
+});
+
+
+/*
+   Prevent the browser from going
+   forward into the old authenticated page
+   after returning to login.
+*/
+
+window.history.pushState(null, "", window.location.href);
+
+window.addEventListener("popstate", function () {
+
+    window.history.pushState(null, "", window.location.href);
+
+});
+
+
 
 
 /* ==================================================
@@ -619,13 +661,15 @@ async function login() {
                 "success"
             );
 
+           
 
             setTimeout(
                 function() {
 
-                    window.location.href =
-                        "index.html";
+                    sessionStorage.setItem("loggedInFlow", "true");
 
+                    window.location.href = "index.html";
+                
                 },
                 1000
             );
@@ -784,6 +828,18 @@ function clearMessage() {
         "";
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* ==================================================
@@ -1041,14 +1097,14 @@ class Particle {
 
 
         ctx.fillStyle =
-            "rgb(0, 0, 0)";
+            "rgb(197, 198, 255)";
 
 
         ctx.shadowBlur = 8;
 
 
         ctx.shadowColor =
-            "#8B5CF6";
+            "rgb(112, 163, 207)";
 
 
         ctx.fill();
@@ -1167,9 +1223,9 @@ function connectParticles() {
 
 
                 ctx.strokeStyle =
-                    `rgba(0,0,0,${opacity})`;
+                    `rgba(254, 254, 254,${opacity})`;
 
-
+                    //rgb(112, 163, 207)
                 ctx.lineWidth =
                     0.7;
 
