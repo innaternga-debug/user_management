@@ -29,6 +29,7 @@ body {
     padding: 20px;
     background: black;
     color: #f7f0f8;
+
 }
 
 .container {
@@ -55,6 +56,15 @@ h2 {
     align-items: center;
     position: relative;
     overflow: hidden;
+}
+
+.usrn{
+    position: absolute;
+    margin-top: 10%;
+    color: yellowgreen;
+    font-size: clamp(20px, 8vw, 20px);
+    background-color: rgba(23, 43, 38, 0.712);
+    border-radius: 20px;
 }
 
 .breathing-text {
@@ -143,12 +153,24 @@ h2 {
 ========================= */
 
 .headdy {
-    background: #d3c2fa;
+    /* background: rgb(241, 225, 195);
     color: black;
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,.08); */
+
+    width: 100%;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(219, 218, 218, 0.158);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color:#fcfdff;
+    border-radius: 12px;
+    padding: 20px;
+    overflow-x: auto;
+
 }
 
 .dashboard-header {
@@ -174,9 +196,10 @@ h2 {
 ========================= */
 
 .table-wrap {
-    overflow-x: auto;
+    width: 100%;
+    overflow-x: hidden;
 }
-
+/* 
 table {
     width: 100%;
     border-collapse: collapse;
@@ -200,11 +223,68 @@ th {
 td {
     background: #e0f4ff;
     color: black;
+} */
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 0;
+    table-layout: fixed;
+    border: 1px solid #f5f1f1;
+}
+
+thead {
+    background: rgba(255, 255, 255, 0.712);
+}
+
+th,
+td {
+    padding: 13px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.356);
+    text-align: left;
+    font-size: 13px;
+    vertical-align: middle;
+
+
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+th {
+    color: #000000;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+td {
+    color: #f5ebeb;
+}
+
+tbody tr {
+    transition: 0.2s;
+}
+
+tbody tr:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+th:first-child,
+td:first-child {
+    width: 60px;
+    white-space: nowrap;
+}
+
+th:last-child,
+td:last-child {
+    width: 140px;
+    white-space: nowrap;
 }
 
 .action-column {
     white-space: nowrap;
     text-decoration: none !important;
+    text-align: center;
 }
 
 .inactive-row td {
@@ -246,18 +326,41 @@ button:disabled {
     color: white;
 }
 
-.ed-bt {
-    background: #6eac4b;
-    color: black;
+
+.ed-bt {padding: 6px 10px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: transparent;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 4px;
+    font-size: 11px;
 }
 
-.D-bt {
-    background: #ad3a3a;
-    color: rgb(36, 35, 35);
+.D-bt {padding: 6px 10px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: transparent;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 4px;
+    font-size: 11px;
 }
 
-.v-bt {
-    background: #a2ad3a;
+.v-bt {padding: 6px 10px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: transparent;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 4px;
+    font-size: 11px;
+}
+
+.ed-bt:hover,
+.D-bt:hover,
+.v-bt:hover {
+    background: white;
     color: black;
 }
 
@@ -405,13 +508,24 @@ textarea {
 
     padding: 10px;
 
-    border: 1px solid #000;
+    border-bottom: 2px solid #000;
+
+    border-radius: 6px;
+}
+
+input:hover,
+textarea:hover {
+    width: 100%;
+
+    padding: 10px;
+
+    border-bottom: 2px solid #5991faf6;
 
     border-radius: 6px;
 }
 
 .fie {
-    background: #E0F2FE;
+    background: #FFF7ED;
 }
 
 textarea {
@@ -590,13 +704,8 @@ textarea {
 .history-popup-box {
     position: relative;
 
-    background:
-        radial-gradient(
-            #A6D9F7,
-            #ABC798,
-            #b9ffb7f6,
-            #023c40
-        );
+    background:rgb(82, 82, 82);
+    color: rgb(252, 247, 247);
 
     width: 100%;
     max-width: 1200px;
@@ -626,33 +735,28 @@ textarea {
 
     padding: 5px 10px;
 }
-
 .history-table {
     width: 100%;
-
-    min-width: 1200px;
-
+    min-width: 0;
     border-collapse: collapse;
-
     margin-top: 20px;
+    table-layout: fixed;
 }
 
 .history-table th,
 .history-table td {
-    border: 2px solid #1a1919;
-
+    border: 1px solid #1a1919;
     padding: 8px;
-
     text-align: left;
-
-    white-space: nowrap;
+    vertical-align: middle;
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 .history-table th {
     background: #023c40;
     color: white;
 }
-
 .log-create,
 .log-update,
 .log-delete {
@@ -752,6 +856,8 @@ textarea {
     <div class="breathing-text">
         NAGA
     </div>
+
+    <div class=usrn id="usrn"> </div>
 
 </div>
 
@@ -1228,13 +1334,16 @@ async function checkSession() {
 
         const data = await response.json();
 
+        const cunser=document.getElementById("usrn");
+
         if (!data.logged_in) {
 
             window.location.replace("login.html");
 
             return false;
         }
-        curser=data.username;
+        curser=data.user.username;
+        cunser.innerHTML=`Hi, ${data.user.username}`;
         return true;
 
     }
@@ -3805,12 +3914,9 @@ function connectParticles() {
                     particles[j].y
                 );
 
-
+                //line here
                 ctx.strokeStyle =
-                    `rgba(
-                        139,
-                        92,
-                        246,
+                    `rgba(64, 52, 97,
                         ${opacity}
                     )`;
 

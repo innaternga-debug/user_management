@@ -1,0 +1,3191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>User Dashboard</title>
+
+<style>
+
+/* =========================
+   BASIC
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: #050505;
+    color: white;
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   AUTH LOADING
+========================= */
+
+body.auth-loading {
+    visibility: hidden;
+}
+
+
+/* =========================
+   BACKGROUND
+========================= */
+
+#particles {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -3;
+    pointer-events: none;
+}
+
+.diamond {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(255,255,255,0.25);
+    transform: rotate(45deg);
+    animation: floatDiamond 8s linear infinite;
+    pointer-events: none;
+    z-index: -2;
+}
+
+.diamond:nth-child(1) {
+    top: 15%;
+    left: 10%;
+}
+
+.diamond:nth-child(2) {
+    top: 60%;
+    left: 80%;
+    animation-delay: 2s;
+}
+
+.diamond:nth-child(3) {
+    top: 35%;
+    left: 50%;
+    animation-delay: 4s;
+}
+
+.diamond:nth-child(4) {
+    top: 30%;
+    left: 20%;
+    animation-delay: 4s;
+}
+
+.diamond:nth-child(5) {
+    top: 35%;
+    left: 50%;
+    animation-delay: 4s;
+}
+
+.diamond:nth-child(6) {
+    top: 70%;
+    left: 40%;
+    animation-delay: 4s;
+}
+
+.diamond:nth-child(7) {
+    top: 40%;
+    left: 60%;
+    animation-delay: 4s;
+}
+
+.diamond:nth-child(8) {
+    top: 70%;
+    left: 80%;
+    animation-delay: 4s;
+}
+
+.diamond:nth-child(9) {
+    top: 70%;
+    left: 90%;
+    animation-delay: 4s;
+}
+
+
+
+
+
+
+
+
+@keyframes floatDiamond {
+    0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 0.2;
+    }
+
+    50% {
+        transform: translateY(-40px) rotate(225deg);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translateY(0) rotate(405deg);
+        opacity: 0.2;
+    }
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.container {
+    width: 95%;
+    max-width: 1500px;
+    margin: auto;
+    padding: 30px 0 50px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.headdy {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    gap: 20px;
+}
+
+.dashboard-title-area {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+}
+
+.headdy h1 {
+    margin: 0;
+    font-size: 32px;
+    letter-spacing: 2px;
+}
+
+.total-count {
+    font-size: 14px;
+    color: #aaa;
+    white-space: nowrap;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+button {
+    font-family: inherit;
+}
+
+.add-user-btn,
+.history-btn {
+    border: 1px solid rgba(255,255,255,0.5);
+    background: transparent;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.add-user-btn:hover,
+.history-btn:hover {
+    background: white;
+    color: black;
+}
+
+.add-user-btn {
+    font-size: 14px;
+}
+
+
+/* =========================
+   DASHBOARD CARD
+========================= */
+
+.dashboard-card {
+    width: 100%;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1250px;
+}
+
+thead {
+    background: rgba(255,255,255,0.08);
+}
+
+th,
+td {
+    padding: 13px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    text-align: left;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+th {
+    color: #ddd;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+td {
+    color: #bbb;
+}
+
+tbody tr {
+    transition: 0.2s;
+}
+
+tbody tr:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status-active {
+    color: #8cffb0;
+}
+
+.status-inactive {
+    color: #ff8585;
+}
+
+
+/* =========================
+   TABLE ACTIONS
+========================= */
+
+.action-btn {
+    padding: 6px 10px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: transparent;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 4px;
+    font-size: 11px;
+}
+
+.action-btn:hover {
+    background: white;
+    color: black;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message {
+    display: none;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.message.success {
+    display: block;
+    border: 1px solid rgba(100,255,150,0.4);
+    background: rgba(100,255,150,0.08);
+    color: #9dffb8;
+}
+
+.message.error {
+    display: block;
+    border: 1px solid rgba(255,100,100,0.4);
+    background: rgba(255,100,100,0.08);
+    color: #ff9b9b;
+}
+
+
+/* =========================
+   USER MODAL
+========================= */
+
+.user-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+    z-index: 1000;
+
+    overflow-y: auto;
+}
+
+.user-modal.show {
+    display: flex;
+}
+
+.user-modal-box {
+    position: relative;
+
+    width: 100%;
+    max-width: 900px;
+
+    max-height: 92vh;
+    overflow-y: auto;
+
+    background: #0b0b0b;
+
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+
+    padding: 30px;
+
+    box-shadow: 0 20px 80px rgba(0,0,0,0.8);
+}
+
+.close-user-modal {
+    position: absolute;
+    right: 18px;
+    top: 15px;
+
+    width: 32px;
+    height: 32px;
+
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+
+    background: transparent;
+    color: white;
+
+    cursor: pointer;
+}
+
+.close-user-modal:hover {
+    background: white;
+    color: black;
+}
+
+.user-modal-box h1 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 25px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.user-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.form-group input {
+    width: 100%;
+
+    padding: 11px 10px;
+
+    background: transparent;
+    color: white;
+
+    border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.35);
+
+    outline: none;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.form-group input:focus {
+    border-bottom-color: white;
+}
+
+.form-group input:invalid:not(:focus) {
+    border-bottom-color: rgba(255,100,100,0.5);
+}
+
+
+/* =========================
+   USERNAME MESSAGE
+========================= */
+
+.username-status {
+    font-size: 11px;
+    min-height: 14px;
+}
+
+.username-status.available {
+    color: #8cffb0;
+}
+
+.username-status.unavailable {
+    color: #ff8585;
+}
+
+
+/* =========================
+   PASSWORD INFO
+========================= */
+
+.password-info {
+    font-size: 11px;
+    color: #777;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   FORM FOOTER
+========================= */
+
+.form-footer {
+    grid-column: 1 / -1;
+
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 8px;
+}
+
+.submit-btn,
+.cancel-btn {
+    padding: 11px 22px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+}
+
+.submit-btn {
+    background: white;
+    color: black;
+    border: 1px solid white;
+}
+
+.submit-btn:hover {
+    background: transparent;
+    color: white;
+}
+
+.cancel-btn {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.cancel-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+
+/* =========================
+   HISTORY MODAL
+========================= */
+
+.history-modal {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0,0,0,0.8);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    z-index: 1100;
+}
+
+.history-modal.show {
+    display: flex;
+}
+
+.history-box {
+    width: 100%;
+    max-width: 1100px;
+
+    max-height: 85vh;
+
+    overflow-y: auto;
+
+    background: #0b0b0b;
+
+    border: 1px solid rgba(255,255,255,0.2);
+
+    border-radius: 12px;
+
+    padding: 25px;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.history-header h2 {
+    margin: 0;
+}
+
+.close-history {
+    border: 1px solid rgba(255,255,255,0.3);
+    background: transparent;
+    color: white;
+    padding: 7px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.close-history:hover {
+    background: white;
+    color: black;
+}
+
+
+/* =========================
+   EMPTY TABLE
+========================= */
+
+.empty-row {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+    .container {
+        width: 92%;
+    }
+
+    .headdy {
+        align-items: flex-start;
+    }
+
+    .dashboard-title-area {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .headdy h1 {
+        font-size: 25px;
+    }
+
+    .total-count {
+        font-size: 12px;
+    }
+
+    .user-form {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .form-footer {
+        grid-column: auto;
+    }
+
+    .user-modal-box {
+        padding: 22px;
+    }
+}
+
+</style>
+</head>
+
+
+<body class="auth-loading">
+<!-- <body> -->
+
+<!-- =========================
+     BACKGROUND
+========================= -->
+
+<canvas id="particles"></canvas>
+
+<div class="diamond"></div>
+<div class="diamond"></div>
+<div class="diamond"></div>
+
+<div class="diamond"></div>
+<div class="diamond"></div>
+<div class="diamond"></div>
+
+<div class="diamond"></div>
+<div class="diamond"></div>
+<div class="diamond"></div>
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <div class="headdy">
+
+        <div class="dashboard-title-area">
+
+            <h1>Dashboard</h1>
+
+            <!-- TOTAL NUMBER OF ENTRIES -->
+
+            <div
+                id="totalEntries"
+                class="total-count"
+            >
+                Total no. of entries: 0
+            </div>
+
+        </div>
+
+
+        <!-- ADD USER -->
+
+        <button
+            id="addUserBtn"
+            class="add-user-btn"
+            type="button"
+        >
+            Add User
+        </button>
+
+    </div>
+
+
+    <!-- DASHBOARD -->
+
+    <div class="dashboard-card">
+
+        <div
+            id="dashboardMessage"
+            class="message"
+        ></div>
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <!-- NEW S.NO COLUMN -->
+
+                    <th>S.No.</th>
+
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>DOB</th>
+                    <th>Father Name</th>
+                    <th>Qualification</th>
+                    <th>City</th>
+                    <th>Mobile</th>
+                    <th>Address</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="userTableBody">
+
+                <tr>
+                    <td
+                        colspan="11"
+                        class="empty-row"
+                    >
+                        Loading...
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     ADD / UPDATE USER MODAL
+================================================== -->
+
+<div
+    id="userModal"
+    class="user-modal"
+>
+
+    <div class="user-modal-box">
+
+        <button
+            id="closeUserModal"
+            class="close-user-modal"
+            type="button"
+        >
+            X
+        </button>
+
+
+        <h1 id="formTitle">
+            Add User
+        </h1>
+
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+
+        <form
+            id="userForm"
+            class="user-form"
+            novalidate
+        >
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+                <label for="name">
+                    Name
+                </label>
+
+                <input
+                    id="name"
+                    type="text"
+                    required
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- DOB -->
+
+            <div class="form-group">
+
+                <label for="dob">
+                    Date of Birth
+                </label>
+
+                <input
+                    id="dob"
+                    type="date"
+                    required
+                >
+
+            </div>
+
+
+            <!-- FATHER NAME -->
+
+            <div class="form-group">
+
+                <label for="fathername">
+                    Father Name
+                </label>
+
+                <input
+                    id="fathername"
+                    type="text"
+                    required
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- QUALIFICATION -->
+
+            <div class="form-group">
+
+                <label for="qualification">
+                    Qualification
+                </label>
+
+                <input
+                    id="qualification"
+                    type="text"
+                    required
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- CITY -->
+
+            <div class="form-group">
+
+                <label for="city">
+                    City
+                </label>
+
+                <input
+                    id="city"
+                    type="text"
+                    required
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- MOBILE -->
+
+            <div class="form-group">
+
+                <label for="mobileno">
+                    Mobile Number
+                </label>
+
+                <input
+                    id="mobileno"
+                    type="text"
+                    inputmode="numeric"
+                    maxlength="10"
+                    minlength="10"
+                    pattern="[0-9]{10}"
+                    required
+                    autocomplete="off"
+                    placeholder="10 digit mobile number"
+                >
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="form-group full">
+
+                <label for="address">
+                    Address
+                </label>
+
+                <input
+                    id="address"
+                    type="text"
+                    required
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- USERNAME -->
+
+            <div class="form-group">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    id="username"
+                    type="text"
+                    required
+                    autocomplete="off"
+                >
+
+                <div
+                    id="usernameStatus"
+                    class="username-status"
+                ></div>
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    id="password"
+                    type="password"
+                    required
+                    autocomplete="new-password"
+                >
+
+                <div class="password-info">
+                    Minimum 8 characters, one uppercase letter,
+                    one number and one special character.
+                </div>
+
+            </div>
+
+
+            <!-- RE-ENTER PASSWORD -->
+
+            <div
+                id="reenterGroup"
+                class="form-group"
+            >
+
+                <label for="reenterPassword">
+                    Re-enter Password
+                </label>
+
+                <input
+                    id="reenterPassword"
+                    type="password"
+                    autocomplete="new-password"
+                >
+
+            </div>
+
+
+            <!-- FORM BUTTONS -->
+
+            <div class="form-footer">
+
+                <button
+                    id="cancelBtn"
+                    class="cancel-btn"
+                    type="button"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    id="submitBtn"
+                    class="submit-btn"
+                    type="submit"
+                >
+                    Submit
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     HISTORY MODAL
+================================================== -->
+
+<div
+    id="historyModal"
+    class="history-modal"
+>
+
+    <div class="history-box">
+
+        <div class="history-header">
+
+            <h2>
+                User History
+            </h2>
+
+            <button
+                id="closeHistory"
+                class="close-history"
+                type="button"
+            >
+                Close
+            </button>
+
+        </div>
+
+        <div id="historyContent">
+            Loading...
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* ==================================================
+   API URLS
+================================================== */
+
+const API_URL =
+    "http://localhost/apiss/project1/user.php";
+
+const AUTH_URL =
+    "http://localhost/apiss/project1/auth.php";
+
+
+
+/* ==================================================
+   DOM ELEMENTS
+================================================== */
+
+const userModal =
+    document.getElementById("userModal");
+
+const addUserBtn =
+    document.getElementById("addUserBtn");
+
+const closeUserModal =
+    document.getElementById("closeUserModal");
+
+const cancelBtn =
+    document.getElementById("cancelBtn");
+
+const userForm =
+    document.getElementById("userForm");
+
+const formTitle =
+    document.getElementById("formTitle");
+
+const submitBtn =
+    document.getElementById("submitBtn");
+
+const message =
+    document.getElementById("message");
+
+const dashboardMessage =
+    document.getElementById("dashboardMessage");
+
+const userTableBody =
+    document.getElementById("userTableBody");
+
+const totalEntries =
+    document.getElementById("totalEntries");
+
+const mobileInput =
+    document.getElementById("mobileno");
+
+const usernameInput =
+    document.getElementById("username");
+
+const usernameStatus =
+    document.getElementById("usernameStatus");
+
+const passwordInput =
+    document.getElementById("password");
+
+const reenterPasswordInput =
+    document.getElementById("reenterPassword");
+
+const reenterGroup =
+    document.getElementById("reenterGroup");
+
+
+
+/* ==================================================
+   STATE
+================================================== */
+
+let editingId = null;
+
+let originalData = null;
+
+let originalUsername = "";
+
+let originalPassword = "";
+
+let usernameValid = false;
+
+let usernameCheckTimer = null;
+
+let usersLoaded = false;
+
+let sessionReady = false;
+
+
+
+/* ==================================================
+   SESSION CHECK
+================================================== */
+
+async function checkSession() {
+
+    try {
+
+        const response =
+            await fetch(
+                AUTH_URL +
+                "?action=session&_=" +
+                Date.now(),
+                {
+                    method: "GET",
+                    credentials: "include",
+                    cache: "no-store"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.logged_in) {
+
+            window.location.replace(
+                "login.html"
+            );
+
+            return false;
+        }
+
+
+        return true;
+
+    } catch (error) {
+
+        console.error(error);
+
+        window.location.replace(
+            "login.html"
+        );
+
+        return false;
+    }
+}
+
+
+
+/* ==================================================
+   INITIAL PAGE LOAD
+================================================== */
+
+async function initializePage() {
+
+    const loggedIn =
+        await checkSession();
+
+
+    if (!loggedIn) {
+        return;
+    }
+
+
+    sessionReady = true;
+
+    document.body.classList.remove(
+        "auth-loading"
+    );
+
+
+    await getUsers();
+}
+
+
+initializePage();
+
+
+
+/* ==================================================
+   BROWSER BACK / FORWARD / BF CACHE
+================================================== */
+
+window.addEventListener(
+    "pageshow",
+    async function () {
+
+        const loggedIn =
+            await checkSession();
+
+
+        if (!loggedIn) {
+            return;
+        }
+
+
+        if (sessionReady) {
+            await getUsers();
+        }
+
+    }
+);
+
+
+
+/* ==================================================
+   GET ALL USERS
+================================================== */
+
+async function getUsers() {
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL + "?_=" + Date.now(),
+                {
+                    method: "GET",
+                    credentials: "include",
+                    cache: "no-store"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                data.error ||
+                "Failed to load users"
+            );
+        }
+
+
+        /*
+         * Depending on your existing user.php,
+         * the users may be directly in data
+         * or inside data.users.
+         */
+
+        const users =
+            Array.isArray(data)
+                ? data
+                : (
+                    Array.isArray(data.users)
+                        ? data.users
+                        : []
+                );
+
+
+        displayUsers(users);
+
+        usersLoaded = true;
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        userTableBody.innerHTML = `
+            <tr>
+                <td
+                    colspan="11"
+                    class="empty-row"
+                >
+                    Failed to load users.
+                </td>
+            </tr>
+        `;
+
+        totalEntries.textContent =
+            "Total no. of entries: 0";
+    }
+}
+
+
+
+/* ==================================================
+   DISPLAY USERS
+================================================== */
+
+function displayUsers(users) {
+
+    /*
+     * TOTAL NUMBER OF ENTRIES
+     */
+
+    totalEntries.textContent =
+        "Total no. of entries: " +
+        users.length;
+
+
+    /*
+     * NO USERS
+     */
+
+    if (users.length === 0) {
+
+        userTableBody.innerHTML = `
+            <tr>
+                <td
+                    colspan="11"
+                    class="empty-row"
+                >
+                    No users found.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    /*
+     * CREATE TABLE ROWS
+     */
+
+    userTableBody.innerHTML =
+        users.map(
+            function(user, index) {
+
+                const serialNumber =
+                    index + 1;
+
+
+                const status =
+                    user.status || "active";
+
+
+                const statusClass =
+                    status === "active"
+                        ? "status-active"
+                        : "status-inactive";
+
+
+                return `
+                    <tr>
+
+                        <!-- S.NO -->
+
+                        <td>
+                            ${serialNumber}
+                        </td>
+
+
+                        <!-- DATABASE ID -->
+
+                        <td>
+                            ${escapeHtml(
+                                user.id
+                            )}
+                        </td>
+
+
+                        <!-- NAME -->
+
+                        <td>
+                            ${escapeHtml(
+                                user.name
+                            )}
+                        </td>
+
+
+                        <!-- DOB -->
+
+                        <td>
+                            ${escapeHtml(
+                                user.dob
+                            )}
+                        </td>
+
+
+                        <!-- FATHER NAME -->
+
+                        <td>
+                            ${escapeHtml(
+                                user.fathername
+                            )}
+                        </td>
+
+
+                        <!-- QUALIFICATION -->
+
+                        <td>
+                            ${escapeHtml(
+                                user.qualification
+                            )}
+                        </td>
+
+
+                        <!-- CITY -->
+
+                        <td>
+                            ${escapeHtml(
+                                user.city
+                            )}
+                        </td>
+
+
+                        <!-- MOBILE -->
+
+                        <td>
+                            ${escapeHtml(
+                                user.mobileno
+                            )}
+                        </td>
+
+
+                        <!-- ADDRESS -->
+
+                        <td>
+                            ${escapeHtml(
+                                user.address
+                            )}
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td
+                            class="${statusClass}"
+                        >
+                            ${escapeHtml(
+                                status
+                            )}
+                        </td>
+
+
+                        <!-- ACTIONS -->
+
+                        <td>
+
+                            <button
+                                type="button"
+                                class="action-btn"
+                                onclick="updateUser(
+                                    ${Number(user.id)}
+                                )"
+                            >
+                                Update
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="action-btn"
+                                onclick="toggleStatus(
+                                    ${Number(user.id)},
+                                    '${status}'
+                                )"
+                            >
+                                ${
+                                    status === "active"
+                                        ? "Deactivate"
+                                        : "Activate"
+                                }
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="action-btn"
+                                onclick="showHistory(
+                                    ${Number(user.id)}
+                                )"
+                            >
+                                History
+                            </button>
+
+                        </td>
+
+                    </tr>
+                `;
+            }
+        )
+        .join("");
+}
+
+
+
+/* ==================================================
+   HTML ESCAPE
+================================================== */
+
+function escapeHtml(value) {
+
+    if (value === null ||
+        value === undefined) {
+
+        return "";
+    }
+
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+
+/* ==================================================
+   MOBILE NUMBER
+================================================== */
+
+/*
+ * Allow ONLY digits while typing.
+ */
+
+mobileInput.addEventListener(
+    "input",
+    function() {
+
+        this.value =
+            this.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
+
+    }
+);
+
+
+
+/*
+ * IMPORTANT:
+ *
+ * When the user submits and the mobile number
+ * is not exactly 10 digits:
+ *
+ * 1. Stop submission.
+ * 2. Show error.
+ * 3. Focus mobile field.
+ * 4. Put cursor at the end.
+ */
+
+function validateMobileNumber() {
+
+    const value =
+        mobileInput.value.trim();
+
+
+    if (!/^[0-9]{10}$/.test(value)) {
+
+        showMessage(
+            "Mobile number must contain exactly 10 digits.",
+            "error"
+        );
+
+
+        /*
+         * Focus the mobile field.
+         */
+
+        mobileInput.focus();
+
+
+        /*
+         * Put cursor at the end.
+         */
+
+        mobileInput.setSelectionRange(
+            mobileInput.value.length,
+            mobileInput.value.length
+        );
+
+
+        return false;
+    }
+
+
+    return true;
+}
+
+
+
+/* ==================================================
+   PASSWORD VALIDATION
+================================================== */
+
+function validatePassword(password) {
+
+    return (
+        password.length >= 8 &&
+        /[A-Z]/.test(password) &&
+        /[0-9]/.test(password) &&
+        /[^A-Za-z0-9]/.test(password)
+    );
+}
+
+
+
+/* ==================================================
+   USERNAME CHECK
+================================================== */
+
+function checkUsernameAvailability() {
+
+    const username =
+        usernameInput.value.trim();
+
+
+    /*
+     * UPDATE MODE:
+     *
+     * If username has not changed,
+     * it is automatically valid.
+     */
+
+    if (
+        editingId !== null &&
+        username === originalUsername
+    ) {
+
+        usernameValid = true;
+
+        usernameStatus.textContent =
+            "Current username";
+
+        usernameStatus.className =
+            "username-status available";
+
+        return;
+    }
+
+
+    if (username === "") {
+
+        usernameValid = false;
+
+        usernameStatus.textContent = "";
+
+        usernameStatus.className =
+            "username-status";
+
+        return;
+    }
+
+
+    clearTimeout(
+        usernameCheckTimer
+    );
+
+
+    usernameStatus.textContent =
+        "Checking...";
+
+    usernameStatus.className =
+        "username-status";
+
+
+    usernameCheckTimer =
+        setTimeout(
+            async function() {
+
+                try {
+
+                    let url =
+                        AUTH_URL +
+                        "?action=check_username" +
+                        "&username=" +
+                        encodeURIComponent(username);
+
+
+                    if (editingId !== null) {
+
+                        url +=
+                            "&exclude_id=" +
+                            encodeURIComponent(
+                                editingId
+                            );
+                    }
+
+
+                    const response =
+                        await fetch(
+                            url,
+                            {
+                                credentials:
+                                    "include",
+                                cache:
+                                    "no-store"
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (data.available) {
+
+                        usernameValid = true;
+
+                        usernameStatus.textContent =
+                            "Username available";
+
+                        usernameStatus.className =
+                            "username-status available";
+
+                    } else {
+
+                        usernameValid = false;
+
+                        usernameStatus.textContent =
+                            "Username already exists";
+
+                        usernameStatus.className =
+                            "username-status unavailable";
+                    }
+
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    usernameValid = false;
+
+                    usernameStatus.textContent =
+                        "Could not check username";
+
+                    usernameStatus.className =
+                        "username-status unavailable";
+                }
+
+            },
+            400
+        );
+}
+
+
+
+/* ==================================================
+   USERNAME INPUT
+================================================== */
+
+usernameInput.addEventListener(
+    "input",
+    function() {
+
+        usernameValid = false;
+
+        checkUsernameAvailability();
+
+    }
+);
+
+
+
+/* ==================================================
+   PASSWORD INPUT
+================================================== */
+
+passwordInput.addEventListener(
+    "input",
+    function() {
+
+        const password =
+            passwordInput.value;
+
+
+        /*
+         * If editing and the password is exactly
+         * the original password, hide re-enter.
+         */
+
+        if (
+            editingId !== null &&
+            password === originalPassword
+        ) {
+
+            reenterGroup.style.display =
+                "none";
+
+            reenterPasswordInput.value =
+                "";
+
+            return;
+        }
+
+
+        /*
+         * Password has been changed.
+         */
+
+        reenterGroup.style.display =
+            "flex";
+
+    }
+);
+
+
+
+/* ==================================================
+   OPEN ADD USER
+================================================== */
+
+addUserBtn.addEventListener(
+    "click",
+    function() {
+
+        openAddUserModal();
+
+    }
+);
+
+
+
+function openAddUserModal() {
+
+    editingId = null;
+
+    originalData = null;
+
+    originalUsername = "";
+
+    originalPassword = "";
+
+    usernameValid = false;
+
+
+    userForm.reset();
+
+
+    formTitle.textContent =
+        "Add User";
+
+    submitBtn.textContent =
+        "Submit";
+
+
+    reenterGroup.style.display =
+        "flex";
+
+
+    usernameStatus.textContent = "";
+
+    usernameStatus.className =
+        "username-status";
+
+
+    clearMessage();
+
+
+    userModal.classList.add(
+        "show"
+    );
+
+
+    document.getElementById(
+        "name"
+    ).focus();
+
+}
+
+
+
+/* ==================================================
+   OPEN UPDATE USER
+================================================== */
+
+async function updateUser(id) {
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL +
+                "?id=" +
+                encodeURIComponent(id) +
+                "&_=" +
+                Date.now(),
+                {
+                    method: "GET",
+                    credentials: "include",
+                    cache: "no-store"
+                }
+            );
+
+
+        const user =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                user.message ||
+                user.error ||
+                "Failed to load user"
+            );
+        }
+
+
+        /*
+         * SAVE ORIGINAL DATA
+         */
+
+        originalData = {
+
+            name:
+                user.name || "",
+
+            dob:
+                user.dob || "",
+
+            fathername:
+                user.fathername || "",
+
+            qualification:
+                user.qualification || "",
+
+            city:
+                user.city || "",
+
+            mobileno:
+                user.mobileno || "",
+
+            address:
+                user.address || "",
+
+            username:
+                user.username || "",
+
+            password:
+                user.password_hash || ""
+
+        };
+
+
+        editingId =
+            Number(id);
+
+
+        originalUsername =
+            originalData.username;
+
+
+        originalPassword =
+            originalData.password;
+
+
+        /*
+         * FILL ALL FIELDS
+         */
+
+        document.getElementById(
+            "name"
+        ).value =
+            originalData.name;
+
+
+        document.getElementById(
+            "dob"
+        ).value =
+            originalData.dob;
+
+
+        document.getElementById(
+            "fathername"
+        ).value =
+            originalData.fathername;
+
+
+        document.getElementById(
+            "qualification"
+        ).value =
+            originalData.qualification;
+
+
+        document.getElementById(
+            "city"
+        ).value =
+            originalData.city;
+
+
+        document.getElementById(
+            "mobileno"
+        ).value =
+            originalData.mobileno;
+
+
+        document.getElementById(
+            "address"
+        ).value =
+            originalData.address;
+
+
+        document.getElementById(
+            "username"
+        ).value =
+            originalData.username;
+
+
+        document.getElementById(
+            "password"
+        ).value =
+            originalData.password;
+
+
+        /*
+         * Password has NOT changed yet,
+         * therefore hide re-enter password.
+         */
+
+        reenterGroup.style.display =
+            "none";
+
+        reenterPasswordInput.value =
+            "";
+
+
+        usernameValid = true;
+
+        usernameStatus.textContent =
+            "Current username";
+
+        usernameStatus.className =
+            "username-status available";
+
+
+        formTitle.textContent =
+            "Update User";
+
+        submitBtn.textContent =
+            "Update";
+
+
+        clearMessage();
+
+
+        userModal.classList.add(
+            "show"
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            error.message ||
+            "Failed to load user"
+        );
+    }
+}
+
+
+
+/* ==================================================
+   FORM SUBMIT
+================================================== */
+
+userForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        /*
+         * ==========================================
+         * 1. CHECK NORMAL REQUIRED FIELDS
+         * ==========================================
+         */
+
+        if (!validateRequiredFields()) {
+
+            return;
+        }
+
+
+        /*
+         * ==========================================
+         * 2. CHECK MOBILE NUMBER
+         * ==========================================
+         *
+         * This is the important part you requested.
+         *
+         * If it isn't exactly 10 digits,
+         * the cursor moves to mobile number.
+         */
+
+        if (!validateMobileNumber()) {
+
+            return;
+        }
+
+
+        /*
+         * ==========================================
+         * 3. CHECK USERNAME
+         * ==========================================
+         */
+
+        if (!usernameValid) {
+
+            showMessage(
+                "Please enter an available username.",
+                "error"
+            );
+
+            usernameInput.focus();
+
+            return;
+        }
+
+
+        /*
+         * ==========================================
+         * 4. CHECK PASSWORD
+         * ==========================================
+         */
+
+        const password =
+            passwordInput.value;
+
+
+        if (!validatePassword(password)) {
+
+            showMessage(
+                "Password must contain at least 8 characters, one uppercase letter, one number and one special character.",
+                "error"
+            );
+
+            passwordInput.focus();
+
+            return;
+        }
+
+
+        /*
+         * ==========================================
+         * 5. CHECK RE-ENTER PASSWORD
+         * ==========================================
+         *
+         * Only required when password has changed
+         * or when adding a new user.
+         */
+
+        const passwordChanged =
+            (
+                editingId === null ||
+                password !== originalPassword
+            );
+
+
+        if (passwordChanged) {
+
+            const reentered =
+                reenterPasswordInput.value;
+
+
+            if (password !== reentered) {
+
+                showMessage(
+                    "Passwords do not match.",
+                    "error"
+                );
+
+                reenterPasswordInput.focus();
+
+                return;
+            }
+        }
+
+
+        /*
+         * ==========================================
+         * 6. UPDATE
+         * ==========================================
+         */
+
+        if (editingId !== null) {
+
+            await submitUpdate();
+
+            return;
+        }
+
+
+        /*
+         * ==========================================
+         * 7. ADD
+         * ==========================================
+         */
+
+        await submitCreate();
+
+    }
+);
+
+
+
+/* ==================================================
+   REQUIRED FIELD VALIDATION
+================================================== */
+
+function validateRequiredFields() {
+
+    const fields = [
+        document.getElementById("name"),
+        document.getElementById("dob"),
+        document.getElementById("fathername"),
+        document.getElementById("qualification"),
+        document.getElementById("city"),
+        document.getElementById("mobileno"),
+        document.getElementById("address"),
+        document.getElementById("username"),
+        document.getElementById("password")
+    ];
+
+
+    for (const field of fields) {
+
+        if (
+            field.value.trim() === ""
+        ) {
+
+            showMessage(
+                "Please fill out all required fields.",
+                "error"
+            );
+
+            field.focus();
+
+            return false;
+        }
+    }
+
+
+    return true;
+}
+
+
+
+/* ==================================================
+   CREATE USER
+================================================== */
+
+async function submitCreate() {
+
+    setSubmitLoading(true);
+
+
+    const data = {
+
+        name:
+            document.getElementById(
+                "name"
+            ).value.trim(),
+
+        dob:
+            document.getElementById(
+                "dob"
+            ).value,
+
+        fathername:
+            document.getElementById(
+                "fathername"
+            ).value.trim(),
+
+        qualification:
+            document.getElementById(
+                "qualification"
+            ).value.trim(),
+
+        city:
+            document.getElementById(
+                "city"
+            ).value.trim(),
+
+        mobileno:
+            mobileInput.value.trim(),
+
+        address:
+            document.getElementById(
+                "address"
+            ).value.trim(),
+
+        username:
+            usernameInput.value.trim(),
+
+        password:
+            passwordInput.value
+
+    };
+
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    credentials:
+                        "include",
+
+                    body:
+                        JSON.stringify(data)
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.message ||
+                result.error ||
+                "Failed to create user"
+            );
+        }
+
+
+        closeUserModalWindow();
+
+
+        showDashboardMessage(
+            "User created successfully.",
+            "success"
+        );
+
+
+        await getUsers();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            error.message ||
+            "Failed to create user.",
+            "error"
+        );
+
+    } finally {
+
+        setSubmitLoading(false);
+    }
+}
+
+
+
+/* ==================================================
+   UPDATE USER
+================================================== */
+
+async function submitUpdate() {
+
+    setSubmitLoading(true);
+
+
+    const data = {
+
+        name:
+            document.getElementById(
+                "name"
+            ).value.trim(),
+
+        dob:
+            document.getElementById(
+                "dob"
+            ).value,
+
+        fathername:
+            document.getElementById(
+                "fathername"
+            ).value.trim(),
+
+        qualification:
+            document.getElementById(
+                "qualification"
+            ).value.trim(),
+
+        city:
+            document.getElementById(
+                "city"
+            ).value.trim(),
+
+        mobileno:
+            mobileInput.value.trim(),
+
+        address:
+            document.getElementById(
+                "address"
+            ).value.trim(),
+
+        username:
+            usernameInput.value.trim(),
+
+        password:
+            passwordInput.value
+
+    };
+
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL +
+                "?id=" +
+                encodeURIComponent(
+                    editingId
+                ),
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    credentials:
+                        "include",
+
+                    body:
+                        JSON.stringify(data)
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.message ||
+                result.error ||
+                "Failed to update user"
+            );
+        }
+
+
+        closeUserModalWindow();
+
+
+        showDashboardMessage(
+            "User updated successfully.",
+            "success"
+        );
+
+
+        await getUsers();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            error.message ||
+            "Failed to update user.",
+            "error"
+        );
+
+    } finally {
+
+        setSubmitLoading(false);
+    }
+}
+
+
+
+/* ==================================================
+   SUBMIT BUTTON LOADING
+================================================== */
+
+function setSubmitLoading(loading) {
+
+    if (loading) {
+
+        submitBtn.disabled = true;
+
+        submitBtn.textContent =
+            editingId !== null
+                ? "Updating..."
+                : "Submitting...";
+
+    } else {
+
+        submitBtn.disabled = false;
+
+        submitBtn.textContent =
+            editingId !== null
+                ? "Update"
+                : "Submit";
+    }
+}
+
+
+
+/* ==================================================
+   CLOSE USER MODAL
+================================================== */
+
+closeUserModal.addEventListener(
+    "click",
+    closeUserModalWindow
+);
+
+
+cancelBtn.addEventListener(
+    "click",
+    closeUserModalWindow
+);
+
+
+function closeUserModalWindow() {
+
+    userModal.classList.remove(
+        "show"
+    );
+
+    clearMessage();
+
+    userForm.reset();
+
+    editingId = null;
+
+    originalData = null;
+
+    originalUsername = "";
+
+    originalPassword = "";
+
+    usernameValid = false;
+
+    usernameStatus.textContent = "";
+
+    usernameStatus.className =
+        "username-status";
+
+    reenterGroup.style.display =
+        "flex";
+
+}
+
+
+
+/* ==================================================
+   CLICK OUTSIDE USER MODAL
+================================================== */
+
+userModal.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target === userModal
+        ) {
+
+            closeUserModalWindow();
+        }
+
+    }
+);
+
+
+
+/* ==================================================
+   ESCAPE USER MODAL
+================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            if (
+                userModal.classList.contains(
+                    "show"
+                )
+            ) {
+
+                closeUserModalWindow();
+            }
+
+        }
+
+    }
+);
+
+
+
+/* ==================================================
+   STATUS TOGGLE
+================================================== */
+
+async function toggleStatus(
+    id,
+    currentStatus
+) {
+
+    const newStatus =
+        currentStatus === "active"
+            ? "inactive"
+            : "active";
+
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL +
+                "?id=" +
+                encodeURIComponent(id),
+                {
+                    method: "PATCH",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    credentials:
+                        "include",
+
+                    body:
+                        JSON.stringify({
+                            status:
+                                newStatus
+                        })
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.message ||
+                result.error ||
+                "Failed to change status"
+            );
+        }
+
+
+        showDashboardMessage(
+            "User status changed successfully.",
+            "success"
+        );
+
+
+        await getUsers();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showDashboardMessage(
+            error.message ||
+            "Failed to change status.",
+            "error"
+        );
+    }
+}
+
+
+
+/* ==================================================
+   HISTORY
+================================================== */
+
+async function showHistory(id) {
+
+    const historyModal =
+        document.getElementById(
+            "historyModal"
+        );
+
+    const historyContent =
+        document.getElementById(
+            "historyContent"
+        );
+
+
+    historyModal.classList.add(
+        "show"
+    );
+
+
+    historyContent.innerHTML =
+        "Loading...";
+
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL +
+                "?history_id=" +
+                encodeURIComponent(id) +
+                "&_=" +
+                Date.now(),
+                {
+                    credentials:
+                        "include",
+                    cache:
+                        "no-store"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                data.error ||
+                "Failed to load history"
+            );
+        }
+
+
+        /*
+         * This part supports either:
+         *
+         * data
+         *
+         * or
+         *
+         * data.history
+         */
+
+        const history =
+            Array.isArray(data)
+                ? data
+                : (
+                    Array.isArray(data.history)
+                        ? data.history
+                        : []
+                );
+
+
+        if (history.length === 0) {
+
+            historyContent.innerHTML =
+                "<p>No history found.</p>";
+
+            return;
+        }
+
+
+        historyContent.innerHTML = `
+            <div style="overflow-x:auto;">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+                            <th>User ID</th>
+                            <th>Action</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Status</th>
+                            <th>Time</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        ${
+                            history.map(
+                                function(item) {
+
+                                    return `
+                                        <tr>
+
+                                            <td>
+                                                ${escapeHtml(
+                                                    item.id
+                                                )}
+                                            </td>
+
+                                            <td>
+                                                ${escapeHtml(
+                                                    item.user_id
+                                                )}
+                                            </td>
+
+                                            <td>
+                                                ${escapeHtml(
+                                                    item.action
+                                                )}
+                                            </td>
+
+                                            <td>
+                                                ${escapeHtml(
+                                                    item.name
+                                                )}
+                                            </td>
+
+                                            <td>
+                                                ${escapeHtml(
+                                                    item.username
+                                                )}
+                                            </td>
+
+                                            <td>
+                                                ${escapeHtml(
+                                                    item.status
+                                                )}
+                                            </td>
+
+                                            <td>
+                                                ${escapeHtml(
+                                                    item.created_at
+                                                    ||
+                                                    item.timestamp
+                                                    ||
+                                                    ""
+                                                )}
+                                            </td>
+
+                                        </tr>
+                                    `;
+                                }
+                            ).join("")
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        `;
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        historyContent.innerHTML =
+            `
+                <p>
+                    ${
+                        escapeHtml(
+                            error.message
+                        )
+                    }
+                </p>
+            `;
+    }
+}
+
+
+
+/* ==================================================
+   CLOSE HISTORY
+================================================== */
+
+document.getElementById(
+    "closeHistory"
+).addEventListener(
+    "click",
+    function() {
+
+        document.getElementById(
+            "historyModal"
+        ).classList.remove(
+            "show"
+        );
+
+    }
+);
+
+
+
+/* ==================================================
+   DASHBOARD MESSAGE
+================================================== */
+
+function showDashboardMessage(
+    text,
+    type
+) {
+
+    dashboardMessage.textContent =
+        text;
+
+    dashboardMessage.className =
+        "message " + type;
+
+
+    setTimeout(
+        function() {
+
+            dashboardMessage.style.display =
+                "none";
+
+        },
+        3000
+    );
+}
+
+
+
+/* ==================================================
+   FORM MESSAGE
+================================================== */
+
+function showMessage(
+    text,
+    type
+) {
+
+    message.textContent =
+        text;
+
+    message.className =
+        "message " + type;
+
+    message.style.display =
+        "block";
+}
+
+
+
+function clearMessage() {
+
+    message.textContent = "";
+
+    message.className =
+        "message";
+
+    message.style.display =
+        "none";
+}
+
+
+
+/* ==================================================
+   PARTICLE ANIMATION
+================================================== */
+
+const canvas =
+    document.getElementById(
+        "particles"
+    );
+
+const ctx =
+    canvas.getContext("2d");
+
+let particles = [];
+
+
+function resizeCanvas() {
+
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
+}
+
+
+resizeCanvas();
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+function createParticles() {
+
+    particles = [];
+
+
+    const count =
+        Math.min(
+            80,
+            Math.floor(
+                window.innerWidth / 15
+            )
+        );
+
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        particles.push({
+
+            x:
+                Math.random() *
+                canvas.width,
+
+            y:
+                Math.random() *
+                canvas.height,
+
+            size:
+                Math.random() * 2 + 0.5,
+
+            speedX:
+                (Math.random() - 0.5)
+                * 0.3,
+
+            speedY:
+                (Math.random() - 0.5)
+                * 0.3
+
+        });
+
+    }
+}
+
+
+createParticles();
+
+
+function animateParticles() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    particles.forEach(
+        function(p) {
+
+            p.x += p.speedX;
+            p.y += p.speedY;
+
+
+            if (
+                p.x < 0 ||
+                p.x > canvas.width
+            ) {
+                p.speedX *= -1;
+            }
+
+
+            if (
+                p.y < 0 ||
+                p.y > canvas.height
+            ) {
+                p.speedY *= -1;
+            }
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                p.x,
+                p.y,
+                p.size,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fillStyle =
+                "rgba(255,255,255,0.35)";
+
+
+            ctx.fill();
+
+        }
+    );
+
+
+    requestAnimationFrame(
+        animateParticles
+    );
+}
+
+
+animateParticles();
+
+</script>
+
+</body>
+</html>
