@@ -100,6 +100,10 @@ input, textarea {
     font-size: 13px;
     vertical-align: middle; 
 }
+.requ{
+    color:#0e0f01;
+}
+
 
 textarea {
     min-height: 80px;
@@ -263,7 +267,7 @@ button:disabled {
 </div>
 
 <div>
-<label for="mobileno">Mobile No*</label>
+<label id="mobl"  for="mobileno">Mobile No*</label>
 <input
     class="fie"
     id="mobileno"
@@ -455,9 +459,19 @@ async function readJson(response) {
 
 /* MOBILE: digits only, maximum 10 */
 mobile.addEventListener("input", function () {
+    
+    const mobl=document.getElementById("mobl");
+    mobl.innerHTML=`Mobile Noo <strong>*<strong> must have 10 digits` ;
     this.value = this.value
         .replace(/\D/g, "")
         .slice(0, 10);
+    
+    mobl.className="requ";
+    if (this.value.length == 10){
+        mobl.innerHTML=`Mobile Nos <strong>:)<strong>` ;
+        mobl.className="";
+    }
+    
 
     updateSubmitButton();
 });
@@ -497,7 +511,7 @@ username.addEventListener("input", function () {
 
     usernameTimer = setTimeout(function () {
         checkUsername(value, version);
-    }, 400);
+    }, 600);
 });
 
 async function checkUsername(usernameValue, version) {
@@ -688,6 +702,7 @@ function updateSubmitButton() {
 
 /* SUBMIT */
 userForm.addEventListener("submit", async function (event) {
+    console.log("1");
 
     event.preventDefault();
 
@@ -734,11 +749,15 @@ userForm.addEventListener("submit", async function (event) {
     }
 
     const usernameValue = document.getElementById("username").value.trim();
-
-    if (!/^[A-Z0-9_.-]+$/.test(usernameValue)) {
+    usernameCheckVersion = 0;
+    if(checkUsername(usernameValue,0)){
         document.getElementById("username").focus();
         return;
     }
+    // if (!/^[A-Z0-9_.-]+$/.test(usernameValue)) {
+    //     document.getElementById("username").focus();
+    //     return;
+    // }
 
     
     /* Mobile must be exactly 10 digits */

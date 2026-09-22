@@ -15,6 +15,219 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <style>
 
+
+.history-user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+#historyUsername {
+    text-align: left;
+}
+
+#pd {
+    text-align: center;
+}
+
+#historyLastLogin {
+    text-align: right;
+}
+
+/* ==================================================
+   ACCOUNT PANEL
+================================================== */
+
+.account-panel {
+
+    position: fixed;
+
+    top: 20px;
+    right: 20px;
+
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 12px 15px;
+
+    background: rgba(30, 30, 30, 0.85);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    border-radius: 12px;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.35);
+
+}
+
+
+/* ==================================================
+   ACCOUNT INFORMATION
+================================================== */
+
+.account-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    min-width: 150px;
+
+}
+
+
+.account-username,
+.account-last-login {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.account-label {
+
+    font-size: 11px;
+
+    color: rgba(255, 255, 255, 0.55);
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.6px;
+
+}
+
+
+#usrn {
+
+    color: yellowgreen;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+}
+
+
+#lastLogin {
+
+    color: rgba(255, 255, 255, 0.8);
+
+    font-size: 12px;
+
+}
+
+
+/* ==================================================
+   LOGOUT BUTTON
+================================================== */
+
+.logout-btn {
+
+    border: none;
+
+    outline: none;
+
+    padding: 9px 14px;
+
+    border-radius: 8px;
+
+    background: #9b2c2c;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.logout-btn:hover {
+
+    background: #c03939;
+
+    transform: translateY(-1px);
+
+}
+
+
+.logout-btn:active {
+
+    transform: translateY(0);
+
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width: 600px) {
+
+    .account-panel {
+
+        top: 10px;
+
+        right: 10px;
+
+        gap: 10px;
+
+        padding: 9px 10px;
+
+    }
+
+
+    .account-info {
+
+        min-width: 120px;
+
+    }
+
+
+    #usrn {
+
+        font-size: 13px;
+
+    }
+
+
+    #lastLogin {
+
+        font-size: 10px;
+
+    }
+
+
+    .logout-btn {
+
+        padding: 8px 10px;
+
+        font-size: 12px;
+
+    }
+
+}
+
 /* =========================
    GENERAL
 ========================= */
@@ -190,6 +403,127 @@ h2 {
     color: white;
 }
 
+/* ==================================================
+   DESCENDANTS
+================================================== */
+
+.descendants-section {
+    margin-bottom: 25px;
+}
+
+.descendants-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 12px;
+}
+
+.descendants-header h3 {
+    margin: 0;
+}
+
+.descendant-counts {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.descendant-counts span {
+    font-size: 14px;
+}
+
+.descendant-item {
+    padding: 8px 5px;
+}
+
+.descendant-direct {
+    font-weight: bold;
+}
+
+.descendant-child {
+    margin-left: 25px;
+    padding: 6px 5px;
+}
+
+.descendant-arrow {
+    display: inline-block;
+    width: 22px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.descendant-name {
+    cursor: pointer;
+}
+
+.descendant-children {
+    display: none;
+}
+
+.descendant-children.open {
+    display: block;
+}
+
+.others-section {
+    margin-top: 25px;
+}
+
+.descendants-table .descendant-arrow {
+    display: inline-block;
+    width: 22px;
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+}
+
+.descendants-table .descendant-child-row {
+    display: none;
+}
+
+.descendants-table .descendant-child-content {
+    display: inline-block;
+}
+
+/* =========================
+   COMBINED USERS TABLE
+========================= */
+
+.users-section {
+    margin-top: 5px;
+}
+
+.users-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 12px;
+}
+
+.users-header h3 {
+    margin: 0;
+}
+
+.user-access-note {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+}
+
+.editable-user-row {
+    background: rgba(101, 138, 0, 0.10);
+}
+.editable-user-row:hover {
+    background: rgba(27, 36, 4, 0.678);
+}
+
+.view-only-user-row .action-column button:disabled {
+    opacity: 0.25;
+}
+
+.users-table .action-column {
+    text-align: center;
+}
 
 /* =========================
    TABLE
@@ -372,6 +706,18 @@ button:disabled {
 /* =========================
    PAGINATION
 ========================= */
+
+.dashboard-pagination-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.dashboard-pagination-bar select {
+    padding: 5px 8px;
+    border-radius: 4px;
+}
 
 .pagination {
     margin-top: 15px;
@@ -704,7 +1050,7 @@ textarea {
 .history-popup-box {
     position: relative;
 
-    background:rgb(82, 82, 82);
+    background:rgba(102, 85, 54, 0.94);/*rgba(102, 54, 54, 0.9)*/
     color: rgb(252, 247, 247);
 
     width: 100%;
@@ -857,24 +1203,50 @@ textarea {
         NAGA
     </div>
 
-    <div class=usrn id="usrn"> </div>
+    <div class=usrn id="udsrn"> </div>
+
+    <div class="account-panel" id="accountPanel">
+
+        <div class="account-info">
+
+            <div class="account-username">
+                <span class="account-label">Username</span>
+                <span id="usrn">Loading...</span>
+            </div>
+
+            <div class="account-last-login">
+                <span class="account-label">Last login</span>
+                <span id="lastLogin">Loading...</span>
+            </div>
+
+        </div>
+
+        <button
+            type="button"
+            id="logoutBtn"
+            class="logout-btn"
+            onclick="logoutUser()"
+        >
+            Logout
+        </button>
+
+    </div>
 
 </div>
 
 
 <div class="container">
 
-<!-- =========================
-     DASHBOARD
-========================= -->
-
 <div class="headdy reveal-right">
 
     <div class="dashboard-header">
+
         <div id="Dhere">
-        <h2>
-            Dashboard
-        </h2>
+
+            <h2>
+                Dashboard
+            </h2>
+
         </div>
 
         <button
@@ -889,58 +1261,85 @@ textarea {
     </div>
 
 
-    <div class="table-wrap">
+    <!-- ==========================================
+         ALL USERS
+    =========================================== -->
 
-        <table>
+    <div class="users-section">
 
-            <thead>
+        <div class="users-header">
 
-                <tr>
-                    <th>S.No.</th>
-                    <th>USER ID</th>
-                    <th>Name</th>
-                    <th>DOB</th>
-                    <th>Father Name</th>
-                    <th>Qualification</th>
-                    <th>City</th>
-                    <th>Mobile</th>
-                    <th>Address</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+            <h3>All Users</h3>
 
-                </tr>
+            <div class="user-access-note">
+                Editable descendants appear first.
+                Other users are view-only.
+            </div>
 
-            </thead>
+        </div>
 
-            <tbody id="usersBody">
-            </tbody>
+        <div class="table-wrap">
 
-        </table>
+             <div class="dashboard-pagination-bar">
 
-    </div>
+                <label for="rowsPerPage">
+                    Entries per page:
+                </label>
 
+                <select id="rowsPerPage">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                </select>
 
-    <div class="pagination">
+            </div>
 
-        <button
-            type="button"
-            onclick="previousPage()"
-            id="prevBtn"
-        >
-            Previous
-        </button>
+            <table class="users-table">
 
-        <span id="pageInfo">
-            Page 1
-        </span>
+                <thead>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>USER ID</th>
+                        <th>Name</th>
+                        <th>DOB</th>
+                        <th>Father Name</th>
+                        <th>Qualification</th>
+                        <th>City</th>
+                        <th>Mobile</th>
+                        <th>Address</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
 
-        <button
-            type="button"
-            onclick="nextPage()"
-            id="nextBtn"
-        >
-            Next
-        </button>
+                <tbody id="usersBody"></tbody>
+
+            </table>
+
+            <div class="pagination">
+
+                <button
+                    type="button"
+                    id="previousBtn"
+                    onclick="previousPage()"
+                >
+                    Previous
+                </button>
+
+                <span id="pageInfo">
+                    Page 1 of 1
+                </span>
+
+                <button
+                    type="button"
+                    id="nextBtn"
+                    onclick="nextPage()"
+                >
+                    Next
+                </button>
+            </div>
+
+        </div>
 
     </div>
 
@@ -1271,12 +1670,13 @@ textarea {
             User History
         </h2>
 
-        <p
-            id="pd"
-            style="text-align:center;"
-        >
-            user_ID = ???
-        </p>
+        <div class="history-user-info">
+            <span id="historyUsername">Username=??</span>
+
+            <span id="pd">UserId=??</span>
+
+            <span id="historyLastLogin">LastLogin=??</span>
+        </div>
 
         <div class="table-wrap">
 
@@ -1324,6 +1724,8 @@ async function checkSession() {
 
     try {
 
+        
+
         const response = await fetch(
             "auth.php?action=session&_=" + Date.now(),
             {
@@ -1342,8 +1744,39 @@ async function checkSession() {
 
             return false;
         }
-        curser=data.user.username;
-        cunser.innerHTML=`Hi, ${data.user.username}`;
+        curser = data.user.username;
+
+        window.currentUserId =
+            Number(data.user.id);
+
+        cunser.innerHTML =
+            data.user.username;
+
+
+        /*
+        Last login
+
+        This expects auth.php to return:
+
+        data.user.last_login
+        */
+
+        const lastLogin =
+            document.getElementById("lastLogin");
+
+        if (data.user.last_login) {
+
+            lastLogin.textContent =
+                data.user.last_login;
+
+        }
+        else {
+
+            lastLogin.textContent =
+                "Not available";
+
+        }
+
         return true;
 
     }
@@ -1360,6 +1793,86 @@ async function checkSession() {
     }
 }
 
+
+/* ==================================================
+   LOGOUT
+================================================== */
+
+async function logoutUser() {
+
+    const logoutButton =
+        document.getElementById("logoutBtn");
+
+    logoutButton.disabled = true;
+
+    logoutButton.textContent =
+        "Logging out...";
+
+
+    try {
+
+        const response =
+            await fetch(
+                AUTH_URL +
+                "?action=logout&_=" +
+                Date.now(),
+                {
+                    method: "GET",
+
+                    credentials: "include",
+
+                    cache: "no-store"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error ||
+                "Logout failed"
+            );
+
+        }
+
+
+        /*
+           Session has been ended.
+           Send user to login page.
+        */
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Logout failed:",
+            error
+        );
+
+
+        logoutButton.disabled =
+            false;
+
+        logoutButton.textContent =
+            "Logout";
+
+
+        alert(
+            "Logout failed. Please try again."
+        );
+
+    }
+
+}
 
 /* ==================================================
    BASIC ELEMENTS
@@ -1419,7 +1932,7 @@ const AUTH_URL =
 
 let currentPage = 1;
 
-const limit = 5;
+let rowsPerPage = 10;
 
 let totalPages = 1;
 
@@ -1442,9 +1955,6 @@ let passwordValid = false;
 
 let passwordsMatch = false;
 
-//  FOR SNO NUMBERS
-
-let count=1;
 
 
 /* ==================================================
@@ -2380,58 +2890,113 @@ async function getUsers() {
 
     try {
 
-        const response =
+        /*
+           user.php currently returns the logged-in user's
+           descendants in:
+               firstData.descendants
+
+           The paginated "users" array is also collected
+           below.
+
+           If the backend later provides an "allUsers"
+           array, this code will use it automatically.
+        */
+
+        const firstResponse =
             await fetch(
                 API_URL +
-                "?page=" +
-                currentPage +
-                "&limit=" +
-                limit,
+                "?page=1&limit=50",
                 {
                     credentials: "include",
                     cache: "no-store"
                 }
             );
 
-
-        const data =
-            await readJson(response);
-
-
-        displayUsers(
-        data.users || [],
-        Number(data.total) || 0
-    );
+        const firstData =
+            await readJson(firstResponse);
 
 
-        totalPages =
+        let paginatedUsers =
+            firstData.users || [];
+
+
+        const pages =
             Math.max(
                 1,
-                Number(
-                    data.totalPages
-                ) || 1
+                Number(firstData.totalPages) || 1
             );
 
 
-        document.getElementById(
-            "pageInfo"
-        ).textContent =
-            "Page " +
-            currentPage +
-            " of " +
-            totalPages;
+        for (
+            let page = 2;
+            page <= pages;
+            page++
+        ) {
+
+            const response =
+                await fetch(
+                    API_URL +
+                    "?page=" +
+                    page +
+                    "&limit=50",
+                    {
+                        credentials: "include",
+                        cache: "no-store"
+                    }
+                );
+
+            const data =
+                await readJson(response);
 
 
-        document.getElementById(
-            "prevBtn"
-        ).disabled =
-            currentPage <= 1;
+            paginatedUsers =
+                paginatedUsers.concat(
+                    data.users || []
+                );
+
+        }
 
 
-        document.getElementById(
-            "nextBtn"
-        ).disabled =
-            currentPage >= totalPages;
+        const currentUserId =
+            Number(firstData.currentUserId);
+
+
+        const descendants =
+            firstData.descendants || [];
+
+
+        /*
+           IDs of users the current user is allowed
+           to edit.
+        */
+
+        const descendantIds =
+            new Set(
+                descendants.map(function(user) {
+                    return Number(user.id);
+                })
+            );
+
+
+        /*
+           Prefer a future allUsers response if the
+           backend provides one.
+
+           With the current user.php, this falls back
+           to the users returned by that endpoint.
+        */
+
+        const allUsers =
+            Array.isArray(firstData.allUsers)
+                ? firstData.allUsers
+                : paginatedUsers;
+
+
+        displayCombinedUsers(
+            allUsers,
+            descendantIds,
+            currentUserId
+        );
 
     }
     catch (error) {
@@ -2447,30 +3012,153 @@ async function getUsers() {
 
 
 /* ==================================================
-   DISPLAY USERS
+   DISPLAY ALL USERS
 ================================================== */
-function displayUsers(users, total) {
+
+function displayCombinedUsers(
+    users,
+    descendantIds,
+    currentUserId
+) {
 
     const body =
         document.getElementById("usersBody");
 
-    const coun =
-        document.getElementById("Dhere");
-
-   
 
     body.innerHTML = "";
 
+
+    /*
+       Make sure descendantIds is a Set even if this
+       function is called from somewhere else.
+    */
+
+    if (!(descendantIds instanceof Set)) {
+
+        descendantIds =
+            new Set(
+                (descendantIds || []).map(
+                    function(id) {
+                        return Number(id);
+                    }
+                )
+            );
+
+    }
+
+
+    /*
+       Sort access first:
+
+       1. Descendants that I can edit
+       2. Everyone else / view-only
+
+       The original order is preserved inside each group.
+    */
+
+    const sortedUsers =
+        users
+            .map(function(user, index) {
+
+                return {
+                    user: user,
+                    originalIndex: index,
+                    canEdit:
+                        descendantIds.has(
+                            Number(user.id)
+                        )
+                };
+
+            })
+            .sort(function(a, b) {
+
+                if (a.canEdit === b.canEdit) {
+
+                    return (
+                        a.originalIndex -
+                        b.originalIndex
+                    );
+
+                }
+
+                return a.canEdit ? -1 : 1;
+
+            })
+            .map(function(item) {
+
+                return item.user;
+
+            });
+
+    totalPages = Math.max(
+    1,
+    Math.ceil(users.length / rowsPerPage)
+    );
+
+    if (currentPage > totalPages) {
+        currentPage = totalPages;
+    }
+
+    const pageStart =
+        (currentPage - 1) * rowsPerPage;
+
+    const pageUsers =
+        sortedUsers.slice(
+            pageStart,
+            pageStart + rowsPerPage
+        );
+    updatePagination();
+
+    /*
+       Dashboard count
+    */
+
+    const coun =
+        document.getElementById("Dhere");
+
+
     coun.innerHTML =
         `<h2>Dashboard</h2>
-         <p>No. of entries : ${total}</p>`;
+         <p>No. of entries : ${users.length}</p>
+         <p>Editable descendants : ${descendantIds.size}</p>`;
+
+
+    /*
+       Keep the old descendant counters useful even
+       though there is now only one table.
+    */
+
+    const directCount =
+        document.getElementById("directCount");
+
+    const indirectCount =
+        document.getElementById("indirectCount");
+
+    const totalCount =
+        document.getElementById("totalDescendantCount");
+
+
+    if (directCount) {
+        directCount.textContent =
+            "—";
+    }
+
+    if (indirectCount) {
+        indirectCount.textContent =
+            "—";
+    }
+
+    if (totalCount) {
+        totalCount.textContent =
+            descendantIds.size;
+    }
 
 
     if (users.length === 0) {
 
         body.innerHTML = `
             <tr>
-                <td colspan="10">
+                <td colspan="11">
                     No users found.
                 </td>
             </tr>
@@ -2480,14 +3168,24 @@ function displayUsers(users, total) {
     }
 
 
-    users.forEach(
-        function (user, index) {
+    pageUsers.forEach(
+        function(user, index) {
 
             const row =
                 document.createElement("tr");
 
+
+            const userId =
+                Number(user.id);
+
+
+            const canEdit =
+                descendantIds.has(userId);
+
+
             const inactive =
                 user.status === "inactive";
+
 
             if (inactive) {
 
@@ -2497,89 +3195,129 @@ function displayUsers(users, total) {
 
             }
 
+
+            if (canEdit) {
+
+                row.classList.add(
+                    "editable-user-row"
+                );
+
+            }
+            else {
+
+                row.classList.add(
+                    "view-only-user-row"
+                );
+
+            }
+
+
+            /*
+               Editable descendants get working buttons.
+
+               Everyone else gets disabled buttons so the
+               Actions column is visually consistent but
+               cannot be used.
+            */
+
             row.innerHTML = `
-                <td>
-                    ${(currentPage - 1) * limit + index + 1}
-                </td>
 
-                <td>
-                    ${escapeHtml(user.id)}
-                </td>
+                <td>${pageStart + index + 1}</td>
 
-                <td>
-                    ${escapeHtml(user.name)}
-                </td>
+                <td>${escapeHtml(user.id)}</td>
 
-                <td>
-                    ${escapeHtml(user.dob)}
-                </td>
+                <td>${escapeHtml(user.name)}</td>
 
-                <td>
-                    ${escapeHtml(user.fathername)}
-                </td>
+                <td>${escapeHtml(user.dob)}</td>
 
-                <td>
-                    ${escapeHtml(user.qualification)}
-                </td>
+                <td>${escapeHtml(user.fathername)}</td>
 
-                <td>
-                    ${escapeHtml(user.city)}
-                </td>
+                <td>${escapeHtml(user.qualification)}</td>
 
-                <td>
-                    ${escapeHtml(user.mobileno)}
-                </td>
+                <td>${escapeHtml(user.city)}</td>
 
-                <td>
-                    ${escapeHtml(user.address)}
-                </td>
+                <td>${escapeHtml(user.mobileno)}</td>
+
+                <td>${escapeHtml(user.address)}</td>
 
                 <td class="${
                     inactive
                     ? "status-inactive"
                     : "status-active"
                 }">
-
                     ${escapeHtml(user.status)}
-
                 </td>
 
                 <td class="action-column">
-                    <button type="button" 
-                            ${ inactive ? "disabled" : "" } 
-                            onclick="updateUser( ${Number(user.id)} )"
-                            title="Update"  
-                            class="ed-bt" >
+
+                    ${
+                        canEdit
+                        ? `
+                            <button
+                                type="button"
+                                ${inactive ? "disabled" : ""}
+                                onclick="updateUser(${userId})"
+                                title="Update"
+                                class="ed-bt"
+                            >
                                 <i class="fa-solid fa-pen"></i>
-                    </button>
-                    <button type="button" 
-                            ${ inactive ? "disabled" : "" }
-                            onclick="timelog( ${Number(user.id)} )"
-                            title="View History"
-                            class="v-bt" >
-                                <i class="fa-solid fa-eye"></i>
-                    </button>
-                    <button type="button"
-                            onclick="toggleStatus( ${Number(user.id)} )"
-                            title="Activate / Inactivate"
-                            class="D-bt" >
+                            </button>
+
+                            <button
+                                type="button"
+                                onclick="toggleStatus(${userId})"
+                                title="Activate / Inactivate"
+                                class="D-bt"
+                            >
                                 <i class="fa-solid fa-trash"></i>
+                            </button>
+                        `
+                        : ""
+                    }
+
+                    <button
+                        type="button"
+                        onclick="timelog(${userId})"
+                        title="View History"
+                        class="v-bt"
+                    >
+                        <i class="fa-solid fa-eye"></i>
                     </button>
 
                 </td>
+
             `;
 
-            count+=1;
 
             body.appendChild(row);
+
         }
     );
+
 }
+
+
+/* ==================================================
+   NOTE
+
+   The old separate descendant tree/table has been
+   intentionally removed.
+
+   There is now one table only.
+
+   Access ordering is:
+
+       EDITABLE DESCENDANTS
+                    ↓
+       VIEW-ONLY USERS
+================================================== */
 
 
 /* ==================================================
    UPDATE USER
 ================================================== */
+
+
 
 async function updateUser(id) {
 
@@ -3268,6 +4006,39 @@ function nextPage() {
 
 }
 
+function updatePagination() {
+
+    const previousBtn =
+        document.getElementById("previousBtn");
+
+    const nextBtn =
+        document.getElementById("nextBtn");
+
+    const pageInfo =
+        document.getElementById("pageInfo");
+
+
+    pageInfo.textContent =
+        "Page " +
+        currentPage +
+        " of " +
+        totalPages;
+
+
+    previousBtn.disabled =
+        currentPage <= 1;
+
+
+    nextBtn.disabled =
+        currentPage >= totalPages;
+
+}
+
+
+
+/* ==================================================
+   HISTORY
+================================================== */
 
 /* ==================================================
    HISTORY
@@ -3288,6 +4059,21 @@ async function timelog(id) {
     const pd =
         document.getElementById("pd");
 
+    const historyUsername =
+        document.getElementById(
+            "historyUsername"
+        );
+
+    const historyLastLogin =
+        document.getElementById(
+            "historyLastLogin"
+        );
+
+
+    /*
+       Show loading state.
+       Do not open the popup until the request succeeds.
+    */
 
     historyBody.innerHTML = `
 
@@ -3300,14 +4086,6 @@ async function timelog(id) {
         </tr>
 
     `;
-
-
-    pd.textContent =
-        "user_ID: " + id;
-
-
-    popup.style.display =
-        "flex";
 
 
     try {
@@ -3333,8 +4111,56 @@ async function timelog(id) {
             data.history || [];
 
 
-        historyBody.innerHTML =
-            "";
+        /*
+           Get username and last login from the
+           history response.
+
+           They are the same for every history row,
+           so we only need the first row.
+        */
+
+        if (logs.length > 0) {
+
+            historyUsername.textContent =
+                logs[0].username ||
+                "Unknown";
+
+            pd.textContent =
+                "user_ID: " +
+                logs[0].user_id;
+
+            historyLastLogin.textContent =
+                "Last login: " +
+                (
+                    logs[0].last_login ||
+                    "Never"
+                );
+
+        }
+        else {
+
+            /*
+               No history exists.
+               We can still show the requested user ID.
+            */
+
+            historyUsername.textContent =
+                "Unknown";
+
+            pd.textContent =
+                "user_ID: " + id;
+
+            historyLastLogin.textContent =
+                "Last login: Never";
+
+        }
+
+
+        /*
+           Clear old history rows.
+        */
+
+        historyBody.innerHTML = "";
 
 
         if (logs.length === 0) {
@@ -3351,126 +4177,133 @@ async function timelog(id) {
 
             `;
 
-            return;
+        }
+        else {
+
+            logs.forEach(
+                function (log, index) {
+
+                    const row =
+                        document.createElement("tr");
+
+
+                    let logClass = "";
+
+
+                    if (
+                        log.action ===
+                        "CREATE"
+                    ) {
+
+                        logClass =
+                            "log-create";
+
+                    }
+                    else if (
+                        log.action ===
+                        "UPDATE"
+                    ) {
+
+                        logClass =
+                            "log-update";
+
+                    }
+                    else if (
+                        log.action ===
+                        "DELETE"
+                    ) {
+
+                        logClass =
+                            "log-delete";
+
+                    }
+
+
+                    row.innerHTML = `
+
+                        <td>
+                            ${index + 1}
+                        </td>
+
+                        <td class="${logClass}">
+                            ${escapeHtml(log.action)}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(log.times)}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(log.name)}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(log.dob)}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(log.fathername)}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(log.qualification)}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(log.city)}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(log.mobileno)}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(log.address)}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(log.status)}
+                        </td>
+
+                    `;
+
+
+                    historyBody.appendChild(
+                        row
+                    );
+
+                }
+            );
+
         }
 
 
-        logs.forEach(
-            function (log, index) {
+        /*
+           Open popup only after successful request.
+        */
 
-                const row =
-                    document.createElement("tr");
-
-
-                let logClass = "";
-
-
-                if (
-                    log.action ===
-                    "CREATE"
-                ) {
-
-                    logClass =
-                        "log-create";
-
-                }
-                else if (
-                    log.action ===
-                    "UPDATE"
-                ) {
-
-                    logClass =
-                        "log-update";
-
-                }
-                else if (
-                    log.action ===
-                    "DELETE"
-                ) {
-
-                    logClass =
-                        "log-delete";
-
-                }
-
-
-                row.innerHTML = `
-
-                    <td>
-                        ${index + 1}
-                    </td>
-
-                    <td class="${logClass}">
-                        ${escapeHtml(log.action)}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(log.times)}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(log.name)}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(log.dob)}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(log.fathername)}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(log.qualification)}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(log.city)}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(log.mobileno)}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(log.address)}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(log.status)}
-                    </td>
-
-                `;
-
-
-                historyBody.appendChild(row);
-
-            }
-        );
+        popup.style.display =
+            "flex";
 
     }
     catch (error) {
 
-        historyBody.innerHTML = `
+        /*
+           Don't leave the popup open if access
+           or the request fails.
+        */
 
-            <tr>
+        popup.style.display =
+            "none";
 
-                <td colspan="11">
-
-                    ${escapeHtml(
-                        error.message
-                    )}
-
-                </td>
-
-            </tr>
-
-        `;
+        showMessage(
+            error.message,
+            "error"
+        );
 
     }
 
 }
-
 
 /* ==================================================
    CLOSE HISTORY
@@ -3980,17 +4813,19 @@ animate();
    INITIAL LOAD
 ================================================== */
 
-checkSession().then(
-    function (loggedIn) {
+async function initializePage() {
 
-        if (loggedIn) {
-            console.log(curser);
-            getUsers();
+    const loggedIn =
+        await checkSession();
 
-        }
-
+    if (!loggedIn) {
+        return;
     }
-);
+
+    await getUsers();
+}
+
+initializePage();
 
 
 /* ==================================================
@@ -4002,6 +4837,22 @@ window.addEventListener(
     function () {
 
         checkSession();
+
+    }
+);
+
+document.getElementById(
+    "rowsPerPage"
+).addEventListener(
+    "change",
+    function () {
+
+        rowsPerPage =
+            Number(this.value);
+
+        currentPage = 1;
+
+        getUsers();
 
     }
 );
