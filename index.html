@@ -777,9 +777,11 @@ button:disabled {
 
 .form-popup-box {
     position: relative;
-
-    background: #FFF7ED;
-    color: black;
+/* 
+    background: #FFF7ED; */
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    color: rgb(255, 253, 253);
 
     width: 100%;
     max-width: 900px;
@@ -871,7 +873,20 @@ textarea:hover {
 }
 
 .fie {
-    background: #FFF7ED;
+    background: #caccaada;
+}
+
+.requ{
+    color:#e21f11;
+}
+.requ strong{
+    color: rgb(202, 16, 16);
+}
+.requ i{
+    color: white;
+}
+.requ em{
+    color: green;
 }
 
 textarea {
@@ -1300,8 +1315,9 @@ textarea {
                     <tr>
                         <th>S.No.</th>
                         <th>USER ID</th>
-                        <th>Name</th>
-                        <th>DOB</th>
+                        <th data-sort="name">Name <span class="sortArrow"></span></th>
+                        <th data-sort="dob">DOB <span class="sortArrow"></span></th>
+
                         <th>Father Name</th>
                         <th>Qualification</th>
                         <th>City</th>
@@ -1405,7 +1421,7 @@ textarea {
 
                 <div>
 
-                    <label for="name">
+                    <label id="naml" for="name">
                         Name*
                     </label>
 
@@ -1413,6 +1429,7 @@ textarea {
                         class="fie"
                         id="name"
                         type="text"
+                        maxlength="20"
                         required
                         autocomplete="off"
                     >
@@ -1424,7 +1441,7 @@ textarea {
 
                 <div>
 
-                    <label for="dob">
+                    <label id="dobl" for="dob">
                         DOB*
                     </label>
 
@@ -1442,7 +1459,7 @@ textarea {
 
                 <div>
 
-                    <label for="fathername">
+                    <label id="faml" for="fathername">
                         Father Name*
                     </label>
 
@@ -1450,6 +1467,7 @@ textarea {
                         class="fie"
                         id="fathername"
                         type="text"
+                        maxlength="20"
                         required
                         autocomplete="off"
                     >
@@ -1499,7 +1517,7 @@ textarea {
 
                 <div>
 
-                    <label for="mobileno">
+                    <label id="mobl" for="mobileno">
                         Mobile No*
                     </label>
 
@@ -1715,6 +1733,67 @@ textarea {
 
 
 <script>
+const today = new Date();
+
+const maxDate = new Date(today);
+maxDate.setFullYear(today.getFullYear() - 13);
+
+const minDate = new Date(today);
+minDate.setFullYear(today.getFullYear() - 150);
+
+const dob = document.getElementById("dob");
+const dobl = document.getElementById("dobl");
+dob.min = minDate.toISOString().split("T")[0];
+
+dob.max = maxDate.toISOString().split("T")[0];
+
+dob.addEventListener("change",function () {
+
+    const dob = new Date(this.value);
+    const today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
+    if(age<=150 && age>=13){
+        dobl.innerHTML=`DOB     (Age: ${age})`;
+    }
+    else{
+        dobl.innerHTML=`DOB`;
+    }
+    
+}
+
+);
+
+
+document.getElementById("name").addEventListener("input", function () {
+    const naml = document.getElementById("naml");
+    this.value = this.value
+        .replace(/[^A-Za-z ]/g, "")
+        .toUpperCase().trim();
+    naml.innerHTML=`Name<strong>*</strong> must have minimum 4 char`;
+    naml.className="requ";
+    
+    if(this.value.length>=4){
+        naml.innerHTML=`<i>Name</i><em>:)</em> `;
+        naml.className="requ";
+    }
+});
+
+
+document.getElementById("fathername").addEventListener("input", function () {
+     const faml = document.getElementById("faml");
+    this.value = this.value
+        .replace(/[^A-Za-z ]/g, "")
+        .toUpperCase().trim();
+    faml.innerHTML=`Father Name<strong>*</strong> must have minimum 4 char`;
+    faml.className="requ";
+    
+    if(this.value.length>=4){
+        faml.innerHTML=`<i>Father Name</i><em>:)</em> `;
+        faml.className="requ";
+    }
+});
+
+
 let curser = "nothing";
 /* ==================================================
    SESSION CHECK
@@ -1946,6 +2025,14 @@ let usernameTimer = null;
 
 let usernameCheckVersion = 0;
 
+let cachedUsernames = null;
+
+let currentSortColumn = null;
+
+let currentSortDirection = "asc";
+
+let allUsers = []
+
 
 /* ==================================================
    PASSWORD STATE
@@ -1954,6 +2041,36 @@ let usernameCheckVersion = 0;
 let passwordValid = false;
 
 let passwordsMatch = false;
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+mobile.addEventListener(
+    "input",
+    function () {
+
+    const mobl=document.getElementById("mobl");
+    mobl.innerHTML=`Mobile Noo <strong>*</strong> must have 10 digits` ;
+    
+    this.value = this.value
+        .replace(/\D/g, "")
+        .slice(0, 10);
+    
+    mobl.className="requ";
+    if (this.value.length == 10){
+        
+        mobl.innerHTML=`<i>Mobile No</i> <em>:)</em>` ;
+        mobl.className="requ";
+    }
+    
+        updateSubmitButton();
+
+    }
+);
+
+
 
 
 
@@ -2154,23 +2271,6 @@ function updateSubmitButton() {
 }
 
 
-/* ==================================================
-   MOBILE
-================================================== */
-
-mobile.addEventListener(
-    "input",
-    function () {
-
-        this.value =
-            this.value
-                .replace(/\D/g, "")
-                .slice(0, 10);
-
-        updateSubmitButton();
-
-    }
-);
 
 
 /* ==================================================
@@ -2337,40 +2437,162 @@ username.addEventListener(
    BACKEND USERNAME CHECK
 ================================================== */
 
+// async function checkUsername(
+//     usernameValue,
+//     version
+// ) {
+
+//     try {
+
+//         let url =
+//             AUTH_URL +
+//             "?action=check_username&username=" +
+//             encodeURIComponent(usernameValue);
+
+
+//         if (isUpdateMode()) {
+
+//             url +=
+//                 "&exclude_id=" +
+//                 encodeURIComponent(editingId);
+
+//         }
+
+
+//         const response =
+//             await fetch(url, {
+//                 credentials: "include"
+//             });
+
+
+//         const data =
+//             await response.json();
+
+
+//         /*
+//            Ignore an old request.
+//         */
+
+//         if (
+//             version !==
+//             usernameCheckVersion
+//         ) {
+//             return;
+//         }
+
+
+//         /*
+//            Username changed while request
+//            was running.
+//         */
+
+//         if (
+//             username.value.trim() !==
+//             usernameValue
+//         ) {
+//             return;
+//         }
+
+
+//         if (data.available) {
+
+//             usernameValid = true;
+
+//             usernameStatus.innerHTML =
+//                 "<strong>Username</strong> " +
+//                 "✓ Username available";
+
+//             usernameStatus.className =
+//                 "available";
+
+//         }
+//         else {
+
+//             usernameValid = false;
+
+//             usernameStatus.innerHTML =
+//                 "<strong>Username</strong> " +
+//                 "✗ Username already taken";
+
+//             usernameStatus.className =
+//                 "unavailable";
+
+//         }
+
+
+//         updateSubmitButton();
+
+//     }
+//     catch (error) {
+
+//         console.error(error);
+
+//         usernameValid = false;
+
+//         usernameStatus.innerHTML =
+//             "<strong>Username</strong> " +
+//             "Unable to check username";
+
+//         usernameStatus.className =
+//             "unavailable";
+
+//         updateSubmitButton();
+//     }
+
+// }
+
+
+/* ==================================================
+   LOCAL USERNAME CHECK
+================================================== */
+
 async function checkUsername(
     usernameValue,
     version
 ) {
 
     try {
+        console.log("tried");
 
-        let url =
-            AUTH_URL +
-            "?action=check_username&username=" +
-            encodeURIComponent(usernameValue);
+        /*
+           Load all usernames only once.
+
+           After this first request,
+           all future checks happen locally.
+        */
+
+        if (cachedUsernames === null) {
+
+            const response =
+                await fetch(
+                    AUTH_URL +
+                    "?action=get_usernames",
+                    {
+                        credentials: "include",
+                        cache: "no-store"
+                    }
+                );
 
 
-        if (isUpdateMode()) {
+            const data =
+                await readJson(response);
 
-            url +=
-                "&exclude_id=" +
-                encodeURIComponent(editingId);
+
+            cachedUsernames =
+                (data.usernames || [])
+                    .map(function(username) {
+
+                        return username
+                            .trim()
+                            .toLowerCase();
+
+                    });
 
         }
 
 
-        const response =
-            await fetch(url, {
-                credentials: "include"
-            });
-
-
-        const data =
-            await response.json();
-
-
         /*
-           Ignore an old request.
+           Ignore an old check.
         */
 
         if (
@@ -2382,8 +2604,8 @@ async function checkUsername(
 
 
         /*
-           Username changed while request
-           was running.
+           Make sure the user hasn't changed
+           the input while we were loading.
         */
 
         if (
@@ -2394,7 +2616,43 @@ async function checkUsername(
         }
 
 
-        if (data.available) {
+        const usernameLower =
+            usernameValue
+                .trim()
+                .toLowerCase();
+
+
+        /*
+           Check the cached array.
+        */
+        console.log(cachedUsernames);
+        let usernameExists =
+            cachedUsernames.includes(
+                usernameLower
+            );
+
+
+        /*
+           UPDATE MODE
+
+           The user's own current username
+           should remain valid.
+        */
+
+        // if (
+        //     isUpdateMode() &&
+        //     usernameLower ===
+        //     originalData.username
+        //         .trim()
+        //         .toLowerCase()
+        // ) {
+
+        //     usernameExists = false;
+
+        // }
+
+
+        if (!usernameExists) {
 
             usernameValid = true;
 
@@ -2425,7 +2683,11 @@ async function checkUsername(
     }
     catch (error) {
 
-        console.error(error);
+        console.error(
+            "Username check failed:",
+            error
+        );
+
 
         usernameValid = false;
 
@@ -2437,9 +2699,11 @@ async function checkUsername(
             "unavailable";
 
         updateSubmitButton();
+
     }
 
 }
+
 
 
 /* ==================================================
@@ -2986,7 +3250,7 @@ async function getUsers() {
            to the users returned by that endpoint.
         */
 
-        const allUsers =
+        allUsers =
             Array.isArray(firstData.allUsers)
                 ? firstData.allUsers
                 : paginatedUsers;
@@ -3064,9 +3328,8 @@ function displayCombinedUsers(
                     user: user,
                     originalIndex: index,
                     canEdit:
-                        descendantIds.has(
-                            Number(user.id)
-                        )
+                        Number(user.id) === Number(currentUserId) ||
+                        descendantIds.has(Number(user.id))
                 };
 
             })
@@ -3180,6 +3443,7 @@ function displayCombinedUsers(
 
 
             const canEdit =
+                userId === Number(currentUserId) ||
                 descendantIds.has(userId);
 
 
@@ -3311,6 +3575,123 @@ function displayCombinedUsers(
                     ↓
        VIEW-ONLY USERS
 ================================================== */
+
+
+/* ==================================================
+   sort USER
+================================================== */
+
+function sortUsers(column) {
+
+    if (currentSortColumn === column) {
+
+        // Same column → reverse direction
+        currentSortDirection =
+            currentSortDirection === "asc"
+                ? "desc"
+                : "asc";
+
+    }
+    else {
+
+        // New column → start ascending
+        currentSortColumn = column;
+        currentSortDirection = "asc";
+    }
+
+
+    allUsers.sort(function (a, b) {
+
+        let valueA = a[column];
+        let valueB = b[column];
+
+
+        // Handle empty values
+        if (valueA == null) valueA = "";
+        if (valueB == null) valueB = "";
+
+
+        // Convert to strings for normal text sorting
+        valueA = String(valueA).trim().toLowerCase();
+        valueB = String(valueB).trim().toLowerCase();
+
+
+        if (valueA < valueB) {
+
+            return currentSortDirection === "asc"
+                ? -1
+                : 1;
+
+        }
+
+        if (valueA > valueB) {
+
+            return currentSortDirection === "asc"
+                ? 1
+                : -1;
+
+        }
+
+        return 0;
+    });
+
+
+    updateSortArrows();
+
+    displayCombinedUsers();
+}
+
+
+function updateSortArrows() {
+
+    document
+        .querySelectorAll("th[data-sort]")
+        .forEach(function (header) {
+
+            const arrow =
+                header.querySelector(".sortArrow");
+
+            if (!arrow) return;
+
+
+            if (
+                header.dataset.sort ===
+                currentSortColumn
+            ) {
+
+                arrow.textContent =
+                    currentSortDirection === "asc"
+                        ? " ↑"
+                        : " ↓";
+
+            }
+            else {
+
+                arrow.textContent = "";
+
+            }
+
+        });
+}
+
+document
+    .querySelectorAll("th[data-sort]")
+    .forEach(function (header) {
+
+        header.addEventListener(
+            "click",
+            function () {
+
+                sortUsers(
+                    this.dataset.sort
+                );
+
+            }
+        );
+
+    });
+
+
 
 
 /* ==================================================

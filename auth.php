@@ -179,6 +179,67 @@ if (
     exit;
 }
 
+/* =========================================================
+   GET ALL USERNAMES
+========================================================= */
+
+if (
+    $_SERVER["REQUEST_METHOD"] === "GET" &&
+    isset($_GET["action"]) &&
+    $_GET["action"] === "get_usernames"
+) {
+
+    $stmt = $connection->prepare(
+        "SELECT username
+         FROM auth_users"
+    );
+
+    if (!$stmt) {
+
+        http_response_code(500);
+
+        echo json_encode([
+            "success" => false,
+            "message" => "Username query preparation failed",
+            "details" => $connection->error
+        ]);
+
+        exit;
+    }
+
+    if (!$stmt->execute()) {
+
+        http_response_code(500);
+
+        echo json_encode([
+            "success" => false,
+            "message" => "Username query execution failed",
+            "details" => $stmt->error
+        ]);
+
+        $stmt->close();
+
+        exit;
+    }
+
+    $result = $stmt->get_result();
+
+    $usernames = [];
+
+    while ($row = $result->fetch_assoc()) {
+
+        $usernames[] = $row["username"];
+    }
+
+    $stmt->close();
+
+    echo json_encode([
+        "success" => true,
+        "usernames" => $usernames
+    ]);
+
+    exit;
+}
 
 /* =========================================================
    CHECK USERNAME

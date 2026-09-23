@@ -133,6 +133,7 @@ function getAllUsersForTree($connection)
         ];
     }
 
+
     return $rows;
 }
 
@@ -179,12 +180,11 @@ function getDescendantIds($connection, $rootId)
 
 function requireDescendantAccess($connection, $targetId)
 {
-    $currentUserId = requireLogin();
-
+    $currentUserId = (int) requireLogin();
+    $targetId = (int) $targetId;
+ // Allow editing your own account
     if ($targetId === $currentUserId) {
-        sendJson([
-            "error" => "You cannot manage your own account through this endpoint"
-        ], 403);
+        return $currentUserId;
     }
 
     $descendants = getDescendantIds(
