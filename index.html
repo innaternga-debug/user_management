@@ -403,88 +403,6 @@ h2 {
     color: white;
 }
 
-/* ==================================================
-   DESCENDANTS
-================================================== */
-
-.descendants-section {
-    margin-bottom: 25px;
-}
-
-.descendants-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 12px;
-}
-
-.descendants-header h3 {
-    margin: 0;
-}
-
-.descendant-counts {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.descendant-counts span {
-    font-size: 14px;
-}
-
-.descendant-item {
-    padding: 8px 5px;
-}
-
-.descendant-direct {
-    font-weight: bold;
-}
-
-.descendant-child {
-    margin-left: 25px;
-    padding: 6px 5px;
-}
-
-.descendant-arrow {
-    display: inline-block;
-    width: 22px;
-    cursor: pointer;
-    user-select: none;
-}
-
-.descendant-name {
-    cursor: pointer;
-}
-
-.descendant-children {
-    display: none;
-}
-
-.descendant-children.open {
-    display: block;
-}
-
-.others-section {
-    margin-top: 25px;
-}
-
-.descendants-table .descendant-arrow {
-    display: inline-block;
-    width: 22px;
-    cursor: pointer;
-    user-select: none;
-    text-align: center;
-}
-
-.descendants-table .descendant-child-row {
-    display: none;
-}
-
-.descendants-table .descendant-child-content {
-    display: inline-block;
-}
-
 /* =========================
    COMBINED USERS TABLE
 ========================= */
@@ -533,31 +451,6 @@ h2 {
     width: 100%;
     overflow-x: hidden;
 }
-/* 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 850px;
-    background-color: #EDF6F1;
-    color: black;
-}
-
-th,
-td {
-    border: 1px solid #504d4d;
-    padding: 9px;
-    text-align: left;
-}
-
-th {
-    background: #91bba9;
-    color: #111814;
-}
-
-td {
-    background: #e0f4ff;
-    color: black;
-} */
 
 
 table {
@@ -635,6 +528,10 @@ td:last-child {
     font-weight: bold;
 }
 
+.sortArrow{
+    font-size: larger;
+    background-color: #9b2c2c;
+}
 
 /* =========================
    BUTTONS
@@ -717,6 +614,19 @@ button:disabled {
 .dashboard-pagination-bar select {
     padding: 5px 8px;
     border-radius: 4px;
+}
+.refbt{
+    margin-left: auto;
+}
+
+.srbt{
+    margin-left: auto;
+    margin-right: 0px;
+}
+
+.sr-bar{
+    margin-left: auto;
+    max-width: 50%;
 }
 
 .pagination {
@@ -1175,8 +1085,20 @@ textarea {
 /* =========================
    RESPONSIVE
 ========================= */
-
 @media (max-width: 700px) {
+
+    /* ================================
+       PAGE / BODY
+    ================================= */
+
+    body {
+        padding: 10px;
+    }
+
+
+    /* ================================
+       FORM
+    ================================= */
 
     .form-grid {
         grid-template-columns: 1fr;
@@ -1186,21 +1108,74 @@ textarea {
         grid-column: auto;
     }
 
-    body {
-        padding: 10px;
-    }
+
+    /* ================================
+       POPUPS
+    ================================= */
 
     .history-popup-box,
     .form-popup-box {
+        width: calc(100% - 20px);
+        max-width: none;
         padding: 15px;
     }
 
+
+    /* ================================
+       DASHBOARD HEADER
+    ================================= */
+
     .dashboard-header {
-        align-items: flex-start;
         flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+
+    /* ================================
+       TABLE
+    ================================= */
+
+    .table-wrap {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table-wrap table {
+        min-width: 1100px;
+    }
+
+    .table-wrap th,
+    .table-wrap td {
+        white-space: nowrap;
+    }
+
+
+    /* ================================
+       PAGINATION / CONTROLS
+    ================================= */
+
+    .dashboard-pagination-bar {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+
+    /* ================================
+       BUTTONS
+    ================================= */
+
+    button {
+        min-height: 40px;
     }
 
 }
+
+
 
 </style>
 
@@ -1301,12 +1276,22 @@ textarea {
                     Entries per page:
                 </label>
 
-                <select id="rowsPerPage">
+                <select id="rowsPerPage" autocomplete="off">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
                 </select>
 
+                <button id="srbt"> S </button>
+                <textarea  id="srb"
+                        class="sr-bar"
+                        type="text"
+                        placeholder="Search bar"
+                        autocomplete="off" >
+                    
+                </textarea>
+
+                <button class="refbt">refresh</button>
             </div>
 
             <table class="users-table">
@@ -2032,6 +2017,10 @@ let currentSortColumn = null;
 let currentSortDirection = "asc";
 
 let allUsers = []
+
+let currentDescendantIds = new Set();
+
+let currentUserIdG = null;
 
 
 /* ==================================================
@@ -3241,6 +3230,8 @@ async function getUsers() {
                 })
             );
 
+        currentDescendantIds = descendantIds;
+        currentUserIdG = this.currentUserId;
 
         /*
            Prefer a future allUsers response if the
@@ -3320,38 +3311,64 @@ function displayCombinedUsers(
        The original order is preserved inside each group.
     */
 
-    const sortedUsers =
-        users
-            .map(function(user, index) {
+   let sortedUsers;
 
-                return {
-                    user: user,
-                    originalIndex: index,
-                    canEdit:
-                        Number(user.id) === Number(currentUserId) ||
-                        descendantIds.has(Number(user.id))
-                };
 
-            })
-            .sort(function(a, b) {
+    if (currentSortColumn === null) {
 
-                if (a.canEdit === b.canEdit) {
+        /*
+        No column sorting yet.
 
-                    return (
-                        a.originalIndex -
-                        b.originalIndex
-                    );
+        Keep editable users first.
+        */
 
-                }
+        sortedUsers =
+            users
+                .map(function(user, index) {
 
-                return a.canEdit ? -1 : 1;
+                    return {
+                        user: user,
+                        originalIndex: index,
 
-            })
-            .map(function(item) {
+                        canEdit:
+                            Number(user.id) === Number(currentUserId) ||
+                            descendantIds.has(Number(user.id))
+                    };
 
-                return item.user;
+                })
+                .sort(function(a, b) {
 
-            });
+                    if (a.canEdit === b.canEdit) {
+
+                        return (
+                            a.originalIndex -
+                            b.originalIndex
+                        );
+
+                    }
+
+                    return a.canEdit ? -1 : 1;
+
+                })
+                .map(function(item) {
+
+                    return item.user;
+
+                });
+
+    }
+    else {
+
+        /*
+        A sort arrow has been pressed.
+
+        Do NOT apply editable-first sorting.
+        Use the order produced by sortUsers().
+        */
+
+        sortedUsers = users;
+
+    }
 
     totalPages = Math.max(
     1,
@@ -3580,12 +3597,10 @@ function displayCombinedUsers(
 /* ==================================================
    sort USER
 ================================================== */
-
 function sortUsers(column) {
 
     if (currentSortColumn === column) {
 
-        // Same column → reverse direction
         currentSortDirection =
             currentSortDirection === "asc"
                 ? "desc"
@@ -3594,26 +3609,29 @@ function sortUsers(column) {
     }
     else {
 
-        // New column → start ascending
         currentSortColumn = column;
         currentSortDirection = "asc";
+
     }
 
 
-    allUsers.sort(function (a, b) {
+    allUsers.sort(function(a, b) {
 
         let valueA = a[column];
         let valueB = b[column];
 
-
-        // Handle empty values
         if (valueA == null) valueA = "";
         if (valueB == null) valueB = "";
 
+        valueA =
+            String(valueA)
+                .trim()
+                .toLowerCase();
 
-        // Convert to strings for normal text sorting
-        valueA = String(valueA).trim().toLowerCase();
-        valueB = String(valueB).trim().toLowerCase();
+        valueB =
+            String(valueB)
+                .trim()
+                .toLowerCase();
 
 
         if (valueA < valueB) {
@@ -3633,14 +3651,20 @@ function sortUsers(column) {
         }
 
         return 0;
+
     });
 
 
     updateSortArrows();
 
-    displayCombinedUsers();
-}
 
+    displayCombinedUsers(
+        allUsers,
+        currentDescendantIds,
+        currentUserId
+    );
+
+}
 
 function updateSortArrows() {
 
@@ -3668,10 +3692,9 @@ function updateSortArrows() {
             else {
 
                 arrow.textContent = "";
-
             }
-
-        });
+        }
+    );
 }
 
 document
@@ -3689,10 +3712,45 @@ document
             }
         );
 
+});
+
+document
+    .querySelector(".refbt")
+    .addEventListener("click", function () {
+
+        currentSortColumn = null;
+        currentSortDirection = "asc";
+
+        currentPage = 1;
+
+        displayCombinedUsers(
+            allUsers,
+            currentDescendantIds,
+            currentUserId
+        );
+
+        updateSortArrows();
+
     });
 
+document
+    .getElementById("srb")
+    .addEventListener("change", function () {
 
+        currentSortColumn = null;
+        currentSortDirection = "asc";
 
+        currentPage = 1;
+
+        displayCombinedUsers(
+            allUsers,
+            currentDescendantIds,
+            currentUserId
+        );
+
+        updateSortArrows();
+
+    });
 
 /* ==================================================
    UPDATE USER
@@ -4359,13 +4417,45 @@ async function toggleStatus(id) {
    PAGINATION
 ================================================== */
 
+// function previousPage() {
+
+//     if (currentPage > 1) {
+
+//         currentPage--;
+
+//         getUsers();
+
+//     }
+
+// }
+
+
+// function nextPage() {
+
+//     if (
+//         currentPage <
+//         totalPages
+//     ) {
+
+//         currentPage++;
+
+//         getUsers();
+
+//     }
+
+// }
+
 function previousPage() {
 
     if (currentPage > 1) {
 
         currentPage--;
 
-        getUsers();
+        displayCombinedUsers(
+            allUsers,
+            currentDescendantIds,
+            currentUserId
+        );
 
     }
 
@@ -4374,14 +4464,15 @@ function previousPage() {
 
 function nextPage() {
 
-    if (
-        currentPage <
-        totalPages
-    ) {
+    if (currentPage < totalPages) {
 
         currentPage++;
 
-        getUsers();
+        displayCombinedUsers(
+            allUsers,
+            currentDescendantIds,
+            currentUserId
+        );
 
     }
 
