@@ -603,30 +603,64 @@ button:disabled {
 /* =========================
    PAGINATION
 ========================= */
-
 .dashboard-pagination-bar {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    padding-bottom: 8px;
+    position: relative;
 }
 
-.dashboard-pagination-bar select {
-    padding: 5px 8px;
-    border-radius: 4px;
-}
-.refbt{
-    margin-left: auto;
-}
+.srp {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 
-.srbt{
-    margin-left: auto;
-    margin-right: 0px;
-}
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 
-.sr-bar{
-    margin-left: auto;
+    width: 300px;
     max-width: 50%;
+}
+
+.srbt {
+    margin: 0;
+    padding: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.load {
+    animation: loadingRotate 1s linear infinite;
+}
+
+@keyframes loadingRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+.sr-bar {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.refbt {
+    margin-left: auto;
 }
 
 .pagination {
@@ -1217,7 +1251,7 @@ textarea {
             class="logout-btn"
             onclick="logoutUser()"
         >
-            Logout
+            <i class="fa-solid fa-right-from-bracket"></i>
         </button>
 
     </div>
@@ -1282,16 +1316,21 @@ textarea {
                     <option value="50">50</option>
                 </select>
 
-                <button id="srbt"> S </button>
-                <textarea  id="srb"
-                        class="sr-bar"
-                        type="text"
-                        placeholder="Search bar"
-                        autocomplete="off" >
-                    
-                </textarea>
+                <div class="srp">
+                    <div id="srbt"> 
+                        <i class="fa-solid fa-magnifying-glass "></i>
+                    </div>
+                    <input  id="srb"
+                            class="sr-bar"
+                            type="text"
+                            placeholder="Search bar"
+                            autocomplete="off" >
+                </div> 
+                
 
-                <button class="refbt">refresh</button>
+                <button class="refbt">
+                    <i class="fa-solid fa-rotate"></i>
+                </button>
             </div>
 
             <table class="users-table">
@@ -1308,8 +1347,10 @@ textarea {
                         <th>City</th>
                         <th>Mobile</th>
                         <th>Address</th>
+                        <th>created_at</th>
                         <th>Status</th>
                         <th>Actions</th>
+
                     </tr>
                 </thead>
 
@@ -3447,6 +3488,7 @@ function displayCombinedUsers(
         return;
     }
 
+    console.log(pageUsers);
 
     pageUsers.forEach(
         function(user, index) {
@@ -3500,7 +3542,7 @@ function displayCombinedUsers(
                Actions column is visually consistent but
                cannot be used.
             */
-
+            // created at here
             row.innerHTML = `
 
                 <td>${pageStart + index + 1}</td>
@@ -3520,6 +3562,8 @@ function displayCombinedUsers(
                 <td>${escapeHtml(user.mobileno)}</td>
 
                 <td>${escapeHtml(user.address)}</td>
+
+                <td>${escapeHtml(user.created_at)}</td>
 
                 <td class="${
                     inactive
@@ -3722,7 +3766,8 @@ document
         currentSortDirection = "asc";
 
         currentPage = 1;
-
+        document.getElementById("srb").value='';
+        console.log("tried");
         displayCombinedUsers(
             allUsers,
             currentDescendantIds,
@@ -3732,25 +3777,57 @@ document
         updateSortArrows();
 
     });
+
+
+
+let searchTimer = null;
 
 document
     .getElementById("srb")
-    .addEventListener("change", function () {
+    .addEventListener("input", function () {
 
-        currentSortColumn = null;
-        currentSortDirection = "asc";
+        const searchValue =
+            this.value.trim().toLowerCase();
 
-        currentPage = 1;
+        clearTimeout(searchTimer);
 
-        displayCombinedUsers(
-            allUsers,
-            currentDescendantIds,
-            currentUserId
-        );
+        searchTimer = setTimeout(function () {
 
-        updateSortArrows();
+            currentPage = 1;
 
-    });
+            if (searchValue === "") {
+
+                currentSortColumn = null;
+                currentSortDirection = "asc";
+
+                displayCombinedUsers(
+                    allUsers,
+                    currentDescendantIds,
+                    currentUserId
+                );
+
+                updateSortArrows();
+
+                return;
+            }
+
+            const filteredUsers =
+                allUsers.filter(function (user) {
+
+                    return String(user.name)
+                        .toLowerCase()
+                        .includes(searchValue);
+                });
+
+            displayCombinedUsers(
+                filteredUsers,
+                currentDescendantIds,
+                currentUserId
+            );
+        },
+    500);
+});
+
 
 /* ==================================================
    UPDATE USER
@@ -5307,9 +5384,7 @@ initializePage();
 window.addEventListener(
     "pageshow",
     function () {
-
         checkSession();
-
     }
 );
 

@@ -502,7 +502,8 @@ function getAllUsers($connection)
             users.address,
             users.status,
             auth_users.last_login,
-            auth_users.username
+            auth_users.username,
+            auth_users.created_at
          FROM users
          LEFT JOIN auth_users
             ON users.id = auth_users.user_id
@@ -619,7 +620,8 @@ if ($method === "GET") {
     GET ONE USER
     /user.php?id=31
     */
-    if (isset($_GET["id"])) {
+    if (isset($_GET["id"])) 
+    {
         $id = getId();
 
         requireDescendantAccess(
@@ -693,6 +695,7 @@ if ($method === "GET") {
     The frontend can therefore put descendants first while keeping every
     other account visible as view-only.
     */
+
     $currentUserId = requireLogin();
 
     requireActiveCurrentUser(
@@ -1045,6 +1048,7 @@ if ($method === "POST") {
 | PUT - UPDATE DESCENDANT
 |--------------------------------------------------------------------------
 */
+
 if ($method === "PUT") {
 
     $id = getId();
@@ -1281,6 +1285,7 @@ if ($method === "PUT") {
 | PATCH - SET STATUS
 |--------------------------------------------------------------------------
 */
+
 if ($method === "PATCH") {
 
     $id = getId();
@@ -1398,6 +1403,7 @@ if ($method === "PATCH") {
 | inactive -> active
 |--------------------------------------------------------------------------
 */
+
 if ($method === "DELETE") {
 
     $id = getId();
