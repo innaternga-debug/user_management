@@ -1315,7 +1315,6 @@ textarea {
                     <option value="25">25</option>
                     <option value="50">50</option>
                 </select>
-
                 <div class="srp">
                     <div id="srbt"> 
                         <i class="fa-solid fa-magnifying-glass "></i>
@@ -1325,6 +1324,8 @@ textarea {
                             type="text"
                             placeholder="Search bar"
                             autocomplete="off" >
+                    <h4 id="srco">Name</h4>
+
                 </div> 
                 
 
@@ -1347,7 +1348,7 @@ textarea {
                         <th>City</th>
                         <th>Mobile</th>
                         <th>Address</th>
-                        <th>created_at</th>
+                        <th data-sort="created_at">created_at <span class="sortArrow"></span></th>
                         <th>Status</th>
                         <th>Actions</th>
 
@@ -1434,8 +1435,7 @@ textarea {
         <div
             id="message"
             class="message"
-        >
-        </div>
+        ></div>
 
 
         <form id="userForm">
@@ -3488,8 +3488,6 @@ function displayCombinedUsers(
         return;
     }
 
-    console.log(pageUsers);
-
     pageUsers.forEach(
         function(user, index) {
 
@@ -3643,6 +3641,7 @@ function displayCombinedUsers(
 ================================================== */
 function sortUsers(column) {
 
+   
     if (currentSortColumn === column) {
 
         currentSortDirection =
@@ -3658,6 +3657,7 @@ function sortUsers(column) {
 
     }
 
+   
 
     allUsers.sort(function(a, b) {
 
@@ -3667,16 +3667,25 @@ function sortUsers(column) {
         if (valueA == null) valueA = "";
         if (valueB == null) valueB = "";
 
-        valueA =
-            String(valueA)
-                .trim()
-                .toLowerCase();
+        if (column === "created_at") {
 
-        valueB =
-            String(valueB)
-                .trim()
-                .toLowerCase();
+            valueA = new Date(valueA).getTime();
+            valueB = new Date(valueB).getTime();
 
+        }
+        else {
+
+            valueA =
+                String(valueA)
+                    .trim()
+                    .toLowerCase();
+
+            valueB =
+                String(valueB)
+                    .trim()
+                    .toLowerCase();
+
+        }
 
         if (valueA < valueB) {
 
@@ -3701,15 +3710,12 @@ function sortUsers(column) {
 
     updateSortArrows();
 
-
     displayCombinedUsers(
         allUsers,
         currentDescendantIds,
         currentUserId
     );
-
 }
-
 function updateSortArrows() {
 
     document
@@ -3741,6 +3747,7 @@ function updateSortArrows() {
     );
 }
 
+// sorting here
 document
     .querySelectorAll("th[data-sort]")
     .forEach(function (header) {
@@ -3767,7 +3774,6 @@ document
 
         currentPage = 1;
         document.getElementById("srb").value='';
-        console.log("tried");
         displayCombinedUsers(
             allUsers,
             currentDescendantIds,
@@ -3778,6 +3784,53 @@ document
 
     });
 
+
+/* ==================================================
+    search col event listener
+================================================== */
+const searchColumn = document.getElementById("srco");
+
+const searchOptions = [
+    "Name",
+    "City",
+    "DOB",
+    "FatherName",
+    "Qualification",
+    "Mobile No",
+    "Address"
+];
+
+let searchOptionIndex = 0;
+
+searchColumn.addEventListener("click", function () {
+
+    searchOptionIndex++;
+    let spa = document.getElementById("srb");
+
+    let og=spa.value;
+
+    console.log(spa.value);
+    spa.value="";
+    console.log("helo");
+    console.log(spa.value);
+
+    if (searchOptionIndex >= searchOptions.length) {
+        searchOptionIndex = 0;
+    }
+
+    searchColumn.textContent = searchOptions[searchOptionIndex];
+    spa.value=og;
+
+    spa.dispatchEvent(new Event("input", {
+        bubbles: true
+    }));
+    console.log(spa.value);
+});
+
+
+/* ==================================================
+    search bar event listener
+================================================== */
 
 
 let searchTimer = null;
@@ -3810,11 +3863,15 @@ document
 
                 return;
             }
+            // colhere
+            //let colnamee="dob"
+            let colnamee=String(document.getElementById("srco").textContent).toLowerCase();
+            console.log(colnamee,typeof colnamee);
 
             const filteredUsers =
                 allUsers.filter(function (user) {
 
-                    return String(user.name)
+                    return String(user[colnamee])
                         .toLowerCase()
                         .includes(searchValue);
                 });
